@@ -1,0 +1,1030 @@
+{
+  "$defs": {
+    "Announce": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "content_type",
+            "title",
+            "cell",
+            "row_added",
+            "row_removed",
+            "scroll",
+            "line",
+            "lines_added",
+            "lines_removed",
+            "block",
+            "uncertain",
+            "status"
+          ],
+          "type": "string"
+        },
+        "priority": {
+          "enum": [
+            "content_type",
+            "focus",
+            "other"
+          ],
+          "type": "string"
+        },
+        "refs": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "text": {
+          "type": "string"
+        },
+        "type": {
+          "const": "announce",
+          "default": "announce",
+          "type": "string"
+        },
+        "version": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "type",
+        "version",
+        "priority",
+        "kind",
+        "text",
+        "refs"
+      ],
+      "title": "Announce",
+      "type": "object"
+    },
+    "Answer": {
+      "additionalProperties": false,
+      "properties": {
+        "q": {
+          "type": "string"
+        },
+        "refs": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "text": {
+          "type": "string"
+        },
+        "type": {
+          "const": "answer",
+          "default": "answer",
+          "type": "string"
+        },
+        "version": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "type",
+        "q",
+        "text",
+        "refs",
+        "version"
+      ],
+      "title": "Answer",
+      "type": "object"
+    },
+    "Ask": {
+      "additionalProperties": false,
+      "properties": {
+        "q": {
+          "maxLength": 500,
+          "minLength": 1,
+          "type": "string"
+        },
+        "type": {
+          "const": "ask",
+          "default": "ask",
+          "type": "string"
+        },
+        "version": {
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "type",
+        "q",
+        "version"
+      ],
+      "title": "Ask",
+      "type": "object"
+    },
+    "Block": {
+      "additionalProperties": false,
+      "properties": {
+        "bbox": {
+          "$ref": "#/$defs/Box"
+        },
+        "confidence": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "type": "number"
+        },
+        "id": {
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "heading",
+            "paragraph",
+            "list_item",
+            "figure",
+            "table_ref"
+          ],
+          "type": "string"
+        },
+        "level": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "text": {
+          "type": "string"
+        },
+        "uncertain": {
+          "default": false,
+          "type": "boolean"
+        },
+        "unreadable": {
+          "default": false,
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "level",
+        "text",
+        "bbox",
+        "confidence",
+        "unreadable",
+        "uncertain"
+      ],
+      "title": "Block",
+      "type": "object"
+    },
+    "Box": {
+      "additionalProperties": false,
+      "description": "Axis-aligned box, normalised 0..1000 (x grows right, y grows down).",
+      "properties": {
+        "x0": {
+          "maximum": 1000,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "x1": {
+          "maximum": 1000,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "y0": {
+          "maximum": 1000,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "y1": {
+          "maximum": 1000,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "x0",
+        "y0",
+        "x1",
+        "y1"
+      ],
+      "title": "Box",
+      "type": "object"
+    },
+    "Cell": {
+      "additionalProperties": false,
+      "properties": {
+        "bbox": {
+          "$ref": "#/$defs/Box"
+        },
+        "confidence": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "type": "number"
+        },
+        "id": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "uncertain": {
+          "default": false,
+          "type": "boolean"
+        },
+        "unreadable": {
+          "default": false,
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "text",
+        "bbox",
+        "confidence",
+        "unreadable",
+        "uncertain"
+      ],
+      "title": "Cell",
+      "type": "object"
+    },
+    "ClientCaps": {
+      "additionalProperties": false,
+      "properties": {
+        "max_width": {
+          "default": 1920,
+          "maximum": 3840,
+          "minimum": 320,
+          "type": "integer"
+        },
+        "webp": {
+          "default": true,
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "webp",
+        "max_width"
+      ],
+      "title": "ClientCaps",
+      "type": "object"
+    },
+    "Code": {
+      "additionalProperties": false,
+      "properties": {
+        "file_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "language": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "lines": {
+          "items": {
+            "$ref": "#/$defs/CodeLine"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "language",
+        "file_name",
+        "lines"
+      ],
+      "title": "Code",
+      "type": "object"
+    },
+    "CodeLine": {
+      "additionalProperties": false,
+      "properties": {
+        "bbox": {
+          "$ref": "#/$defs/Box"
+        },
+        "confidence": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "type": "number"
+        },
+        "id": {
+          "type": "string"
+        },
+        "n": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "text": {
+          "type": "string"
+        },
+        "uncertain": {
+          "default": false,
+          "type": "boolean"
+        },
+        "unreadable": {
+          "default": false,
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "n",
+        "text",
+        "bbox",
+        "confidence",
+        "unreadable",
+        "uncertain"
+      ],
+      "title": "CodeLine",
+      "type": "object"
+    },
+    "Document": {
+      "additionalProperties": false,
+      "properties": {
+        "blocks": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/Block"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "code": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Code"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "content_bbox": {
+          "$ref": "#/$defs/Box"
+        },
+        "content_type": {
+          "enum": [
+            "sheet",
+            "code",
+            "slide",
+            "doc",
+            "unknown"
+          ],
+          "type": "string"
+        },
+        "sheet": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Sheet"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "title": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "version": {
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "version",
+        "content_type",
+        "title",
+        "content_bbox",
+        "sheet",
+        "code",
+        "blocks"
+      ],
+      "title": "Document",
+      "type": "object"
+    },
+    "Error": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "enum": [
+            "bad_message",
+            "bad_frame",
+            "rate_limited",
+            "engine_busy",
+            "model_error",
+            "session_expired",
+            "unauthorized"
+          ],
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "type": {
+          "const": "error",
+          "default": "error",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "code",
+        "message"
+      ],
+      "title": "Error",
+      "type": "object"
+    },
+    "Frame": {
+      "additionalProperties": false,
+      "properties": {
+        "change_score": {
+          "default": 1.0,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "type": "number"
+        },
+        "changed_tiles": {
+          "items": {
+            "type": "integer"
+          },
+          "maxItems": 4096,
+          "type": "array"
+        },
+        "h": {
+          "maximum": 4320,
+          "minimum": 16,
+          "type": "integer"
+        },
+        "mime": {
+          "default": "image/webp",
+          "enum": [
+            "image/webp",
+            "image/jpeg",
+            "image/png"
+          ],
+          "type": "string"
+        },
+        "pointer": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Point"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "seq": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "ts": {
+          "type": "number"
+        },
+        "type": {
+          "const": "frame",
+          "default": "frame",
+          "type": "string"
+        },
+        "w": {
+          "maximum": 7680,
+          "minimum": 16,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "type",
+        "seq",
+        "ts",
+        "w",
+        "h",
+        "mime",
+        "change_score",
+        "changed_tiles",
+        "pointer"
+      ],
+      "title": "Frame",
+      "type": "object"
+    },
+    "Hello": {
+      "additionalProperties": false,
+      "properties": {
+        "caps": {
+          "$ref": "#/$defs/ClientCaps",
+          "default": {
+            "max_width": 1920,
+            "webp": true
+          }
+        },
+        "client": {
+          "maxLength": 64,
+          "type": "string"
+        },
+        "resume_version": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "type": {
+          "const": "hello",
+          "default": "hello",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "client",
+        "caps",
+        "resume_version"
+      ],
+      "title": "Hello",
+      "type": "object"
+    },
+    "Patch": {
+      "additionalProperties": false,
+      "properties": {
+        "base": {
+          "type": "integer"
+        },
+        "ops": {
+          "items": {
+            "$ref": "#/$defs/PatchOp"
+          },
+          "type": "array"
+        },
+        "type": {
+          "const": "patch",
+          "default": "patch",
+          "type": "string"
+        },
+        "version": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "type",
+        "version",
+        "base",
+        "ops"
+      ],
+      "title": "Patch",
+      "type": "object"
+    },
+    "PatchOp": {
+      "additionalProperties": false,
+      "description": "RFC 6902 operation. Only add, remove and replace are emitted.",
+      "properties": {
+        "op": {
+          "enum": [
+            "add",
+            "remove",
+            "replace"
+          ],
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "value": {
+          "default": null
+        }
+      },
+      "required": [
+        "op",
+        "path",
+        "value"
+      ],
+      "title": "PatchOp",
+      "type": "object"
+    },
+    "Point": {
+      "additionalProperties": false,
+      "description": "Normalised 0..1000 of the full frame.",
+      "properties": {
+        "x": {
+          "maximum": 1000,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "y": {
+          "maximum": 1000,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "x",
+        "y"
+      ],
+      "title": "Point",
+      "type": "object"
+    },
+    "PointerMsg": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "pointer",
+          "default": "pointer",
+          "type": "string"
+        },
+        "xy": {
+          "$ref": "#/$defs/Point"
+        }
+      },
+      "required": [
+        "type",
+        "xy"
+      ],
+      "title": "PointerMsg",
+      "type": "object"
+    },
+    "PointerTarget": {
+      "additionalProperties": false,
+      "properties": {
+        "ref": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "text": {
+          "type": "string"
+        },
+        "type": {
+          "const": "pointer_target",
+          "default": "pointer_target",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "ref",
+        "text"
+      ],
+      "title": "PointerTarget",
+      "type": "object"
+    },
+    "Row": {
+      "additionalProperties": false,
+      "properties": {
+        "cells": {
+          "items": {
+            "$ref": "#/$defs/Cell"
+          },
+          "type": "array"
+        },
+        "id": {
+          "type": "string"
+        },
+        "key": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "key",
+        "cells"
+      ],
+      "title": "Row",
+      "type": "object"
+    },
+    "SessionGrant": {
+      "additionalProperties": false,
+      "description": "Response of POST /v1/session.",
+      "properties": {
+        "expires_in_s": {
+          "type": "integer"
+        },
+        "protocol": {
+          "default": "v1",
+          "type": "string"
+        },
+        "session_id": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "session_id",
+        "token",
+        "expires_in_s",
+        "protocol"
+      ],
+      "title": "SessionGrant",
+      "type": "object"
+    },
+    "Settings": {
+      "additionalProperties": false,
+      "properties": {
+        "focus_ref": {
+          "anyOf": [
+            {
+              "maxLength": 64,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "numeric_style": {
+          "default": "old_to_new",
+          "enum": [
+            "old_to_new",
+            "new_only"
+          ],
+          "type": "string"
+        },
+        "type": {
+          "const": "settings",
+          "default": "settings",
+          "type": "string"
+        },
+        "verbosity": {
+          "default": "all",
+          "enum": [
+            "all",
+            "important",
+            "quiet"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "verbosity",
+        "numeric_style",
+        "focus_ref"
+      ],
+      "title": "Settings",
+      "type": "object"
+    },
+    "Sheet": {
+      "additionalProperties": false,
+      "properties": {
+        "columns": {
+          "items": {
+            "$ref": "#/$defs/Cell"
+          },
+          "type": "array"
+        },
+        "header_rows": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "rows": {
+          "items": {
+            "$ref": "#/$defs/Row"
+          },
+          "type": "array"
+        },
+        "sheet_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "columns",
+        "header_rows",
+        "rows",
+        "sheet_name"
+      ],
+      "title": "Sheet",
+      "type": "object"
+    },
+    "Snapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "doc": {
+          "$ref": "#/$defs/Document"
+        },
+        "type": {
+          "const": "snapshot",
+          "default": "snapshot",
+          "type": "string"
+        },
+        "version": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "type",
+        "version",
+        "doc"
+      ],
+      "title": "Snapshot",
+      "type": "object"
+    },
+    "Status": {
+      "additionalProperties": false,
+      "properties": {
+        "content_bbox": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Box"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "detail": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "latency_ms": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "stage": {
+          "enum": [
+            "idle",
+            "classify",
+            "reconstruct",
+            "region",
+            "verify",
+            "diff",
+            "busy",
+            "ask"
+          ],
+          "type": "string"
+        },
+        "type": {
+          "const": "status",
+          "default": "status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "stage",
+        "latency_ms",
+        "detail",
+        "content_bbox"
+      ],
+      "title": "Status",
+      "type": "object"
+    }
+  },
+  "description": "Root that pulls every wire type into one schema.",
+  "properties": {
+    "client_message": {
+      "discriminator": {
+        "mapping": {
+          "ask": "#/$defs/Ask",
+          "frame": "#/$defs/Frame",
+          "hello": "#/$defs/Hello",
+          "pointer": "#/$defs/PointerMsg",
+          "settings": "#/$defs/Settings"
+        },
+        "propertyName": "type"
+      },
+      "oneOf": [
+        {
+          "$ref": "#/$defs/Hello"
+        },
+        {
+          "$ref": "#/$defs/Frame"
+        },
+        {
+          "$ref": "#/$defs/PointerMsg"
+        },
+        {
+          "$ref": "#/$defs/Ask"
+        },
+        {
+          "$ref": "#/$defs/Settings"
+        }
+      ]
+    },
+    "document": {
+      "$ref": "#/$defs/Document"
+    },
+    "server_message": {
+      "discriminator": {
+        "mapping": {
+          "announce": "#/$defs/Announce",
+          "answer": "#/$defs/Answer",
+          "error": "#/$defs/Error",
+          "patch": "#/$defs/Patch",
+          "pointer_target": "#/$defs/PointerTarget",
+          "snapshot": "#/$defs/Snapshot",
+          "status": "#/$defs/Status"
+        },
+        "propertyName": "type"
+      },
+      "oneOf": [
+        {
+          "$ref": "#/$defs/Snapshot"
+        },
+        {
+          "$ref": "#/$defs/Patch"
+        },
+        {
+          "$ref": "#/$defs/Announce"
+        },
+        {
+          "$ref": "#/$defs/PointerTarget"
+        },
+        {
+          "$ref": "#/$defs/Answer"
+        },
+        {
+          "$ref": "#/$defs/Status"
+        },
+        {
+          "$ref": "#/$defs/Error"
+        }
+      ]
+    },
+    "session_grant": {
+      "$ref": "#/$defs/SessionGrant"
+    }
+  },
+  "required": [
+    "document",
+    "client_message",
+    "server_message",
+    "session_grant"
+  ],
+  "title": "UnScreenSchema",
+  "type": "object"
+}

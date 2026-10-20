@@ -1,0 +1,11 @@
+{
+  "name": "unscreen",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.20.0",
+  "scripts": {
+    "schema": "cd services/engine && uv run python -m engine.model.export ../../packages/schema/unscreen.schema.json && cd ../.. && pnpm --filter @unscreen/schema gen",
+    "dev:web": "pnpm --filter web dev",
+    "dev:engine": "cd services/engine && uv run uvicorn engine.api.app:app --reload --port 8787"
+  }
+}

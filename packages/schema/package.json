@@ -1,0 +1,12 @@
+{
+  "name": "@unscreen/schema",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "types": "./unscreen.d.ts",
+  "exports": { ".": { "types": "./unscreen.d.ts" } },
+  "scripts": {
+    "gen": "json2ts --input unscreen.schema.json --output unscreen.d.ts --unreachableDefinitions --additionalProperties false --bannerComment '/* Generated from services/engine/engine/model. Do not edit; run `pnpm schema`. */'"
+  },
+  "devDependencies": { "json-schema-to-typescript": "^16.0.0" }
+}
