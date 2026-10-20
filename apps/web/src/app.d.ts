@@ -11,3 +11,11 @@ declare global {
 }
 
 export {};
+
+declare global {
+	/** Screen Capture API (Chrome 109+); not yet in TypeScript's DOM lib. */
+	class CaptureController {
+		constructor();
+		setFocusBehavior(behavior: 'focus-captured-surface' | 'no-focus-change'): void;
+	}
+}

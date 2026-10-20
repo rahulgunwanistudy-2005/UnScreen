@@ -99,7 +99,7 @@ class PatchOp(_Msg):
 
     op: Literal["add", "remove", "replace"]
     path: str
-    value: Any = None
+    value: Any = Field(default=None, json_schema_extra={"tsType": "unknown"})
 
 
 class Snapshot(_Msg):

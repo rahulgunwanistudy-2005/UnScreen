@@ -198,9 +198,7 @@ export interface Patch {
 export interface PatchOp {
   op: "add" | "remove" | "replace";
   path: string;
-  value: {
-    [k: string]: unknown;
-  };
+  value: unknown;
 }
 /**
  * This interface was referenced by `UnScreenSchema`'s JSON-Schema

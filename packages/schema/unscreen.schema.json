@@ -628,7 +628,8 @@
           "type": "string"
         },
         "value": {
-          "default": null
+          "default": null,
+          "tsType": "unknown"
         }
       },
       "required": [
