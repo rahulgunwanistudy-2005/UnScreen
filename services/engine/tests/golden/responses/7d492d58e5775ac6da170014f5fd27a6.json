@@ -1,0 +1,11 @@
+{
+ "purpose": "reconstruct",
+ "model": "gemini-3.6-flash",
+ "text": "{\n  \"content_type\": \"sheet\",\n  \"title\": \"Sprint 42 tracker\",\n  \"content_box_2d\": [20, 87, 874, 938],\n  \"sheet\": {\n    \"sheet_name\": \"Sprint 42\",\n    \"columns\": [\n      {\n        \"header\": \"Task\",\n        \"x_range\": [116, 169]\n      },\n      {\n        \"header\": \"Assignee\",\n        \"x_range\": [169, 222]\n      },\n      {\n        \"header\": \"Points\",\n        \"x_range\": [222, 275]\n      },\n      {\n        \"header\": \"Status\",\n        \"x_range\": [275, 328]\n      },\n      {\n        \"header\": \"Due\",\n        \"x_range\": [328, 381]\n      }\n    ],\n    \"rows\": [\n      {\n        \"y_range\": [138, 164],\n        \"cells\": [\"Fix login timeout\", \"Yusuf Ali\", \"214\", \"Pass\", \"2 Aug 2026\"]\n      },\n      {\n        \"y_range\": [164, 190],\n        \"cells\": [\"Migrate CI runners\", \"Chen Wei\", \"370\", \"In progress\", \"17 Nov 2026\"]\n      },\n      {\n        \"y_range\": [190, 216],\n        \"cells\": [\"Update privacy page\", \"Tara Singh\", \"177\", \"Blocked\", \"5 Jan 2026\"]\n      },\n      {\n        \"y_range\": [216, 242],\n        \"cells\": [\"Reduce bundle size\", \"Omar Aziz\", \"103\", \"Done\", \"4 Nov 2026\"]\n      },\n      {\n        \"y_range\": [242, 268],\n        \"cells\": [\"Billing alerts\", \"Tara Singh\", \"120\", \"Review\", \"7 Oct 2026\"]\n      },\n      {\n        \"y_range\": [268, 294],\n        \"cells\": [\"Rate limit API\", \"Quinn Lee\", \"312\", \"Open\", \"23 May 2026\"]\n      },\n      {\n        \"y_range\": [294, 320],\n        \"cells\": [\"Audit logging\", \"Priya Nair\", \"267\", \"Blocked\", \"13 Feb 2026\"]\n      },\n      {\n        \"y_range\": [320, 346],\n        \"cells\": [\"Refactor auth\", \"Uma Das\", \"139\", \"In progress\", \"18 Jun 2026\"]\n      },\n      {\n        \"y_range\": [346, 372],\n        \"cells\": [\"Crash on resume\", \"Rhea Kapoor\", \"122\", \"Blocked\", \"24 Oct 2026\"]\n      }\n    ],\n    \"unclear\": []\n  },\n  \"code\": {\n    \"file_name\": \"\",\n    \"language\": \"\",\n    \"x_range\": [0, 0],\n    \"lines\": [],\n    \"unclear\": []\n  },\n  \"blocks\": []\n}",
+ "latency_ms": 84975,
+ "usage": {
+  "input_tokens": 1801,
+  "output_tokens": 808,
+  "thought_tokens": 0
+ }
+}

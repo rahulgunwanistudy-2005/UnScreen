@@ -17,6 +17,11 @@ class ScriptedModel:
     def push(self, purpose: str, *responses: BaseModel | Exception) -> None:
         self.queues[purpose].extend(responses)
 
+    def push_full(self, read: BaseModel, second: BaseModel | Exception | None = None) -> None:
+        """A full reconstruct plus its independent cross-check read (the same read by default)."""
+        self.push("reconstruct", read)
+        self.push("crosscheck", read if second is None else second)
+
     def purposes(self) -> list[str]:
         return [c.purpose for c in self.calls]
 

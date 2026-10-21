@@ -17,6 +17,7 @@ from engine.pipeline import align as aligner
 from engine.pipeline.announce import announcements
 from engine.pipeline.build import build_document, cell_from, flags, norm_text
 from engine.pipeline.changes import CellChanged, Change, LineChanged
+from engine.pipeline.crosscheck import cross_check
 from engine.pipeline.diff import diff
 from engine.pipeline.frames import DecodedFrame, compare, decode, same_frame
 from engine.pipeline.geometry import area, pad, union
@@ -102,6 +103,7 @@ class SessionPipeline:
                 break
 
         verified: set[str] = set()
+        cross_checked = False
         if candidate is None:
             change = compare(self.frame, frame, content)
             layout = self.frame is not None and compare(self.frame, frame, FULL_FRAME).fraction > 0.5
@@ -124,12 +126,12 @@ class SessionPipeline:
                     log.info("region read fell back to full: %s", exc)
             if candidate is None:
                 within = FULL_FRAME if self.doc is None or layout else pad(self.doc.content_bbox, 10, 10)
-                candidate, model_ms = await self._full(frame, within)
+                candidate, model_ms, cross_checked = await self._full(frame, within)
                 mode = "full"
 
         aligned = aligner.align(self.doc, candidate, self.minter)
         doc, changes = aligned.doc, aligned.changes
-        if mode == "full" and self.doc is not None:
+        if mode == "full" and self.doc is not None and not cross_checked:
             doc, changes, verify_ms = await self._verify_changes(frame, doc, changes, verified)
             model_ms += verify_ms
 
@@ -154,18 +156,37 @@ class SessionPipeline:
     def _ms(started: float) -> int:
         return int((time.perf_counter() - started) * 1000)
 
-    async def _full(self, frame: DecodedFrame, within: Box) -> tuple[Document, int]:
-        timed = await self.reader.full(frame, within)
-        doc = build_document(timed.value, within)
-        ms = timed.latency_ms
+    async def _full(self, frame: DecodedFrame, within: Box) -> tuple[Document, int, bool]:
+        """-> (candidate, model ms, whether every value was cross-checked by a second read)."""
+        doc, ms, checked = await self._full_pair(frame, within)
         tighter = doc.content_bbox
         if self.doc is None and area(tighter) < TIGHTEN_RATIO * area(within):
             # First frame inside a meeting window: re-read the content alone at higher resolution.
             crop_box = pad(tighter, 4, 4)
-            timed = await self.reader.full(frame, crop_box)
-            doc = build_document(timed.value, crop_box).model_copy(update={"content_bbox": tighter})
-            ms += timed.latency_ms
-        return doc, ms
+            doc, ms2, checked = await self._full_pair(frame, crop_box)
+            doc = doc.model_copy(update={"content_bbox": tighter})
+            ms += ms2
+        return doc, ms, checked
+
+    async def _full_pair(self, frame: DecodedFrame, within: Box) -> tuple[Document, int, bool]:
+        if not self.settings.cross_check_full_reads:
+            timed = await self.reader.full(frame, within)
+            return build_document(timed.value, within), timed.latency_ms, False
+        primary, second = await asyncio.gather(
+            self.reader.full(frame, within),
+            self.reader.full(frame, within, cross_check=True),
+            return_exceptions=True,
+        )
+        if isinstance(primary, BaseException):
+            raise primary
+        doc = build_document(primary.value, within)
+        if isinstance(second, BaseException):
+            log.warning("cross-check read failed; changed values will be verified instead: %s", second)
+            return doc, primary.latency_ms, False
+        result = cross_check(doc, build_document(second.value, within))
+        if result.disagreed:
+            log.info("cross-check: %d of %d values disagreed and are marked unclear", result.disagreed, result.compared)
+        return result.doc, max(primary.latency_ms, second.latency_ms), True
 
     async def _region(self, frame: DecodedFrame, changed: Box) -> tuple[Document, int, set[str]] | None:
         assert self.doc is not None

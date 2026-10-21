@@ -29,32 +29,32 @@ def edited(r: int, c: int, value: str) -> list[list[str]]:
 
 async def test_first_frame_builds_document_and_announces_it() -> None:
     model, pipe = make()
-    model.push("reconstruct", full_sheet_read(HEADERS, ROWS))
+    model.push_full(full_sheet_read(HEADERS, ROWS))
     out = await pipe.process(sheet_frame(ROWS))
     assert out.mode == "full" and out.doc is not None and out.doc.version == 1
     assert [a.text for a in out.announces] == ["Now showing: Spreadsheet, 'Q3 Pipeline', 3 rows, 3 columns."]
-    assert model.purposes() == ["reconstruct"]
+    assert sorted(model.purposes()) == ["crosscheck", "reconstruct"]
 
 
 async def test_identical_frame_costs_nothing() -> None:
     model, pipe = make()
-    model.push("reconstruct", full_sheet_read(HEADERS, ROWS))
+    model.push_full(full_sheet_read(HEADERS, ROWS))
     frame = sheet_frame(ROWS)
     await pipe.process(frame)
     out = await pipe.process(frame)
     assert out.mode == "unchanged" and out.announces == []
-    assert model.purposes() == ["reconstruct"]
+    assert len(model.purposes()) == 2
 
 
 async def test_small_edit_uses_region_read_and_verification_in_parallel() -> None:
     model, pipe = make()
-    model.push("reconstruct", full_sheet_read(HEADERS, ROWS))
+    model.push_full(full_sheet_read(HEADERS, ROWS))
     await pipe.process(sheet_frame(ROWS))
     model.push("region_sheet", SheetRegionRead(rows=[RegionRow(cells=["$1.2M"])], unclear=[]))
     model.push("verify_cell", VerifyRead(readings=[Reading(text="$1.2M", legibility="clear")]))
     out = await pipe.process(sheet_frame(edited(0, 2, "$1.2M")))
     assert out.mode == "region"
-    assert sorted(model.purposes()[1:]) == ["region_sheet", "verify_cell"]
+    assert sorted(model.purposes()[2:]) == ["region_sheet", "verify_cell"]
     assert [a.text for a in out.announces] == ["Acme Corp, Q3 revenue: $1.1M to $1.2M."]
     assert [(o.op, o.path, o.value) for o in out.ops if o.path != "/version"] == [
         ("replace", "/sheet/rows/0/cells/2/text", "$1.2M")
@@ -63,7 +63,7 @@ async def test_small_edit_uses_region_read_and_verification_in_parallel() -> Non
 
 async def test_disagreeing_reads_become_uncertain_and_are_not_spoken_as_values() -> None:
     model, pipe = make()
-    model.push("reconstruct", full_sheet_read(HEADERS, ROWS))
+    model.push_full(full_sheet_read(HEADERS, ROWS))
     await pipe.process(sheet_frame(ROWS))
     model.push("region_sheet", SheetRegionRead(rows=[RegionRow(cells=["$1.2M"])], unclear=[]))
     model.push("verify_cell", VerifyRead(readings=[Reading(text="$7.2M", legibility="clear")]))
@@ -75,12 +75,11 @@ async def test_disagreeing_reads_become_uncertain_and_are_not_spoken_as_values()
 
 async def test_region_mismatch_falls_back_to_full_read_then_verifies() -> None:
     model, pipe = make()
-    model.push("reconstruct", full_sheet_read(HEADERS, ROWS))
+    model.push_full(full_sheet_read(HEADERS, ROWS))
     await pipe.process(sheet_frame(ROWS))
     model.push("region_sheet", SheetRegionRead(rows=[], unclear=[]))
     model.push("verify_cell", VerifyRead(readings=[Reading(text="$1.2M", legibility="clear")]))
-    model.push("reconstruct", full_sheet_read(HEADERS, edited(0, 2, "$1.2M")))
-    model.push("verify_cell", VerifyRead(readings=[Reading(text="$1.2M", legibility="clear")]))
+    model.push_full(full_sheet_read(HEADERS, edited(0, 2, "$1.2M")))
     out = await pipe.process(sheet_frame(edited(0, 2, "$1.2M")))
     assert out.mode == "full"
     assert [a.text for a in out.announces] == ["Acme Corp, Q3 revenue: $1.1M to $1.2M."]
@@ -88,7 +87,7 @@ async def test_region_mismatch_falls_back_to_full_read_then_verifies() -> None:
 
 async def test_reverting_to_a_cached_frame_needs_no_model_call() -> None:
     model, pipe = make()
-    model.push("reconstruct", full_sheet_read(HEADERS, ROWS))
+    model.push_full(full_sheet_read(HEADERS, ROWS))
     await pipe.process(sheet_frame(ROWS))
     model.push("region_sheet", SheetRegionRead(rows=[RegionRow(cells=["$1.2M"])], unclear=[]))
     model.push("verify_cell", VerifyRead(readings=[Reading(text="$1.2M", legibility="clear")]))
@@ -101,9 +100,9 @@ async def test_reverting_to_a_cached_frame_needs_no_model_call() -> None:
 
 async def test_content_switch_announces_new_type() -> None:
     model, pipe = make()
-    model.push("reconstruct", full_sheet_read(HEADERS, ROWS))
+    model.push_full(full_sheet_read(HEADERS, ROWS))
     await pipe.process(sheet_frame(ROWS))
-    model.push("reconstruct", full_code_read(["import os", "print(os.name)"]))
+    model.push_full(full_code_read(["import os", "print(os.name)"]))
     out = await pipe.process(sheet_frame([["x", "y", "z"]] * 8, marker="code"))
     assert out.doc is not None and out.doc.content_type == "code"
     assert out.announces[0].text == "Now showing: Code python, 'app.py', 2 lines."
@@ -111,9 +110,10 @@ async def test_content_switch_announces_new_type() -> None:
 
 async def test_model_failure_propagates_and_state_is_kept() -> None:
     model, pipe = make()
-    model.push("reconstruct", full_sheet_read(HEADERS, ROWS))
+    model.push_full(full_sheet_read(HEADERS, ROWS))
     await pipe.process(sheet_frame(ROWS))
     model.push("reconstruct", ModelError("boom", retryable=True))
+    model.push("crosscheck", ModelError("boom", retryable=True))
     with pytest.raises(ModelError):
         await pipe.process(sheet_frame([["a", "b", "c"]] * 9, marker="x"))
     assert pipe.doc is not None and pipe.doc.version == 1
@@ -127,8 +127,29 @@ async def test_bad_frame_is_rejected() -> None:
 
 async def test_pointer_maps_to_cell() -> None:
     model, pipe = make()
-    model.push("reconstruct", full_sheet_read(HEADERS, ROWS))
+    model.push_full(full_sheet_read(HEADERS, ROWS))
     await pipe.process(sheet_frame(ROWS))
     ref, text = pipe.map_pointer(800, 120)
     assert ref == "r1.c3"
     assert text == "Pointer is on Acme Corp, Q3 revenue: $1.1M"
+
+
+async def test_cross_check_marks_disagreements_unclear_and_keeps_primary_text() -> None:
+    model, pipe = make()
+    model.push_full(full_sheet_read(HEADERS, ROWS), full_sheet_read(HEADERS, edited(1, 2, "$0.9M")))
+    out = await pipe.process(sheet_frame(ROWS))
+    cells = out.doc.sheet.rows[1].cells  # type: ignore[union-attr]
+    assert cells[2].text == "$0.4M" and cells[2].uncertain
+    assert not cells[1].uncertain
+
+
+async def test_failed_cross_check_falls_back_to_verifying_changes() -> None:
+    model, pipe = make()
+    model.push_full(full_sheet_read(HEADERS, ROWS), ModelError("down"))
+    out = await pipe.process(sheet_frame(ROWS))
+    assert out.doc is not None and not any(c.uncertain for r in out.doc.sheet.rows for c in r.cells)  # type: ignore[union-attr]
+    model.push_full(full_sheet_read(HEADERS, edited(0, 2, "$1.2M")), ModelError("down"))
+    model.push("verify_cell", VerifyRead(readings=[Reading(text="$1.2M", legibility="clear")]))
+    out = await pipe.process(sheet_frame([["x", "y", "z"]] * 8, marker="big change"))
+    assert "verify_cell" in model.purposes()
+    assert [a.text for a in out.announces] == ["Acme Corp, Q3 revenue: $1.1M to $1.2M."]

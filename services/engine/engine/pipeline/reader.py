@@ -60,11 +60,14 @@ class Reader:
             raise ModelError(f"{purpose}: response did not match schema ({exc.error_count()} errors)") from exc
         return Timed(parsed, result.latency_ms)
 
-    async def full(self, frame: DecodedFrame, within: Box) -> Timed[FullRead]:
+    async def full(self, frame: DecodedFrame, within: Box, *, cross_check: bool = False) -> Timed[FullRead]:
+        """The primary full read, or (cross_check=True) the independent second read by the other model."""
         image = crop(frame, within)
         if max(image.size) > FULL_MAX_SIDE:
             image.thumbnail((FULL_MAX_SIDE, FULL_MAX_SIDE))
         data, mime = encode(image)
+        if cross_check:
+            return await self._call("crosscheck", self._settings.verify_model, prompts.FULL, FullRead, [data], mime)
         return await self._call("reconstruct", self._settings.reconstruct_model, prompts.FULL, FullRead, [data], mime)
 
     async def sheet_region(

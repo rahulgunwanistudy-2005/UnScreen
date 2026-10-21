@@ -41,6 +41,7 @@ class Settings(BaseSettings):
     sessions_per_ip_per_hour: int = 30
 
     full_reconstruct_threshold: float = 0.35
+    cross_check_full_reads: bool = True
     verify_max_items: int = 24
     breaker_failures: int = 3
     breaker_cooldown_s: float = 20.0

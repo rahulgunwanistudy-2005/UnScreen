@@ -183,14 +183,17 @@ class ReplayVisionModel:
 
 
 class RecordingVisionModel:
-    """Calls the live model and stores each response for later replay."""
+    """Replays a response already on disk; otherwise calls the live model and stores the result."""
 
     def __init__(self, inner: VisionModel, golden_dir: Path) -> None:
         self._inner = inner
         self._dir = golden_dir
         self._dir.mkdir(parents=True, exist_ok=True)
+        self._replay = ReplayVisionModel(golden_dir)
 
     async def generate(self, request: VisionRequest) -> VisionResult:
+        if (self._dir / f"{request.key()}.json").exists():
+            return await self._replay.generate(request)
         result = await self._inner.generate(request)
         record = {
             "purpose": request.purpose,

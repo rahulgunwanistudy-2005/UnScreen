@@ -24,6 +24,8 @@ async def test_record_then_replay_roundtrip(tmp_path) -> None:  # type: ignore[n
     recorded = await RecordingVisionModel(inner, tmp_path).generate(request())
     replayed = await ReplayVisionModel(tmp_path).generate(request())
     assert replayed.text == recorded.text and replayed.replayed
+    again = await RecordingVisionModel(inner, tmp_path).generate(request())
+    assert again.replayed and len(inner.calls) == 1
     with pytest.raises(GoldenMissingError):
         await ReplayVisionModel(tmp_path).generate(request(b"other image"))
 
