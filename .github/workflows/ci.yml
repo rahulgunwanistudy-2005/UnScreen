@@ -1,0 +1,49 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  engine:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: services/engine
+    env:
+      UNSCREEN_LLM_MODE: replay
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.12"
+      - run: uv sync --frozen
+      - run: uv run ruff check engine tests
+      - run: uv run ruff format --check engine tests
+      - run: uv run mypy engine
+      - run: uv run pytest -q --cov=engine.pipeline --cov=engine.model --cov-fail-under=85
+
+  web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.12"
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Schema drift check
+        run: |
+          pnpm schema
+          git diff --exit-code packages/schema
+      - run: pnpm --filter web check
+      - run: pnpm --filter web exec vitest run
+      - run: pnpm --filter web build

@@ -3,13 +3,19 @@ import pytest
 from engine.llm.client import GoldenMissingError, ImagePart, RecordingVisionModel, ReplayVisionModel, VisionRequest
 from engine.llm.cost import CostMeter, cost_usd
 from engine.llm.schemas import FullRead, response_schema
-from tests.fakes import ScriptedModel
 from tests.factories import full_sheet_read
+from tests.fakes import ScriptedModel
 
 
 def request(img: bytes = b"x") -> VisionRequest:
-    return VisionRequest(purpose="reconstruct", model="gemini-3.8-flash", system="s", prompt="p",
-                         schema=response_schema(FullRead), images=(ImagePart(img, "image/png"),))
+    return VisionRequest(
+        purpose="reconstruct",
+        model="gemini-3.8-flash",
+        system="s",
+        prompt="p",
+        schema=response_schema(FullRead),
+        images=(ImagePart(img, "image/png"),),
+    )
 
 
 async def test_record_then_replay_roundtrip(tmp_path) -> None:  # type: ignore[no-untyped-def]

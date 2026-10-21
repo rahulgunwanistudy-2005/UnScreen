@@ -15,6 +15,7 @@ import httpx
 from google import genai
 from google.genai import errors as genai_errors
 from google.genai._gaos.errors import GenAiError
+from google.genai._gaos.lib.compat_errors import GeminiNextGenAPIClientError
 
 from engine.config import Settings
 
@@ -65,6 +66,9 @@ class VisionResult:
     usage: Usage = field(default_factory=Usage)
     latency_ms: int = 0
     replayed: bool = False
+
+
+RETRYABLE_ERRORS = (genai_errors.APIError, GenAiError, GeminiNextGenAPIClientError, httpx.TransportError, TimeoutError)
 
 
 class ModelError(Exception):
@@ -129,7 +133,7 @@ class GeminiVisionModel:
                     ),
                     timeout=self._timeout,
                 )
-            except (genai_errors.APIError, GenAiError, httpx.TransportError, TimeoutError) as exc:
+            except RETRYABLE_ERRORS as exc:
                 status = _status_of(exc)
                 retryable = status is None or status == 429 or status >= 500
                 attempt += 1

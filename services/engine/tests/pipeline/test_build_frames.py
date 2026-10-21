@@ -1,4 +1,4 @@
-from engine.llm.schemas import ReadCell
+from engine.llm.schemas import Unclear
 from engine.model.document import Box
 from engine.pipeline.build import build_document, norm_text
 from engine.pipeline.frames import compare, decode, same_frame
@@ -18,8 +18,9 @@ def test_box_2d_is_ymin_xmin_ymax_xmax_relative_to_crop() -> None:
 
 def test_unreadable_and_unsure_cells_carry_flags_not_text() -> None:
     read = full_sheet_read(["A", "B"], [["x", "y"]])
-    read.sheet.rows[0].cells[0] = ReadCell(text="ghost", legibility="unreadable")
-    read.sheet.rows[0].cells[1] = ReadCell(text="7?", legibility="unsure")
+    read.sheet.rows[0].cells[0] = "ghost"
+    read.sheet.rows[0].cells[1] = "7?"
+    read.sheet.unclear = [Unclear(row=0, col=0, legibility="unreadable"), Unclear(row=0, col=1, legibility="unsure")]
     doc = build_document(read, FULL)
     a, b = doc.sheet.rows[0].cells  # type: ignore[union-attr]
     assert a.unreadable and a.text == "" and a.confidence == 0.0

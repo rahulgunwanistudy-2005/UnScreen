@@ -3,7 +3,6 @@
 from engine.llm.schemas import (
     FullRead,
     ReadBlock,
-    ReadCell,
     ReadCode,
     ReadColumn,
     ReadLine,
@@ -12,8 +11,8 @@ from engine.llm.schemas import (
 )
 from engine.model.document import Box, Cell, Code, CodeLine, Document, Row, Sheet
 
-EMPTY_SHEET = ReadSheet(sheet_name="", columns=[], rows=[])
-EMPTY_CODE = ReadCode(file_name="", language="", x_range=[0, 0], lines=[])
+EMPTY_SHEET = ReadSheet(sheet_name="", columns=[], rows=[], unclear=[])
+EMPTY_CODE = ReadCode(file_name="", language="", x_range=[0, 0], lines=[], unclear=[])
 
 
 def box(x0: int = 0, y0: int = 0, x1: int = 10, y1: int = 10) -> Box:
@@ -68,17 +67,15 @@ def full_sheet_read(headers: list[str], rows: list[list[str]], *, title: str = "
         content_box_2d=[0, 0, 1000, 1000],
         sheet=ReadSheet(
             sheet_name="Pipeline",
-            columns=[
-                ReadColumn(header=ReadCell(text=h, legibility="clear"), x_range=[j * width, (j + 1) * width])
-                for j, h in enumerate(headers)
-            ],
+            columns=[ReadColumn(header=h, x_range=[j * width, (j + 1) * width]) for j, h in enumerate(headers)],
             rows=[
                 ReadRow(
                     y_range=[100 + i * 50, 150 + i * 50],
-                    cells=[ReadCell(text=v, legibility="clear") for v in values],
+                    cells=list(values),
                 )
                 for i, values in enumerate(rows)
             ],
+            unclear=[],
         ),
         code=EMPTY_CODE,
         blocks=[],
@@ -95,7 +92,8 @@ def full_code_read(lines: list[str]) -> FullRead:
             file_name="app.py",
             language="python",
             x_range=[40, 900],
-            lines=[ReadLine(n=i + 1, text=t, legibility="clear", y_range=[i * 25, i * 25 + 25]) for i, t in enumerate(lines)],
+            lines=[ReadLine(n=i + 1, text=t, y_range=[i * 25, i * 25 + 25]) for i, t in enumerate(lines)],
+            unclear=[],
         ),
         blocks=[],
     )

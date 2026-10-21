@@ -19,30 +19,38 @@ class _Read(BaseModel):
 
 
 class ReadCell(_Read):
-    text: str = Field(description="Exactly the characters visible in the cell. Empty if the cell is empty.")
+    """Internal pairing of a transcription and its legibility; not sent as a schema."""
+
+    text: str
     legibility: Legibility
 
 
+class Unclear(_Read):
+    row: int = Field(description="Row index in rows (-1 for the header row), or line index in lines.")
+    col: int = Field(description="Column index; 0 for code lines.")
+    legibility: Literal["unsure", "unreadable"]
+
+
 class ReadColumn(_Read):
-    header: ReadCell
+    header: str = Field(description="Header cell text exactly as shown.")
     x_range: Range = Field(min_length=2, max_length=2, description="[x_min, x_max], 0-1000")
 
 
 class ReadRow(_Read):
     y_range: Range = Field(min_length=2, max_length=2, description="[y_min, y_max], 0-1000")
-    cells: list[ReadCell] = Field(description="One cell per column, in column order.")
+    cells: list[str] = Field(description="One string per column, in column order, exactly as shown.")
 
 
 class ReadSheet(_Read):
     sheet_name: str = Field(description="Name of the active sheet tab, or empty.")
     columns: list[ReadColumn]
     rows: list[ReadRow]
+    unclear: list[Unclear] = Field(description="Only cells that are not perfectly legible. Usually empty.")
 
 
 class ReadLine(_Read):
     n: int = Field(description="Line number shown in the gutter, or 0 if none is shown.")
     text: str = Field(description="The line's code exactly, including leading spaces.")
-    legibility: Legibility
     y_range: Range = Field(min_length=2, max_length=2)
 
 
@@ -51,6 +59,7 @@ class ReadCode(_Read):
     language: str = Field(description="Programming language if obvious from the file name, or empty.")
     x_range: Range = Field(min_length=2, max_length=2, description="Horizontal extent of the code text.")
     lines: list[ReadLine]
+    unclear: list[Unclear] = Field(description="Only lines that are not perfectly legible. Usually empty.")
 
 
 class ReadBlock(_Read):
@@ -75,15 +84,21 @@ class FullRead(_Read):
 
 
 class RegionRow(_Read):
-    cells: list[ReadCell]
+    cells: list[str]
 
 
 class SheetRegionRead(_Read):
     rows: list[RegionRow]
+    unclear: list[Unclear] = Field(description="Only cells that are not perfectly legible. Usually empty.")
 
 
 class CodeRegionRead(_Read):
     lines: list[ReadLine]
+    unclear: list[Unclear] = Field(description="Only lines that are not perfectly legible. Usually empty.")
+
+
+def legibility_of(unclear: list[Unclear]) -> dict[tuple[int, int], Legibility]:
+    return {(u.row, u.col): u.legibility for u in unclear}
 
 
 class Reading(_Read):

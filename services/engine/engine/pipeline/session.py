@@ -10,7 +10,7 @@ from typing import Literal
 from engine.config import Settings
 from engine.llm.client import ModelError, VisionModel
 from engine.llm.cost import CostMeter
-from engine.llm.schemas import ReadCell, Reading
+from engine.llm.schemas import ReadCell, Reading, legibility_of
 from engine.model.document import FULL_FRAME, Box, Cell, CodeLine, Document
 from engine.model.protocol import Announce, NumericStyle, PatchOp
 from engine.pipeline import align as aligner
@@ -208,6 +208,7 @@ class SessionPipeline:
             region_read, checks = await region_task, None
             ms = region_read.latency_ms
         got = region_read.value.rows
+        leg = legibility_of(region_read.value.unclear)
         if len(got) != len(rows) or any(len(r.cells) != len(cols) for r in got):
             raise RegionMismatchError(f"expected {len(rows)}x{len(cols)} cells")
         new_rows = list(sheet.rows)
@@ -215,7 +216,7 @@ class SessionPipeline:
         for a, i in enumerate(rows):
             cells = list(new_rows[i].cells)
             for b, j in enumerate(cols):
-                read = got[a].cells[b]
+                read = ReadCell(text=got[a].cells[b], legibility=leg.get((a, b), "clear"))
                 if checks is not None:
                     read = _merge_reading(read, checks[a * len(cols) + b])
                     verified.add(cells[j].id)
@@ -250,15 +251,16 @@ class SessionPipeline:
             region_read, checks = await region_task, None
             ms = region_read.latency_ms
         got = region_read.value.lines
+        leg = legibility_of(region_read.value.unclear)
         if len(got) != len(hit):
             raise RegionMismatchError(f"expected {len(hit)} lines, got {len(got)}")
         new_lines = list(lines)
         verified: set[str] = set()
         for a, i in enumerate(hit):
             read = got[a]
-            legibility = read.legibility
+            legibility = leg.get((a, 0), "clear")
             if checks is not None:
-                merged = _merge_reading(ReadCell(text=read.text, legibility=read.legibility), checks[a])
+                merged = _merge_reading(ReadCell(text=read.text, legibility=legibility), checks[a])
                 legibility = merged.legibility
                 verified.add(lines[i].id)
             old = lines[i]

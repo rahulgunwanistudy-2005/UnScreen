@@ -5,8 +5,8 @@ from fastapi.testclient import TestClient
 from engine.api.app import create_app
 from engine.config import Settings
 from engine.llm.schemas import AskAnswer
-from tests.fakes import ScriptedModel, sheet_frame
 from tests.factories import full_sheet_read
+from tests.fakes import ScriptedModel, sheet_frame
 
 HEADERS = ["Account", "Owner", "Q3 revenue"]
 ROWS = [["Acme Corp", "Asha Rao", "$1.1M"], ["Globex", "Ben Okafor", "$0.4M"]]
@@ -62,7 +62,16 @@ def test_frame_snapshot_announce_pointer_and_ask() -> None:
         grant = c.post("/v1/session").json()
         url = f"/v1/session/{grant['session_id']}/ws?token={grant['token']}"
         with c.websocket_connect(url, headers=ORIGIN) as ws:
-            ws.send_text(json.dumps({"type": "hello", "client": "test", "caps": {"webp": True, "max_width": 1920}, "resume_version": None}))
+            ws.send_text(
+                json.dumps(
+                    {
+                        "type": "hello",
+                        "client": "test",
+                        "caps": {"webp": True, "max_width": 1920},
+                        "resume_version": None,
+                    }
+                )
+            )
             assert until(ws, "status")["detail"] == "ready"
             ws.send_text(frame_msg(1))
             ws.send_bytes(sheet_frame(ROWS))

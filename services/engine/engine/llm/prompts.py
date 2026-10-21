@@ -5,8 +5,9 @@ Rules you never break:
 - Transcribe only what is visibly legible in the image. Copy characters exactly, including \
 punctuation, currency symbols, capitalisation and spacing.
 - Never infer, complete, correct, calculate or guess values. Do not fix typos.
-- If you can read a value but are not certain of every character, set legibility "unsure".
-- If you cannot read a value at all, set legibility "unreadable" and text to "".
+- If you can read a value but are not certain of every character, give your reading and mark \
+it "unsure" (in its legibility field, or in the "unclear" list where the schema has one).
+- If you cannot read a value at all, write "" and mark it "unreadable" the same way.
 - Ignore meeting-app chrome: participant video tiles, names of who is presenting, call controls, \
 captions, clocks.
 - Ignore application chrome: menus, toolbars, formula bars, column letters (A, B, C), the \
@@ -25,16 +26,19 @@ excluding meeting chrome around it.
 empty (empty strings, empty lists, [0, 0] ranges).
 
 sheet:
-- columns: the table's header row, left to right. header is the header cell; x_range is the \
-column's horizontal extent [x_min, x_max].
+- columns: the table's header row, left to right. header is the header cell's text; x_range is \
+the column's horizontal extent [x_min, x_max].
 - rows: every data row below the header, top to bottom. y_range is the row's vertical extent. \
-cells has exactly one entry per column, in column order; use "" for an empty cell.
+cells has exactly one string per column, in column order; use "" for an empty cell.
+- unclear: only the cells you could not read with full confidence, as {row, col, legibility}. \
+row is the index in rows, or -1 for the header row. Leave it empty when everything is legible.
 - Do not output the spreadsheet's row numbers or column letters as rows, columns or cells.
 
 code:
 - lines: every visible line, top to bottom, including blank lines (text ""). n is the line \
 number shown in the gutter, or 0 if no gutter is shown. text is the code without the gutter, \
 with its leading spaces preserved (a tab counts as 4 spaces).
+- unclear: only lines not perfectly legible, as {row: index in lines, col: 0, legibility}.
 - x_range: horizontal extent of the code text area.
 
 blocks (for slide, doc and unknown): headings, paragraphs, list items and figures in reading \
@@ -49,9 +53,9 @@ def sheet_region(headers: list[str], row_count: int, row_keys: list[str] | None)
     cols = ", ".join(f'"{h}"' for h in headers)
     return f"""This image is a cropped part of a spreadsheet. It shows {row_count} data rows and \
 these columns, left to right: {cols}.{keys}
-Return rows top to bottom. Each row has exactly {len(headers)} cells, one per listed column, \
-in that order. Copy each cell exactly; use "" for an empty cell. Do not output header cells, \
-row numbers or column letters."""
+Return rows top to bottom. Each row has exactly {len(headers)} cells, one string per listed \
+column, in that order. Copy each cell exactly; use "" for an empty cell. Do not output header \
+cells, row numbers or column letters. List in unclear only cells not perfectly legible."""
 
 
 def code_region(first_n: int | None, line_count: int) -> str:
@@ -59,7 +63,8 @@ def code_region(first_n: int | None, line_count: int) -> str:
     return f"""This image is a cropped part of a code editor showing about {line_count} lines.{start}
 Return every visible line, top to bottom, including blank lines. n is the gutter line number \
 or 0 if none is visible. text is the code exactly, leading spaces preserved; do not include \
-the gutter. y_range is relative to this cropped image."""
+the gutter. y_range is relative to this cropped image. List in unclear only lines not \
+perfectly legible (row = index in lines, col = 0)."""
 
 
 def verify(count: int, kind: str) -> str:

@@ -8,8 +8,11 @@ structure than any screen reader's OCR offers, so the comparison favours the bas
 import csv
 import io
 import subprocess  # noqa: S404  # fixed argv, no shell
+import tempfile
 from dataclasses import dataclass
 from pathlib import Path
+
+from PIL import Image
 
 from unscreen_bench.score import PredCell
 
@@ -25,13 +28,23 @@ class Word:
     conf: float
 
 
-def run_tesseract(image: Path) -> list[Word]:
-    out = subprocess.run(  # noqa: S603
-        ["tesseract", str(image), "stdout", "--psm", "3", "tsv"],  # noqa: S607
-        capture_output=True,
-        check=True,
-        text=True,
-    ).stdout
+OCR_CONFIGS: list[tuple[int, int]] = [(3, 1), (6, 2), (11, 2)]
+"""(page segmentation mode, upscale factor). The benchmark reports the best one over the set."""
+
+
+def run_tesseract(image: Path, psm: int = 3, upscale: int = 1) -> list[Word]:
+    source = image
+    with tempfile.TemporaryDirectory() as tmp:
+        if upscale != 1:
+            with Image.open(image) as img:
+                source = Path(tmp) / "up.png"
+                img.resize((img.width * upscale, img.height * upscale), Image.Resampling.LANCZOS).save(source)
+        out = subprocess.run(  # noqa: S603
+            ["tesseract", str(source), "stdout", "--psm", str(psm), "tsv"],  # noqa: S607
+            capture_output=True,
+            check=True,
+            text=True,
+        ).stdout
     words: list[Word] = []
     for row in csv.DictReader(io.StringIO(out), delimiter="\t", quoting=csv.QUOTE_NONE):
         text = (row.get("text") or "").strip()
@@ -40,10 +53,10 @@ def run_tesseract(image: Path) -> list[Word]:
         words.append(
             Word(
                 text=text,
-                left=int(row["left"]),
-                top=int(row["top"]),
-                width=int(row["width"]),
-                height=int(row["height"]),
+                left=int(row["left"]) // upscale,
+                top=int(row["top"]) // upscale,
+                width=int(row["width"]) // upscale,
+                height=int(row["height"]) // upscale,
                 line=(int(row["block_num"]), int(row["par_num"]), int(row["line_num"])),
                 conf=float(row["conf"]),
             )

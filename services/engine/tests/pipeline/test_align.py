@@ -95,7 +95,7 @@ def test_code_line_edit_insert_and_ids() -> None:
     assert second.changes == [LineChanged("l2", "line 2", "    return x + 1", "    return x + 2", False, False)]
     inserted = ["def f(x):", "    # TODO", "    return x + 2", "", "print(f(2))"]
     third = align(second.doc, candidate_code(inserted), minter)
-    assert [c for c in third.changes if isinstance(c, LinesChanged)][0].texts == ("    # TODO",)
+    assert next(c for c in third.changes if isinstance(c, LinesChanged)).texts == ("    # TODO",)
 
 
 def test_summarize_code() -> None:

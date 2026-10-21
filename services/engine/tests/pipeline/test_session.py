@@ -2,11 +2,11 @@ import pytest
 
 from engine.config import Settings
 from engine.llm.client import ModelError
-from engine.llm.schemas import ReadCell, Reading, RegionRow, SheetRegionRead, VerifyRead
+from engine.llm.schemas import Reading, RegionRow, SheetRegionRead, VerifyRead
 from engine.pipeline.frames import BadFrameError
 from engine.pipeline.session import SessionPipeline
-from tests.fakes import ScriptedModel, sheet_frame
 from tests.factories import full_code_read, full_sheet_read
+from tests.fakes import ScriptedModel, sheet_frame
 
 HEADERS = ["Account", "Owner", "Q3 revenue"]
 ROWS = [
@@ -50,7 +50,7 @@ async def test_small_edit_uses_region_read_and_verification_in_parallel() -> Non
     model, pipe = make()
     model.push("reconstruct", full_sheet_read(HEADERS, ROWS))
     await pipe.process(sheet_frame(ROWS))
-    model.push("region_sheet", SheetRegionRead(rows=[RegionRow(cells=[ReadCell(text="$1.2M", legibility="clear")])]))
+    model.push("region_sheet", SheetRegionRead(rows=[RegionRow(cells=["$1.2M"])], unclear=[]))
     model.push("verify_cell", VerifyRead(readings=[Reading(text="$1.2M", legibility="clear")]))
     out = await pipe.process(sheet_frame(edited(0, 2, "$1.2M")))
     assert out.mode == "region"
@@ -65,7 +65,7 @@ async def test_disagreeing_reads_become_uncertain_and_are_not_spoken_as_values()
     model, pipe = make()
     model.push("reconstruct", full_sheet_read(HEADERS, ROWS))
     await pipe.process(sheet_frame(ROWS))
-    model.push("region_sheet", SheetRegionRead(rows=[RegionRow(cells=[ReadCell(text="$1.2M", legibility="clear")])]))
+    model.push("region_sheet", SheetRegionRead(rows=[RegionRow(cells=["$1.2M"])], unclear=[]))
     model.push("verify_cell", VerifyRead(readings=[Reading(text="$7.2M", legibility="clear")]))
     out = await pipe.process(sheet_frame(edited(0, 2, "$1.2M")))
     assert [a.text for a in out.announces] == ["Acme Corp, Q3 revenue: possibly changed, unclear."]
@@ -77,7 +77,7 @@ async def test_region_mismatch_falls_back_to_full_read_then_verifies() -> None:
     model, pipe = make()
     model.push("reconstruct", full_sheet_read(HEADERS, ROWS))
     await pipe.process(sheet_frame(ROWS))
-    model.push("region_sheet", SheetRegionRead(rows=[]))
+    model.push("region_sheet", SheetRegionRead(rows=[], unclear=[]))
     model.push("verify_cell", VerifyRead(readings=[Reading(text="$1.2M", legibility="clear")]))
     model.push("reconstruct", full_sheet_read(HEADERS, edited(0, 2, "$1.2M")))
     model.push("verify_cell", VerifyRead(readings=[Reading(text="$1.2M", legibility="clear")]))
@@ -90,7 +90,7 @@ async def test_reverting_to_a_cached_frame_needs_no_model_call() -> None:
     model, pipe = make()
     model.push("reconstruct", full_sheet_read(HEADERS, ROWS))
     await pipe.process(sheet_frame(ROWS))
-    model.push("region_sheet", SheetRegionRead(rows=[RegionRow(cells=[ReadCell(text="$1.2M", legibility="clear")])]))
+    model.push("region_sheet", SheetRegionRead(rows=[RegionRow(cells=["$1.2M"])], unclear=[]))
     model.push("verify_cell", VerifyRead(readings=[Reading(text="$1.2M", legibility="clear")]))
     await pipe.process(sheet_frame(edited(0, 2, "$1.2M")))
     calls = len(model.calls)

@@ -1,6 +1,6 @@
 """Turn model reads into candidate Documents. Candidates have empty ids; the aligner assigns them."""
 
-from engine.llm.schemas import FullRead, Legibility, ReadCell, ReadCode, ReadLine, ReadSheet
+from engine.llm.schemas import FullRead, Legibility, ReadCell, ReadCode, ReadLine, ReadSheet, legibility_of
 from engine.model.document import Block, Box, Cell, Code, CodeLine, Document, Row, Sheet
 from engine.pipeline.geometry import from_box_2d, make_box, map_x, map_y
 
@@ -42,23 +42,29 @@ def build_sheet(read: ReadSheet, within: Box) -> Sheet | None:
         first = _span(read.rows[0].y_range, within, "y")
         height = max(8.0, first[1] - first[0])
         header_y = (max(within.y0, first[0] - height), first[0])
+    leg = legibility_of(read.unclear)
     columns = [
-        cell_from(c.header, make_box(x0, header_y[0], x1, header_y[1]))
-        for c, (x0, x1) in zip(read.columns, xs, strict=True)
+        cell_from(
+            ReadCell(text=c.header, legibility=leg.get((-1, j), "clear")), make_box(x0, header_y[0], x1, header_y[1])
+        )
+        for j, (c, (x0, x1)) in enumerate(zip(read.columns, xs, strict=True))
     ]
     rows: list[Row] = []
-    for r in read.rows:
+    for i, r in enumerate(read.rows):
         y0, y1 = _span(r.y_range, within, "y")
         values = list(r.cells[: len(columns)])
-        values += [ReadCell(text="", legibility="clear")] * (len(columns) - len(values))
-        cells = [cell_from(v, make_box(x0, y0, x1, y1)) for v, (x0, x1) in zip(values, xs, strict=True)]
+        values += [""] * (len(columns) - len(values))
+        cells = [
+            cell_from(ReadCell(text=v, legibility=leg.get((i, j), "clear")), make_box(x0, y0, x1, y1))
+            for j, (v, (x0, x1)) in enumerate(zip(values, xs, strict=True))
+        ]
         key = cells[0].text if cells and not cells[0].unreadable and cells[0].text else None
         rows.append(Row(id="", key=key, cells=cells))
     return Sheet(columns=columns, header_rows=1, rows=rows, sheet_name=norm_text(read.sheet_name) or None)
 
 
-def line_from(read: ReadLine, x: tuple[float, float], within: Box) -> CodeLine:
-    conf, unreadable, uncertain = flags(read.legibility)
+def line_from(read: ReadLine, x: tuple[float, float], within: Box, legibility: Legibility = "clear") -> CodeLine:
+    conf, unreadable, uncertain = flags(legibility)
     y0, y1 = _span(read.y_range, within, "y")
     return CodeLine(
         id="",
@@ -80,7 +86,10 @@ def build_code(read: ReadCode, within: Box) -> Code | None:
     return Code(
         language=norm_text(read.language) or None,
         file_name=norm_text(read.file_name) or None,
-        lines=[line_from(line, x, within) for line in read.lines],
+        lines=[
+            line_from(line, x, within, legibility_of(read.unclear).get((i, 0), "clear"))
+            for i, line in enumerate(read.lines)
+        ],
     )
 
 

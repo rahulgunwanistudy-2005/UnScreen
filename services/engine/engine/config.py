@@ -13,20 +13,24 @@ LlmMode = Literal["live", "record", "replay"]
 
 
 class Settings(BaseSettings):
-    model_config = SettingsConfigDict(env_prefix="UNSCREEN_", env_file=ENGINE_ROOT / ".env", extra="ignore")
+    model_config = SettingsConfigDict(
+        env_prefix="UNSCREEN_",
+        env_file=(ENGINE_ROOT.parent.parent / ".env", ENGINE_ROOT / ".env"),
+        extra="ignore",
+    )
 
     gemini_api_key: SecretStr | None = Field(default=None, validation_alias="GEMINI_API_KEY")
     llm_mode: LlmMode = "live"
     golden_dir: Path = ENGINE_ROOT / "tests" / "golden" / "responses"
 
-    reconstruct_model: str = "gemini-3.8-flash"
-    region_model: str = "gemini-3.8-flash"
+    reconstruct_model: str = "gemini-3.6-flash"
+    region_model: str = "gemini-3.6-flash"
     verify_model: str = "gemini-3.5-flash-lite"
-    ask_model: str = "gemini-3.8-flash"
-    thinking_level: Literal["minimal", "low", "medium", "high"] = "low"
+    ask_model: str = "gemini-3.6-flash"
+    thinking_level: Literal["minimal", "low", "medium", "high"] = "minimal"
     image_resolution: Literal["low", "medium", "high", "ultra_high"] = "high"
-    llm_timeout_s: float = 25.0
-    llm_max_retries: int = 3
+    llm_timeout_s: float = 120.0
+    llm_max_retries: int = 2
 
     allowed_origins: list[str] = ["http://localhost:5173", "http://127.0.0.1:5173"]
     session_ttl_s: int = 30 * 60
