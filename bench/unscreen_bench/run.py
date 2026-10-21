@@ -174,6 +174,7 @@ async def main() -> None:
             "verify": settings.verify_model,
             "thinking_level": settings.thinking_level,
             "image_resolution": settings.image_resolution,
+            "cross_check": settings.cross_check_full_reads,
         },
         "llm_mode": settings.llm_mode,
         "groups": {},

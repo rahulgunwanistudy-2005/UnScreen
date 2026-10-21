@@ -1,0 +1,131 @@
+{
+  "name": "live-smoke",
+  "run_at": "2026-10-21T21:33:37.969Z",
+  "kind": "sheet",
+  "seed": 3,
+  "edit_interval_ms": 45000,
+  "first_snapshot_ms": null,
+  "truth_changes": 7,
+  "recall": 0,
+  "precision": null,
+  "change_to_announce_ms": {
+    "p50": null,
+    "p95": null,
+    "n": 0
+  },
+  "final_dom_vs_truth": {
+    "ok": 0,
+    "total": 36
+  },
+  "changes": [
+    {
+      "at": 45514,
+      "edit": 1,
+      "kind": "cell",
+      "row": "Billing alerts",
+      "col": "Status",
+      "old": "Blocked",
+      "new": "Done",
+      "announced": false,
+      "unclear": null,
+      "latency_ms": null,
+      "text": null
+    },
+    {
+      "at": 45514,
+      "edit": 1,
+      "kind": "cell",
+      "row": "Crash on resume",
+      "col": "Ticket",
+      "old": "DL-3785",
+      "new": "CR-8457",
+      "announced": false,
+      "unclear": null,
+      "latency_ms": null,
+      "text": null
+    },
+    {
+      "at": 45514,
+      "edit": 1,
+      "kind": "cell",
+      "row": "Dark mode toggle",
+      "col": "Assignee",
+      "old": "Quinn Lee",
+      "new": "Uma Das",
+      "announced": false,
+      "unclear": null,
+      "latency_ms": null,
+      "text": null
+    },
+    {
+      "at": 90547,
+      "edit": 2,
+      "kind": "cell",
+      "row": "Billing alerts",
+      "col": "Ticket",
+      "old": "DL-7884",
+      "new": "DL-7097",
+      "announced": false,
+      "unclear": null,
+      "latency_ms": null,
+      "text": null
+    },
+    {
+      "at": 90547,
+      "edit": 2,
+      "kind": "cell",
+      "row": "Crash on resume",
+      "col": "Due",
+      "old": "22 Nov 2026",
+      "new": "2 Nov 2026",
+      "announced": false,
+      "unclear": null,
+      "latency_ms": null,
+      "text": null
+    },
+    {
+      "at": 90547,
+      "edit": 2,
+      "kind": "cell",
+      "row": "Crash on resume",
+      "col": "Ticket",
+      "old": "CR-8457",
+      "new": "BT-839",
+      "announced": false,
+      "unclear": null,
+      "latency_ms": null,
+      "text": null
+    },
+    {
+      "at": 135654,
+      "edit": 3,
+      "kind": "cell",
+      "row": "Crash on resume",
+      "col": "Assignee",
+      "old": "Lena Fischer",
+      "new": "Ivan Petrov",
+      "announced": false,
+      "unclear": null,
+      "latency_ms": null,
+      "text": null
+    }
+  ],
+  "announces": [],
+  "spoken": [
+    {
+      "at": 3280,
+      "text": "Started. Reading the shared screen."
+    }
+  ],
+  "engine_events": [
+    {
+      "at": 367534,
+      "error": "model_error",
+      "message": "Could not read that frame. Trying again with the next change."
+    }
+  ],
+  "console": [
+    "debug: [vite] connecting...",
+    "debug: [vite] connected."
+  ]
+}

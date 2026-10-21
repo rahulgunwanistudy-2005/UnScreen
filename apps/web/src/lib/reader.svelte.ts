@@ -34,7 +34,7 @@ export class ReaderSession {
 	private pointer: { x: number; y: number } | null = null;
 	private pointerSentAt = 0;
 	private pointerAsked = false;
-	private frameSentAt = new Map<number, number>();
+	private frameSentAt: Record<number, number> = {};
 	private focusRef: string | null = null;
 
 	constructor() {
@@ -46,7 +46,7 @@ export class ReaderSession {
 		});
 		this.capture = new ScreenCapture({
 			frame: (f) => {
-				this.frameSentAt.set(this.doc.version, performance.now());
+				this.frameSentAt[this.doc.version] = performance.now();
 				this.engine.sendFrame({
 					meta: { w: f.w, h: f.h, mime: 'image/webp', change_score: f.score, changed_tiles: f.tiles, pointer: null },
 					data: f.blob
@@ -61,7 +61,7 @@ export class ReaderSession {
 	/** Polite live region. Re-speaking identical text needs the content to change, so toggle a no-break space. */
 	private say(text: string): void {
 		this.lastSpoken = text;
-		this.live = this.live === text ? `${text} ` : text;
+		this.live = this.live === text ? `${text}\u00a0` : text;
 	}
 
 	private shout(text: string): void {
@@ -249,10 +249,10 @@ export class ReaderSession {
 	}
 
 	private onAnnounce(msg: Announce): void {
-		const sentAt = this.frameSentAt.get(msg.version - 1);
+		const sentAt = this.frameSentAt[msg.version - 1];
 		if (sentAt !== undefined) {
 			this.lastLatencyMs = Math.round(performance.now() - sentAt);
-			this.frameSentAt.delete(msg.version - 1);
+			delete this.frameSentAt[msg.version - 1];
 		}
 		this.markChanged(msg.refs, msg.version);
 		this.doc.record(msg.text);

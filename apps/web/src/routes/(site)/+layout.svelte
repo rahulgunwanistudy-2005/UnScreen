@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
 	import Wordmark from '#lib/site/Wordmark.svelte';
 	import type { LayoutProps } from './$types';
@@ -6,20 +7,20 @@
 	let { children }: LayoutProps = $props();
 
 	const links = [
-		{ href: '/app', label: 'Reader' },
-		{ href: '/help', label: 'Help and shortcuts' },
-		{ href: '/benchmark', label: 'Benchmark' },
-		{ href: '/privacy', label: 'Privacy' }
+		{ path: '/app', href: resolve('/(site)/app'), label: 'Reader' },
+		{ path: '/help', href: resolve('/(site)/help'), label: 'Help and shortcuts' },
+		{ path: '/benchmark', href: resolve('/(site)/benchmark'), label: 'Benchmark' },
+		{ path: '/privacy', href: resolve('/(site)/privacy'), label: 'Privacy' }
 	];
 </script>
 
 <a class="skip" href="#main">Skip to content</a>
 <header class="site wrap">
-	<a href="/" class="home" aria-label="UnScreen home"><Wordmark /></a>
+	<a href={resolve('/(site)')} class="home" aria-label="UnScreen home"><Wordmark /></a>
 	<nav aria-label="Site">
 		<ul>
 			{#each links as l (l.href)}
-				<li><a href={l.href} aria-current={page.url.pathname === l.href ? 'page' : undefined}>{l.label}</a></li>
+				<li><a href={l.href} aria-current={page.url.pathname === l.path ? 'page' : undefined}>{l.label}</a></li>
 			{/each}
 		</ul>
 	</nav>
@@ -30,7 +31,7 @@
 <footer class="site-foot wrap">
 	<p>
 		UnScreen is a student project built for the Taskforge hackathon, October 2026. Shared frames are sent to Google's
-		Gemini API to be read and are not stored by UnScreen. <a href="/privacy">How your screen is handled</a>.
+		Gemini API to be read and are not stored by UnScreen. <a href={resolve('/(site)/privacy')}>How your screen is handled</a>.
 	</p>
 	<p><a href="https://github.com/rahulgunwanistudy-2005/unscreen">Source code on GitHub</a></p>
 </footer>

@@ -6,6 +6,7 @@
   "scripts": {
     "schema": "cd services/engine && uv run python -m engine.model.export ../../packages/schema/unscreen.schema.json && cd ../.. && pnpm --filter @unscreen/schema gen",
     "dev:web": "pnpm --filter web dev",
-    "dev:engine": "cd services/engine && uv run uvicorn engine.api.app:app --reload --port 8787"
+    "dev:engine": "cd services/engine && uv run uvicorn engine.api.app:app --reload --port 8787",
+    "bench:publish": "cd bench && PYTHONPATH=. uv run --project ../services/engine python -m unscreen_bench.publish"
   }
 }

@@ -1,0 +1,16 @@
+# Render blueprint for the engine. Set GEMINI_API_KEY in the dashboard (never commit it).
+services:
+  - type: web
+    name: unscreen-engine
+    runtime: docker
+    rootDir: services/engine
+    dockerfilePath: ./Dockerfile
+    plan: starter
+    healthCheckPath: /healthz
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: UNSCREEN_ALLOWED_ORIGINS
+        value: '["https://unscreen.vercel.app"]'
+      - key: UNSCREEN_LLM_MODE
+        value: live

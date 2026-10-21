@@ -26,10 +26,19 @@
 	</ul>
 
 	<h2>What Google does</h2>
+	<p>Requests to the Gemini API are covered by Google's own terms, which differ by tier:</p>
+	<ul>
+		<li>
+			<strong>Free tier:</strong> Google may use what is sent, and the replies, to improve its products, and human reviewers
+			may read them.
+		</li>
+		<li>
+			<strong>Paid tier:</strong> Google does not use them to improve its products, but logs them for a limited time to
+			detect misuse.
+		</li>
+	</ul>
 	<p>
-		Requests to the Gemini API are covered by Google's own terms. On Google's paid tier, Google says it does not use prompts
-		or responses to improve its products; on the free tier it may. Read
-		<a href="https://ai.google.dev/gemini-api/terms">the Gemini API terms</a> before sharing anything confidential.
+		Read <a href="https://ai.google.dev/gemini-api/terms">the Gemini API terms</a> before sharing anything confidential.
 	</p>
 
 	<h2>Before you share</h2>

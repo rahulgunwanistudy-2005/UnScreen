@@ -21,3 +21,11 @@ test('settings dialog has no axe violations', async ({ page }) => {
 	const results = await new AxeBuilder({ page }).include('dialog').analyze();
 	expect(results.violations.map((v) => v.id)).toEqual([]);
 });
+
+test('landing hero after the animation has no axe violations', async ({ page }) => {
+	await page.goto('/');
+	await page.getByRole('button', { name: 'Skip to the table' }).click();
+	await expect(page.getByRole('region', { name: 'Rebuilt table, scrollable' })).toBeVisible();
+	const results = await new AxeBuilder({ page }).include('figure').analyze();
+	expect(results.violations.map((v) => v.id)).toEqual([]);
+});

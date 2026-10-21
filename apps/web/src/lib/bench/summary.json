@@ -1,0 +1,191 @@
+{
+ "kill": {
+  "file": "bench/results/2026-10-21-kill-v4.json",
+  "run_at": "2026-10-21T16:33:04+00:00",
+  "models": {
+   "reconstruct": "gemini-3.6-flash",
+   "verify": "gemini-3.5-flash-lite",
+   "thinking_level": "minimal",
+   "image_resolution": "high"
+  },
+  "overall": {
+   "unscreen": {
+    "frames": 6,
+    "items": 459,
+    "exact_match": 0.9913,
+    "cer": 0.0016,
+    "hallucination_rate": 0.0087,
+    "structure_accuracy": 1.0,
+    "text_recall": 0.9913,
+    "flagged": 0,
+    "flagged_wrong": 0
+   },
+   "ocr": {
+    "frames": 10,
+    "items": 775,
+    "exact_match": 0.4129,
+    "cer": 0.4908,
+    "hallucination_rate": 0.4984,
+    "structure_accuracy": 0.796,
+    "text_recall": 0.5187,
+    "flagged": 0,
+    "flagged_wrong": 0
+   },
+   "ocr_config": "psm6x2",
+   "ocr_by_config": {
+    "psm3x1": {
+     "frames": 10,
+     "items": 775,
+     "exact_match": 0.0052,
+     "cer": 1.0223,
+     "hallucination_rate": 0.9619,
+     "structure_accuracy": 0.5,
+     "text_recall": 0.0103,
+     "flagged": 0,
+     "flagged_wrong": 0
+    },
+    "psm6x2": {
+     "frames": 10,
+     "items": 775,
+     "exact_match": 0.4129,
+     "cer": 0.4908,
+     "hallucination_rate": 0.4984,
+     "structure_accuracy": 0.796,
+     "text_recall": 0.5187,
+     "flagged": 0,
+     "flagged_wrong": 0
+    },
+    "psm11x2": {
+     "frames": 10,
+     "items": 775,
+     "exact_match": 0.0503,
+     "cer": 0.9318,
+     "hallucination_rate": 0.9416,
+     "structure_accuracy": 0.1554,
+     "text_recall": 0.3239,
+     "flagged": 0,
+     "flagged_wrong": 0
+    }
+   },
+   "content_type_accuracy": 1.0,
+   "errors": 4,
+   "latency_ms": {
+    "p50": 74498.5,
+    "p95": 106927.0,
+    "max": 106927.0
+   },
+   "cost_usd_per_frame": 0.005346,
+   "calls_per_frame": 1.0
+  },
+  "groups": {
+   "sheet/1080p-degraded": {
+    "unscreen": {
+     "frames": 6,
+     "items": 459,
+     "exact_match": 0.9913,
+     "cer": 0.0016,
+     "hallucination_rate": 0.0087,
+     "structure_accuracy": 1.0,
+     "text_recall": 0.9913,
+     "flagged": 0,
+     "flagged_wrong": 0
+    },
+    "ocr": {
+     "frames": 10,
+     "items": 775,
+     "exact_match": 0.4129,
+     "cer": 0.4908,
+     "hallucination_rate": 0.4984,
+     "structure_accuracy": 0.796,
+     "text_recall": 0.5187,
+     "flagged": 0,
+     "flagged_wrong": 0
+    },
+    "ocr_config": "psm6x2",
+    "ocr_by_config": {
+     "psm3x1": {
+      "frames": 10,
+      "items": 775,
+      "exact_match": 0.0052,
+      "cer": 1.0223,
+      "hallucination_rate": 0.9619,
+      "structure_accuracy": 0.5,
+      "text_recall": 0.0103,
+      "flagged": 0,
+      "flagged_wrong": 0
+     },
+     "psm6x2": {
+      "frames": 10,
+      "items": 775,
+      "exact_match": 0.4129,
+      "cer": 0.4908,
+      "hallucination_rate": 0.4984,
+      "structure_accuracy": 0.796,
+      "text_recall": 0.5187,
+      "flagged": 0,
+      "flagged_wrong": 0
+     },
+     "psm11x2": {
+      "frames": 10,
+      "items": 775,
+      "exact_match": 0.0503,
+      "cer": 0.9318,
+      "hallucination_rate": 0.9416,
+      "structure_accuracy": 0.1554,
+      "text_recall": 0.3239,
+      "flagged": 0,
+      "flagged_wrong": 0
+     }
+    },
+    "content_type_accuracy": 1.0,
+    "errors": 4,
+    "latency_ms": {
+     "p50": 74498.5,
+     "p95": 106927.0,
+     "max": 106927.0
+    },
+    "cost_usd_per_frame": 0.005346,
+    "calls_per_frame": 1.0
+   }
+  },
+  "frames": 10
+ },
+ "live": [
+  {
+   "file": "bench/results/2026-10-21-live-smoke.json",
+   "run_at": "2026-10-21T21:33:37.969Z",
+   "kind": "sheet",
+   "edit_interval_ms": 45000,
+   "first_snapshot_ms": null,
+   "truth_changes": 7,
+   "recall": 0,
+   "precision": null,
+   "change_to_announce_ms": {
+    "p50": null,
+    "p95": null,
+    "n": 0
+   },
+   "final_dom_vs_truth": {
+    "ok": 0,
+    "total": 36
+   },
+   "engine_errors": 1,
+   "never_read": true
+  }
+ ],
+ "pipeline": {
+  "file": "bench/results/2026-10-21-pipeline-overhead.json",
+  "run_at": "2026-10-21T21:38:31.716Z",
+  "note": "Scripted vision model (answers from fixture truth); measures capture, change gate, engine pipeline and announcer only.",
+  "edits": 5,
+  "latencies_ms": [
+   2701,
+   2691,
+   2645,
+   2658,
+   2671
+  ],
+  "p50_ms": 2671,
+  "max_ms": 2701
+ }
+}

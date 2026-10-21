@@ -11,10 +11,12 @@ from engine.pipeline.session import SessionPipeline
 
 
 class TokenBucket:
-    def __init__(self, per_minute: int) -> None:
-        self.capacity = float(per_minute)
-        self.tokens = float(per_minute)
-        self.rate = per_minute / 60.0
+    """Starts full; refills `capacity` tokens per `period_s`."""
+
+    def __init__(self, capacity: int, period_s: float = 60.0) -> None:
+        self.capacity = float(capacity)
+        self.tokens = float(capacity)
+        self.rate = capacity / period_s
         self.updated = time.monotonic()
 
     def take(self, cost: float = 1.0) -> bool:
@@ -84,11 +86,9 @@ class SessionStore:
 
     def create(self, client_ip: str) -> Session:
         self.evict_expired()
-        bucket = self._ip_buckets.setdefault(
-            client_ip, TokenBucket(max(1, self._settings.sessions_per_ip_per_hour // 60) or 1)
-        )
-        bucket.capacity = float(self._settings.sessions_per_ip_per_hour)
-        bucket.rate = self._settings.sessions_per_ip_per_hour / 3600.0
+        bucket = self._ip_buckets.get(client_ip)
+        if bucket is None:
+            bucket = self._ip_buckets[client_ip] = TokenBucket(self._settings.sessions_per_ip_per_hour, 3600.0)
         if not bucket.take():
             raise SessionLimitError("too many sessions from this address")
         if len(self._sessions) >= self._settings.max_sessions:

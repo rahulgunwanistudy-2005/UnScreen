@@ -1,0 +1,554 @@
+{
+ "source": "services/engine/tests/golden/frames/sheet-105-1080p-degraded.jpg",
+ "image": {
+  "src": "/hero/frame.jpg",
+  "width": 370,
+  "height": 222
+ },
+ "title": "Sprint 42 tracker",
+ "announcement": "Now showing: Spreadsheet, 'Sprint 42 tracker', 9 rows, 5 columns.",
+ "columns": [
+  {
+   "text": "Task",
+   "box": {
+    "x": 0.0415,
+    "y": 0.0779,
+    "w": 0.1834,
+    "h": 0.0844
+   }
+  },
+  {
+   "text": "Assignee",
+   "box": {
+    "x": 0.2249,
+    "y": 0.0779,
+    "w": 0.1834,
+    "h": 0.0844
+   }
+  },
+  {
+   "text": "Points",
+   "box": {
+    "x": 0.4083,
+    "y": 0.0779,
+    "w": 0.1834,
+    "h": 0.0844
+   }
+  },
+  {
+   "text": "Status",
+   "box": {
+    "x": 0.5917,
+    "y": 0.0779,
+    "w": 0.1834,
+    "h": 0.0844
+   }
+  },
+  {
+   "text": "Due",
+   "box": {
+    "x": 0.7751,
+    "y": 0.0779,
+    "w": 0.1834,
+    "h": 0.0844
+   }
+  }
+ ],
+ "rows": [
+  {
+   "key": "Fix login timeout",
+   "cells": [
+    {
+     "text": "Fix login timeout",
+     "box": {
+      "x": 0.0415,
+      "y": 0.1623,
+      "w": 0.1834,
+      "h": 0.0844
+     },
+     "uncertain": false
+    },
+    {
+     "text": "Yusuf Ali",
+     "box": {
+      "x": 0.2249,
+      "y": 0.1623,
+      "w": 0.1834,
+      "h": 0.0844
+     },
+     "uncertain": false
+    },
+    {
+     "text": "214",
+     "box": {
+      "x": 0.4083,
+      "y": 0.1623,
+      "w": 0.1834,
+      "h": 0.0844
+     },
+     "uncertain": false
+    },
+    {
+     "text": "Pass",
+     "box": {
+      "x": 0.5917,
+      "y": 0.1623,
+      "w": 0.1834,
+      "h": 0.0844
+     },
+     "uncertain": false
+    },
+    {
+     "text": "2 Aug 2026",
+     "box": {
+      "x": 0.7751,
+      "y": 0.1623,
+      "w": 0.1834,
+      "h": 0.0844
+     },
+     "uncertain": false
+    }
+   ]
+  },
+  {
+   "key": "Migrate CI runners",
+   "cells": [
+    {
+     "text": "Migrate CI runners",
+     "box": {
+      "x": 0.0415,
+      "y": 0.2468,
+      "w": 0.1834,
+      "h": 0.0844
+     },
+     "uncertain": false
+    },
+    {
+     "text": "Chen Wei",
+     "box": {
+      "x": 0.2249,
+      "y": 0.2468,
+      "w": 0.1834,
+      "h": 0.0844
+     },
+     "uncertain": false
+    },
+    {
+     "text": "370",
+     "box": {
+      "x": 0.4083,
+      "y": 0.2468,
+      "w": 0.1834,
+      "h": 0.0844
+     },
+     "uncertain": false
+    },
+    {
+     "text": "In progress",
+     "box": {
+      "x": 0.5917,
+      "y": 0.2468,
+      "w": 0.1834,
+      "h": 0.0844
+     },
+     "uncertain": false
+    },
+    {
+     "text": "17 Nov 2026",
+     "box": {
+      "x": 0.7751,
+      "y": 0.2468,
+      "w": 0.1834,
+      "h": 0.0844
+     },
+     "uncertain": false
+    }
+   ]
+  },
+  {
+   "key": "Update privacy page",
+   "cells": [
+    {
+     "text": "Update privacy page",
+     "box": {
+      "x": 0.0415,
+      "y": 0.3312,
+      "w": 0.1834,
+      "h": 0.0844
+     },
+     "uncertain": false
+    },
+    {
+     "text": "Tara Singh",
+     "box": {
+      "x": 0.2249,
+      "y": 0.3312,
+      "w": 0.1834,
+      "h": 0.0844
+     },
+     "uncertain": false
+    },
+    {
+     "text": "177",
+     "box": {
+      "x": 0.4083,
+      "y": 0.3312,
+      "w": 0.1834,
+      "h": 0.0844
+     },
+     "uncertain": false
+    },
+    {
+     "text": "Blocked",
+     "box": {
+      "x": 0.5917,
+      "y": 0.3312,
+      "w": 0.1834,
+      "h": 0.0844
+     },
+     "uncertain": false
+    },
+    {
+     "text": "5 Jan 2026",
+     "box": {
+      "x": 0.7751,
+      "y": 0.3312,
+      "w": 0.1834,
+      "h": 0.0844
+     },
+     "uncertain": false
+    }
+   ]
+  },
+  {
+   "key": "Reduce bundle size",
+   "cells": [
+    {
+     "text": "Reduce bundle size",
+     "box": {
+      "x": 0.0415,
+      "y": 0.4156,
+      "w": 0.1834,
+      "h": 0.0844
+     },
+     "uncertain": false
+    },
+    {
+     "text": "Omar Aziz",
+     "box": {
+      "x": 0.2249,
+      "y": 0.4156,
+      "w": 0.1834,
+      "h": 0.0844
+     },
+     "uncertain": false
+    },
+    {
+     "text": "103",
+     "box": {
+      "x": 0.4083,
+      "y": 0.4156,
+      "w": 0.1834,
+      "h": 0.0844
+     },
+     "uncertain": false
+    },
+    {
+     "text": "Done",
+     "box": {
+      "x": 0.5917,
+      "y": 0.4156,
+      "w": 0.1834,
+      "h": 0.0844
+     },
+     "uncertain": false
+    },
+    {
+     "text": "4 Nov 2026",
+     "box": {
+      "x": 0.7751,
+      "y": 0.4156,
+      "w": 0.1834,
+      "h": 0.0844
+     },
+     "uncertain": false
+    }
+   ]
+  },
+  {
+   "key": "Billing alerts",
+   "cells": [
+    {
+     "text": "Billing alerts",
+     "box": {
+      "x": 0.0415,
+      "y": 0.5,
+      "w": 0.1834,
+      "h": 0.0844
+     },
+     "uncertain": false
+    },
+    {
+     "text": "Tara Singh",
+     "box": {
+      "x": 0.2249,
+      "y": 0.5,
+      "w": 0.1834,
+      "h": 0.0844
+     },
+     "uncertain": false
+    },
+    {
+     "text": "120",
+     "box": {
+      "x": 0.4083,
+      "y": 0.5,
+      "w": 0.1834,
+      "h": 0.0844
+     },
+     "uncertain": false
+    },
+    {
+     "text": "Review",
+     "box": {
+      "x": 0.5917,
+      "y": 0.5,
+      "w": 0.1834,
+      "h": 0.0844
+     },
+     "uncertain": false
+    },
+    {
+     "text": "7 Oct 2026",
+     "box": {
+      "x": 0.7751,
+      "y": 0.5,
+      "w": 0.1834,
+      "h": 0.0844
+     },
+     "uncertain": false
+    }
+   ]
+  },
+  {
+   "key": "Rate limit API",
+   "cells": [
+    {
+     "text": "Rate limit API",
+     "box": {
+      "x": 0.0415,
+      "y": 0.5844,
+      "w": 0.1834,
+      "h": 0.0844
+     },
+     "uncertain": false
+    },
+    {
+     "text": "Quinn Lee",
+     "box": {
+      "x": 0.2249,
+      "y": 0.5844,
+      "w": 0.1834,
+      "h": 0.0844
+     },
+     "uncertain": false
+    },
+    {
+     "text": "312",
+     "box": {
+      "x": 0.4083,
+      "y": 0.5844,
+      "w": 0.1834,
+      "h": 0.0844
+     },
+     "uncertain": false
+    },
+    {
+     "text": "Open",
+     "box": {
+      "x": 0.5917,
+      "y": 0.5844,
+      "w": 0.1834,
+      "h": 0.0844
+     },
+     "uncertain": false
+    },
+    {
+     "text": "23 May 2026",
+     "box": {
+      "x": 0.7751,
+      "y": 0.5844,
+      "w": 0.1834,
+      "h": 0.0844
+     },
+     "uncertain": false
+    }
+   ]
+  },
+  {
+   "key": "Audit logging",
+   "cells": [
+    {
+     "text": "Audit logging",
+     "box": {
+      "x": 0.0415,
+      "y": 0.6688,
+      "w": 0.1834,
+      "h": 0.0844
+     },
+     "uncertain": false
+    },
+    {
+     "text": "Priya Nair",
+     "box": {
+      "x": 0.2249,
+      "y": 0.6688,
+      "w": 0.1834,
+      "h": 0.0844
+     },
+     "uncertain": false
+    },
+    {
+     "text": "267",
+     "box": {
+      "x": 0.4083,
+      "y": 0.6688,
+      "w": 0.1834,
+      "h": 0.0844
+     },
+     "uncertain": false
+    },
+    {
+     "text": "Blocked",
+     "box": {
+      "x": 0.5917,
+      "y": 0.6688,
+      "w": 0.1834,
+      "h": 0.0844
+     },
+     "uncertain": false
+    },
+    {
+     "text": "13 Feb 2026",
+     "box": {
+      "x": 0.7751,
+      "y": 0.6688,
+      "w": 0.1834,
+      "h": 0.0844
+     },
+     "uncertain": false
+    }
+   ]
+  },
+  {
+   "key": "Refactor auth",
+   "cells": [
+    {
+     "text": "Refactor auth",
+     "box": {
+      "x": 0.0415,
+      "y": 0.7532,
+      "w": 0.1834,
+      "h": 0.0844
+     },
+     "uncertain": false
+    },
+    {
+     "text": "Uma Das",
+     "box": {
+      "x": 0.2249,
+      "y": 0.7532,
+      "w": 0.1834,
+      "h": 0.0844
+     },
+     "uncertain": false
+    },
+    {
+     "text": "139",
+     "box": {
+      "x": 0.4083,
+      "y": 0.7532,
+      "w": 0.1834,
+      "h": 0.0844
+     },
+     "uncertain": false
+    },
+    {
+     "text": "In progress",
+     "box": {
+      "x": 0.5917,
+      "y": 0.7532,
+      "w": 0.1834,
+      "h": 0.0844
+     },
+     "uncertain": false
+    },
+    {
+     "text": "18 Jun 2026",
+     "box": {
+      "x": 0.7751,
+      "y": 0.7532,
+      "w": 0.1834,
+      "h": 0.0844
+     },
+     "uncertain": false
+    }
+   ]
+  },
+  {
+   "key": "Crash on resume",
+   "cells": [
+    {
+     "text": "Crash on resume",
+     "box": {
+      "x": 0.0415,
+      "y": 0.8377,
+      "w": 0.1834,
+      "h": 0.0844
+     },
+     "uncertain": false
+    },
+    {
+     "text": "Rhea Kapoor",
+     "box": {
+      "x": 0.2249,
+      "y": 0.8377,
+      "w": 0.1834,
+      "h": 0.0844
+     },
+     "uncertain": false
+    },
+    {
+     "text": "122",
+     "box": {
+      "x": 0.4083,
+      "y": 0.8377,
+      "w": 0.1834,
+      "h": 0.0844
+     },
+     "uncertain": false
+    },
+    {
+     "text": "Blocked",
+     "box": {
+      "x": 0.5917,
+      "y": 0.8377,
+      "w": 0.1834,
+      "h": 0.0844
+     },
+     "uncertain": false
+    },
+    {
+     "text": "24 Oct 2026",
+     "box": {
+      "x": 0.7751,
+      "y": 0.8377,
+      "w": 0.1834,
+      "h": 0.0844
+     },
+     "uncertain": false
+    }
+   ]
+  }
+ ]
+}

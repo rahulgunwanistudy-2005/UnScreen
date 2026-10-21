@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import { prefs, type Preferences } from '#lib/a11y/settings.svelte.ts';
 
 	let { onchange }: { onchange: () => void } = $props();
@@ -61,7 +62,7 @@
 				</select>
 			</label>
 		</fieldset>
-		<p class="note">Keyboard shortcuts can be changed or turned off on the <a href="/help">help page</a>.</p>
+		<p class="note">Keyboard shortcuts can be changed or turned off on the <a href={resolve('/(site)/help')}>help page</a>.</p>
 		<button class="button" type="submit">Done</button>
 	</form>
 </dialog>

@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
+	import { withQuery } from '#lib/site/href.ts';
 	import { onDestroy, onMount } from 'svelte';
 	import { fromEvent, match } from '#lib/a11y/keymap.ts';
 	import { prefs } from '#lib/a11y/settings.svelte.ts';
@@ -105,7 +107,7 @@
 					</li>
 				</ol>
 				<p>
-					No meeting handy? Open the <a href="/fixture/sheet?seed=1" target="_blank" rel="noopener"
+					No meeting handy? Open the <a href={withQuery(resolve('/fixture/sheet'), 'seed=1')} target="_blank" rel="noopener"
 						>test spreadsheet that changes every 8 seconds</a
 					> and share that tab.
 				</p>

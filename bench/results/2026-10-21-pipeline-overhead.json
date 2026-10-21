@@ -1,0 +1,15 @@
+{
+  "name": "pipeline-overhead",
+  "note": "Scripted vision model (answers from fixture truth); measures capture, change gate, engine pipeline and announcer only.",
+  "run_at": "2026-10-21T21:43:39.029Z",
+  "edits": 5,
+  "latencies_ms": [
+    2608,
+    2624,
+    2606,
+    2563,
+    2577
+  ],
+  "p50_ms": 2606,
+  "max_ms": 2624
+}

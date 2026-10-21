@@ -1,3 +1,8 @@
+<script lang="ts">
+	import { resolve } from '$app/paths';
+	import { withQuery } from '#lib/site/href.ts';
+</script>
+
 <svelte:head><title>Test fixtures | UnScreen</title></svelte:head>
 
 <main class="list">
@@ -7,11 +12,11 @@
 		so UnScreen can be tested and demonstrated without a live presenter.
 	</p>
 	<ul>
-		<li><a href="/fixture/sheet?seed=1">Spreadsheet that changes every 8 seconds</a></li>
-		<li><a href="/fixture/sheet?seed=1&frame=meet">The same spreadsheet inside a meeting window</a></li>
-		<li><a href="/fixture/code?seed=1">Code editor that changes every 8 seconds</a></li>
-		<li><a href="/fixture/slide?seed=2">Slide</a></li>
-		<li><a href="/fixture/slide?seed=3">Document</a></li>
+		<li><a href={withQuery(resolve('/fixture/sheet'), 'seed=1')}>Spreadsheet that changes every 8 seconds</a></li>
+		<li><a href={withQuery(resolve('/fixture/sheet'), 'seed=1&frame=meet')}>The same spreadsheet inside a meeting window</a></li>
+		<li><a href={withQuery(resolve('/fixture/code'), 'seed=1')}>Code editor that changes every 8 seconds</a></li>
+		<li><a href={withQuery(resolve('/fixture/slide'), 'seed=2')}>Slide</a></li>
+		<li><a href={withQuery(resolve('/fixture/slide'), 'seed=3')}>Document</a></li>
 	</ul>
 </main>
 
