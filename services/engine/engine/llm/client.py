@@ -74,10 +74,13 @@ RETRYABLE_ERRORS = (genai_errors.APIError, GenAiError, GeminiNextGenAPIClientErr
 class ModelError(Exception):
     """The model call failed after retries, or returned something unusable."""
 
-    def __init__(self, message: str, *, retryable: bool = False, status: int | None = None) -> None:
+    def __init__(
+        self, message: str, *, retryable: bool = False, status: int | None = None, quota_exhausted: bool = False
+    ) -> None:
         super().__init__(message)
         self.retryable = retryable
         self.status = status
+        self.quota_exhausted = quota_exhausted
 
 
 class GoldenMissingError(ModelError):
@@ -86,6 +89,12 @@ class GoldenMissingError(ModelError):
 
 class VisionModel(Protocol):
     async def generate(self, request: VisionRequest) -> VisionResult: ...
+
+
+def _is_daily_quota(exc: Exception) -> bool:
+    """A 429 for a per-day quota will not clear within any sensible retry window."""
+    text = str(exc)
+    return "PerDay" in text or "free_tier_requests" in text
 
 
 def _status_of(exc: Exception) -> int | None:
@@ -135,6 +144,10 @@ class GeminiVisionModel:
                 )
             except RETRYABLE_ERRORS as exc:
                 status = _status_of(exc)
+                if status == 429 and _is_daily_quota(exc):
+                    raise ModelError(
+                        f"{request.purpose}: daily quota exhausted", status=429, quota_exhausted=True
+                    ) from exc
                 retryable = status is None or status == 429 or status >= 500
                 attempt += 1
                 if not retryable or attempt > self._retries:

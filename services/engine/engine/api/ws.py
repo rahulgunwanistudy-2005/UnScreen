@@ -78,8 +78,14 @@ class Connection:
                 continue
             except ModelError as exc:
                 log.warning("session %s model failure: %s", self.session.id, exc)
-                opened = breaker.failure()
-                if opened:
+                if exc.quota_exhausted:
+                    breaker.open_for(3600.0)
+                    await self.error(
+                        "engine_busy",
+                        "The reading service has used its daily limit. The last version stays on the page, "
+                        "and nothing new is announced until the limit resets.",
+                    )
+                elif breaker.failure():
                     await self.error(
                         "engine_busy",
                         "The reading engine is having trouble. The last version stays on screen, "

@@ -72,7 +72,6 @@
 	.site-foot {
 		margin-top: 5rem;
 		padding-block: 2rem 3rem;
-		border-top: 2px solid var(--ink);
 		color: var(--ink-soft);
 		font-size: var(--s-1);
 	}

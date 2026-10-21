@@ -122,9 +122,10 @@ SvelteKit, Svelte 5, TypeScript, Python, FastAPI, Pydantic, Google Gemini API (`
 
 ## Limitations
 
-- **Latency.** With the key used during development, model calls queue for tens of seconds and are rate limited, so changes are announced far later than the 3.5-second goal. See [`/benchmark`](apps/web/src/routes/(site)/benchmark/+page.svelte).
+- **Latency with the model is unproven.** UnScreen's own share is 2.7 s (median, scripted model). Measurements with Gemini were made on a free-tier key (20 requests per day per model), where refused calls were retried, so they show tens of seconds that are not the model's speed. See [`/benchmark`](apps/web/src/routes/(site)/benchmark/+page.svelte).
 - Reading depends on Gemini; frames are sent to Google ([privacy](apps/web/src/routes/(site)/privacy/+page.svelte)). There is no offline mode.
 - Tested on generated fixtures and Chrome on macOS. Manual NVDA results are in [`docs/research/results.md`](docs/research) only once sessions have happened.
+- Pointer and Ask are tested with scripted model responses only, not yet against live Gemini.
 - Screen capture needs a desktop browser; it does not work on phones.
 - Digits damaged by video compression can be misread. The second read catches most, not all.
 

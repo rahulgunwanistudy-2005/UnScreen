@@ -66,6 +66,8 @@
 		<input type="checkbox" checked={prefs.value.shortcuts} onchange={(e) => prefs.update({ shortcuts: e.currentTarget.checked })} />
 		Use keyboard shortcuts
 	</label>
+	<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
+	<div class="scroll" role="region" aria-label="Keyboard shortcuts, scrollable" tabindex="0">
 	<table class="keys">
 		<caption class="visually-hidden">Keyboard shortcuts, {actions.length} actions</caption>
 		<thead>
@@ -91,6 +93,7 @@
 			{/each}
 		</tbody>
 	</table>
+	</div>
 	<p><button type="button" class="button quiet" onclick={reset}>Reset all shortcuts</button></p>
 
 	<h2>Reading the shared screen</h2>
@@ -157,6 +160,10 @@
 		height: 1.2rem;
 		accent-color: var(--ink);
 	}
+	.scroll {
+		overflow-x: auto;
+		max-width: 100%;
+	}
 	.keys {
 		border-collapse: collapse;
 		width: 100%;
@@ -184,6 +191,11 @@
 		display: flex;
 		flex-wrap: wrap;
 		gap: 0.4rem;
+	}
+	@media (max-width: 480px) {
+		.change :global(.button) {
+			padding-inline: 0.6em;
+		}
 	}
 	.live {
 		min-height: 1.55em;

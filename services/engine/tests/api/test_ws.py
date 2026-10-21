@@ -114,3 +114,23 @@ def test_breaker_opens_after_repeated_model_failures() -> None:
             ws.send_text(frame_msg(3))
             ws.send_bytes(sheet_frame(ROWS, marker="3"))
             assert until(ws, "status")["stage"] in ("busy", "idle")
+
+
+def test_daily_quota_is_reported_plainly_and_not_retried() -> None:
+    from engine.llm.client import ModelError
+
+    model = ScriptedModel()
+    model.push("reconstruct", ModelError("reconstruct: daily quota exhausted", status=429, quota_exhausted=True))
+    model.push("crosscheck", ModelError("reconstruct: daily quota exhausted", status=429, quota_exhausted=True))
+    with client(model) as c:
+        grant = c.post("/v1/session").json()
+        url = f"/v1/session/{grant['session_id']}/ws?token={grant['token']}"
+        with c.websocket_connect(url, headers=ORIGIN) as ws:
+            ws.send_text(frame_msg(1))
+            ws.send_bytes(sheet_frame(ROWS))
+            err = until(ws, "error")
+            assert err["code"] == "engine_busy" and "daily limit" in err["message"]
+            ws.send_text(frame_msg(2))
+            ws.send_bytes(sheet_frame(ROWS, marker="2"))
+            assert until(ws, "status")["stage"] in ("busy", "idle")
+    assert len(model.calls) == 2

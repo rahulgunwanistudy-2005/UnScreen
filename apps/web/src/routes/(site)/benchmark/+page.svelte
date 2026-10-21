@@ -35,7 +35,8 @@
 					: 'no cross-check read (it was added after this run)'}; image resolution {run.models.image_resolution}. Source:
 				<code>{run.file}</code>.
 			</p>
-			<div class="scroll" role="region" aria-label="{title}, results table" tabindex="-1">
+			<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
+			<div class="scroll" role="region" aria-label="{title}, results table, scrollable" tabindex="0">
 				<table>
 					<caption class="visually-hidden">{title}: UnScreen and OCR by content type</caption>
 					<thead>
@@ -97,6 +98,8 @@
 				The real reader app watching a scripted spreadsheet that edits itself, through the real engine and the Gemini API.
 				Changes come from the fixture's own record of what it edited.
 			</p>
+			<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
+			<div class="scroll" role="region" aria-label="Live loop runs, scrollable" tabindex="0">
 			<table>
 				<caption class="visually-hidden">Live loop runs</caption>
 				<thead>
@@ -122,6 +125,7 @@
 					{/each}
 				</tbody>
 			</table>
+			</div>
 		</section>
 	{/if}
 
@@ -154,12 +158,15 @@
 		<h2 id="failed">What failed</h2>
 		<ul>
 			<li>
-				<strong>Speed.</strong> The target was an announcement within 3.5 seconds of a change. Measured times are tens of
-				seconds, almost all of it waiting on the Gemini API: the key used here is rate limited (HTTP 429) and queued.
+				<strong>Speed.</strong> The target was an announcement within 3.5 seconds of a change. The times measured with
+				Gemini are tens of seconds, but they are not the model's speed: the key used was on Gemini's free tier, which allows
+				20 requests per day per model. Calls refused with HTTP 429 were retried with backoff, and that waiting is counted.
+				Without the model, UnScreen's own share is shown above.
 			</li>
 			<li>
-				<strong>Some frames never came back</strong> from the API (timeouts and connection errors); they are counted above as
-				not read.
+				<strong>Some frames were never read</strong> because the daily free-tier quota ran out mid-run. They are counted above
+				as not read. The full benchmark across code, slides and all resolutions needs about 240 model calls and was not run on
+				the free tier.
 			</li>
 			<li>
 				<strong>Digits in compressed video.</strong> On one frame, 4 of 105 cells had a digit misread (6 and 8, 9 and 3). A
@@ -181,6 +188,7 @@
 	}
 	.scroll {
 		overflow-x: auto;
+		max-width: 100%;
 	}
 	table {
 		border-collapse: collapse;

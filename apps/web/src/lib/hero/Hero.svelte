@@ -190,8 +190,14 @@
 		inset: 0;
 		transition: opacity 400ms ease;
 	}
+	.stage.done {
+		aspect-ratio: auto !important;
+	}
 	.stage.done .layer {
 		opacity: 0;
+	}
+	.stage.done .final {
+		position: relative;
 	}
 	canvas {
 		width: 100%;
@@ -210,25 +216,22 @@
 		background: var(--paper);
 		color: var(--ink);
 		border-bottom: 1px solid var(--rule);
-		opacity: 0;
-		transform: scale(0.96);
-		transition:
-			opacity 180ms ease,
-			transform 180ms ease;
+		visibility: hidden;
 	}
 	.cell.head {
 		font-weight: 800;
 		border-bottom: 2px solid var(--ink);
 	}
 	.cell.on {
-		opacity: 1;
-		transform: none;
+		visibility: visible;
 		animation: flash 900ms ease-out;
 	}
 	@keyframes flash {
 		from {
-			background: var(--signal);
-			color: var(--on-signal);
+			box-shadow: inset 0 0 0 3px var(--signal);
+		}
+		to {
+			box-shadow: inset 0 0 0 0 var(--signal);
 		}
 	}
 	.final {

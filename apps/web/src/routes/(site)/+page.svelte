@@ -77,7 +77,7 @@
 			<p>
 				{o.unscreen.frames} test frames ({kinds.join(', ')}): {variants.join('; ')}. Compared with Tesseract OCR, given
 				extra help to find table cells. Run on {date(run.run_at)} with {run.models.reconstruct}{o.errors
-					? `; ${o.errors} more frames failed to return from the API and are not counted`
+					? `; ${o.errors} more frames were not read because the free-tier API quota ran out, and are not counted`
 					: ''}.
 			</p>
 			<table class="numbers">

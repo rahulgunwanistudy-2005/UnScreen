@@ -44,6 +44,10 @@ class Breaker:
     def success(self) -> None:
         self.failures = 0
 
+    def open_for(self, seconds: float) -> None:
+        self.open_until = time.monotonic() + seconds
+        self.failures = 0
+
     def failure(self) -> bool:
         """Record a failure; True if this opened the breaker."""
         self.failures += 1

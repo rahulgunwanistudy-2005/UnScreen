@@ -51,3 +51,11 @@ def test_cost_uses_published_prices() -> None:
     meter = CostMeter()
     meter.add("reconstruct", r)
     assert meter.calls == 1 and meter.by_purpose["reconstruct"] == pytest.approx(cost_usd(r))
+
+
+def test_daily_quota_message_is_detected() -> None:
+    from engine.llm.client import _is_daily_quota
+
+    assert _is_daily_quota(Exception("Quota exceeded for metric: generate_content_free_tier_requests, limit: 20"))
+    assert _is_daily_quota(Exception("GenerateRequestsPerDayPerProjectPerModel-FreeTier"))
+    assert not _is_daily_quota(Exception("429 Too Many Requests"))
