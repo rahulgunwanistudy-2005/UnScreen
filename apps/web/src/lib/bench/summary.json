@@ -1,5 +1,8 @@
 {
  "kill": {
+  "failures": {
+   "timeout or connection error": 4
+  },
   "file": "bench/results/2026-10-21-kill-v4.json",
   "run_at": "2026-10-21T16:33:04+00:00",
   "models": {
@@ -150,6 +153,317 @@
   },
   "frames": 10
  },
+ "models": [
+  {
+   "failures": {
+    "output cut off by the free-tier token limit": 7
+   },
+   "file": "bench/results/2026-10-21-kill-groq.json",
+   "run_at": "2026-10-21T22:34:22+00:00",
+   "models": {
+    "reconstruct": "groq:qwen/qwen3.8-27b",
+    "verify": "gemini-3.5-flash-lite",
+    "thinking_level": "minimal",
+    "image_resolution": "high",
+    "cross_check": false
+   },
+   "overall": {
+    "unscreen": {
+     "frames": 3,
+     "items": 220,
+     "exact_match": 0.6091,
+     "cer": 0.4332,
+     "hallucination_rate": 0.0147,
+     "structure_accuracy": 1.0,
+     "text_recall": 0.6091,
+     "flagged": 9,
+     "flagged_wrong": 9
+    },
+    "ocr": {
+     "frames": 10,
+     "items": 775,
+     "exact_match": 0.4129,
+     "cer": 0.4908,
+     "hallucination_rate": 0.4984,
+     "structure_accuracy": 0.796,
+     "text_recall": 0.5187,
+     "flagged": 0,
+     "flagged_wrong": 0
+    },
+    "ocr_config": "psm6x2",
+    "ocr_by_config": {
+     "psm3x1": {
+      "frames": 10,
+      "items": 775,
+      "exact_match": 0.0052,
+      "cer": 1.0223,
+      "hallucination_rate": 0.9619,
+      "structure_accuracy": 0.5,
+      "text_recall": 0.0103,
+      "flagged": 0,
+      "flagged_wrong": 0
+     },
+     "psm6x2": {
+      "frames": 10,
+      "items": 775,
+      "exact_match": 0.4129,
+      "cer": 0.4908,
+      "hallucination_rate": 0.4984,
+      "structure_accuracy": 0.796,
+      "text_recall": 0.5187,
+      "flagged": 0,
+      "flagged_wrong": 0
+     },
+     "psm11x2": {
+      "frames": 10,
+      "items": 775,
+      "exact_match": 0.0503,
+      "cer": 0.9318,
+      "hallucination_rate": 0.9416,
+      "structure_accuracy": 0.1554,
+      "text_recall": 0.3239,
+      "flagged": 0,
+      "flagged_wrong": 0
+     }
+    },
+    "content_type_accuracy": 0.6667,
+    "errors": 7,
+    "latency_ms": {
+     "p50": 54516.0,
+     "p95": 55955.0,
+     "max": 55955.0
+    },
+    "cost_usd_per_frame": 0.006246,
+    "calls_per_frame": 1.67
+   },
+   "groups": {
+    "sheet/1080p-degraded": {
+     "unscreen": {
+      "frames": 3,
+      "items": 220,
+      "exact_match": 0.6091,
+      "cer": 0.4332,
+      "hallucination_rate": 0.0147,
+      "structure_accuracy": 1.0,
+      "text_recall": 0.6091,
+      "flagged": 9,
+      "flagged_wrong": 9
+     },
+     "ocr": {
+      "frames": 10,
+      "items": 775,
+      "exact_match": 0.4129,
+      "cer": 0.4908,
+      "hallucination_rate": 0.4984,
+      "structure_accuracy": 0.796,
+      "text_recall": 0.5187,
+      "flagged": 0,
+      "flagged_wrong": 0
+     },
+     "ocr_config": "psm6x2",
+     "ocr_by_config": {
+      "psm3x1": {
+       "frames": 10,
+       "items": 775,
+       "exact_match": 0.0052,
+       "cer": 1.0223,
+       "hallucination_rate": 0.9619,
+       "structure_accuracy": 0.5,
+       "text_recall": 0.0103,
+       "flagged": 0,
+       "flagged_wrong": 0
+      },
+      "psm6x2": {
+       "frames": 10,
+       "items": 775,
+       "exact_match": 0.4129,
+       "cer": 0.4908,
+       "hallucination_rate": 0.4984,
+       "structure_accuracy": 0.796,
+       "text_recall": 0.5187,
+       "flagged": 0,
+       "flagged_wrong": 0
+      },
+      "psm11x2": {
+       "frames": 10,
+       "items": 775,
+       "exact_match": 0.0503,
+       "cer": 0.9318,
+       "hallucination_rate": 0.9416,
+       "structure_accuracy": 0.1554,
+       "text_recall": 0.3239,
+       "flagged": 0,
+       "flagged_wrong": 0
+      }
+     },
+     "content_type_accuracy": 0.6667,
+     "errors": 7,
+     "latency_ms": {
+      "p50": 54516.0,
+      "p95": 55955.0,
+      "max": 55955.0
+     },
+     "cost_usd_per_frame": 0.006246,
+     "calls_per_frame": 1.67
+    }
+   },
+   "frames": 10
+  },
+  {
+   "failures": {
+    "timeout or connection error": 4
+   },
+   "file": "bench/results/2026-10-21-kill-v4.json",
+   "run_at": "2026-10-21T16:33:04+00:00",
+   "models": {
+    "reconstruct": "gemini-3.6-flash",
+    "verify": "gemini-3.5-flash-lite",
+    "thinking_level": "minimal",
+    "image_resolution": "high"
+   },
+   "overall": {
+    "unscreen": {
+     "frames": 6,
+     "items": 459,
+     "exact_match": 0.9913,
+     "cer": 0.0016,
+     "hallucination_rate": 0.0087,
+     "structure_accuracy": 1.0,
+     "text_recall": 0.9913,
+     "flagged": 0,
+     "flagged_wrong": 0
+    },
+    "ocr": {
+     "frames": 10,
+     "items": 775,
+     "exact_match": 0.4129,
+     "cer": 0.4908,
+     "hallucination_rate": 0.4984,
+     "structure_accuracy": 0.796,
+     "text_recall": 0.5187,
+     "flagged": 0,
+     "flagged_wrong": 0
+    },
+    "ocr_config": "psm6x2",
+    "ocr_by_config": {
+     "psm3x1": {
+      "frames": 10,
+      "items": 775,
+      "exact_match": 0.0052,
+      "cer": 1.0223,
+      "hallucination_rate": 0.9619,
+      "structure_accuracy": 0.5,
+      "text_recall": 0.0103,
+      "flagged": 0,
+      "flagged_wrong": 0
+     },
+     "psm6x2": {
+      "frames": 10,
+      "items": 775,
+      "exact_match": 0.4129,
+      "cer": 0.4908,
+      "hallucination_rate": 0.4984,
+      "structure_accuracy": 0.796,
+      "text_recall": 0.5187,
+      "flagged": 0,
+      "flagged_wrong": 0
+     },
+     "psm11x2": {
+      "frames": 10,
+      "items": 775,
+      "exact_match": 0.0503,
+      "cer": 0.9318,
+      "hallucination_rate": 0.9416,
+      "structure_accuracy": 0.1554,
+      "text_recall": 0.3239,
+      "flagged": 0,
+      "flagged_wrong": 0
+     }
+    },
+    "content_type_accuracy": 1.0,
+    "errors": 4,
+    "latency_ms": {
+     "p50": 74498.5,
+     "p95": 106927.0,
+     "max": 106927.0
+    },
+    "cost_usd_per_frame": 0.005346,
+    "calls_per_frame": 1.0
+   },
+   "groups": {
+    "sheet/1080p-degraded": {
+     "unscreen": {
+      "frames": 6,
+      "items": 459,
+      "exact_match": 0.9913,
+      "cer": 0.0016,
+      "hallucination_rate": 0.0087,
+      "structure_accuracy": 1.0,
+      "text_recall": 0.9913,
+      "flagged": 0,
+      "flagged_wrong": 0
+     },
+     "ocr": {
+      "frames": 10,
+      "items": 775,
+      "exact_match": 0.4129,
+      "cer": 0.4908,
+      "hallucination_rate": 0.4984,
+      "structure_accuracy": 0.796,
+      "text_recall": 0.5187,
+      "flagged": 0,
+      "flagged_wrong": 0
+     },
+     "ocr_config": "psm6x2",
+     "ocr_by_config": {
+      "psm3x1": {
+       "frames": 10,
+       "items": 775,
+       "exact_match": 0.0052,
+       "cer": 1.0223,
+       "hallucination_rate": 0.9619,
+       "structure_accuracy": 0.5,
+       "text_recall": 0.0103,
+       "flagged": 0,
+       "flagged_wrong": 0
+      },
+      "psm6x2": {
+       "frames": 10,
+       "items": 775,
+       "exact_match": 0.4129,
+       "cer": 0.4908,
+       "hallucination_rate": 0.4984,
+       "structure_accuracy": 0.796,
+       "text_recall": 0.5187,
+       "flagged": 0,
+       "flagged_wrong": 0
+      },
+      "psm11x2": {
+       "frames": 10,
+       "items": 775,
+       "exact_match": 0.0503,
+       "cer": 0.9318,
+       "hallucination_rate": 0.9416,
+       "structure_accuracy": 0.1554,
+       "text_recall": 0.3239,
+       "flagged": 0,
+       "flagged_wrong": 0
+      }
+     },
+     "content_type_accuracy": 1.0,
+     "errors": 4,
+     "latency_ms": {
+      "p50": 74498.5,
+      "p95": 106927.0,
+      "max": 106927.0
+     },
+     "cost_usd_per_frame": 0.005346,
+     "calls_per_frame": 1.0
+    }
+   },
+   "frames": 10
+  }
+ ],
  "live": [
   {
    "file": "bench/results/2026-10-21-live-smoke.json",
@@ -175,17 +489,17 @@
  ],
  "pipeline": {
   "file": "bench/results/2026-10-21-pipeline-overhead.json",
-  "run_at": "2026-10-21T21:38:31.716Z",
+  "run_at": "2026-10-21T21:51:06.539Z",
   "note": "Scripted vision model (answers from fixture truth); measures capture, change gate, engine pipeline and announcer only.",
   "edits": 5,
   "latencies_ms": [
-   2701,
-   2691,
-   2645,
-   2658,
-   2671
+   2624,
+   2627,
+   2612,
+   2592,
+   2616
   ],
-  "p50_ms": 2671,
-  "max_ms": 2701
+  "p50_ms": 2616,
+  "max_ms": 2627
  }
 }

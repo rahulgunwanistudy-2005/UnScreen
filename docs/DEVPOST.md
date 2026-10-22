@@ -50,7 +50,7 @@ SvelteKit, Svelte 5, TypeScript, Python, FastAPI, Pydantic, Google Gemini API (`
 | Wrong but stated as fact | 0.9% | 49.8% |
 | Found values in the right row and column | 100% | 79.6% |
 
-**UnScreen's own latency:** with a scripted model that answers instantly, an edit is spoken 2.7 s later (median of 5 edits, max 2.7 s). Latency with Gemini could not be measured fairly; see Limitations.
+**UnScreen's own latency:** with a scripted model that answers instantly, an edit is spoken 2.6–2.7 s later (median of 5 edits, in each of two runs). Latency with Gemini could not be measured fairly; see Limitations.
 
 **Accessibility checks:** axe-core reports zero violations on every page in light and dark themes. Lighthouse accessibility scores 100 on all five pages.
 
@@ -60,6 +60,7 @@ SvelteKit, Svelte 5, TypeScript, Python, FastAPI, Pydantic, Google Gemini API (`
 
 - **Keeping a screen reader's place while the page changes.** Replacing a table makes NVDA lose its position, so updates had to be surgical: stable ids minted once, id-aware JSON patches, and in-place application. We wrote a test that holds focus through 20 patches and checked that it fails when the view is rebuilt.
 - **Never stating a guess as fact.** One meeting-codec frame had four digits misread with full confidence (6 for 8, 9 for 3). We added an independent second read; disagreements are marked unclear. It catches most such cells, not all.
+- **Choosing a model.** UnScreen can use Gemini, Groq or Mistral through one interface. On the same 10 frames, Groq's Qwen 3.8 generated a read in about 1.5 seconds, but on the free tier 7 of 10 reads were cut off by its 1,000-token-per-minute output limit, and the 3 it finished averaged 60.9% exact, against Gemini's 99.1%. Mistral could not be tested: the key's workspace had a limit of zero requests.
 - **The free tier.** Our Gemini key allowed 20 requests per day per model. We first misread the resulting 429 retries as slow models, until we read the quota in the error body.
 
 ## Accomplishments
@@ -70,7 +71,7 @@ SvelteKit, Svelte 5, TypeScript, Python, FastAPI, Pydantic, Google Gemini API (`
 
 ## Limitations
 
-- **Latency with the model is unproven.** UnScreen's own share is 2.7 s. Measurements with Gemini ran on a free-tier key (20 requests per day per model) and include waiting after refused requests, so they show tens of seconds that do not reflect the model's speed.
+- **Latency with the model is unproven.** UnScreen's own share is 2.6–2.7 s. Measurements with Gemini ran on a free-tier key (20 requests per day per model) and include waiting after refused requests, so they show tens of seconds that do not reflect the model's speed.
 - The benchmark covers 6 spreadsheet frames. Code and slides are built and unit-tested, but their accuracy was not benchmarked because of the quota.
 - Pointer and Ask work end to end with scripted model responses in tests; they have not yet been tried against live Gemini.
 - Frames are sent to Google's Gemini API. On the free tier, Google may use them to improve products and humans may review them. Do not use UnScreen for confidential meetings on a free key.

@@ -49,7 +49,7 @@ export type LiveRun = {
 
 export type Pipeline = { file: string; run_at: string; note: string; edits: number; latencies_ms: number[]; p50_ms: number; max_ms: number };
 
-export const bench = summary as { full?: Run; kill?: Run; live?: LiveRun[]; pipeline?: Pipeline };
+export const bench = summary as { full?: Run; kill?: Run; models?: Run[]; live?: LiveRun[]; pipeline?: Pipeline };
 
 /** The headline run: the full benchmark when it exists, otherwise the Day-1 kill test. */
 export const headline: { run: Run; label: string } | null = bench.full

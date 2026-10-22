@@ -1,5 +1,6 @@
 """Model calls: full reconstruct, region re-read and verification reads."""
 
+import asyncio
 import logging
 from dataclasses import dataclass
 
@@ -9,6 +10,7 @@ from engine.config import Settings
 from engine.llm import prompts
 from engine.llm.client import ImagePart, ModelError, VisionModel, VisionRequest, VisionResult
 from engine.llm.cost import CostMeter
+from engine.llm.providers import max_images
 from engine.llm.schemas import (
     AskAnswer,
     CodeRegionRead,
@@ -85,14 +87,18 @@ class Reader:
         return await self._call("region_code", self._settings.region_model, prompt, CodeRegionRead, [data], mime)
 
     async def verify(self, frame: DecodedFrame, boxes: list[Box], kind: str) -> Timed[list[Reading]]:
+        """One read per crop, split into parallel batches when the model takes few images per request."""
+        model = self._settings.verify_model
+        size = max_images(model)
+        batches = [boxes[i : i + size] for i in range(0, len(boxes), size)]
+        results = await asyncio.gather(*(self._verify_batch(frame, batch, kind, model) for batch in batches))
+        readings = [r for timed in results for r in timed.value]
+        return Timed(readings, max((t.latency_ms for t in results), default=0))
+
+    async def _verify_batch(self, frame: DecodedFrame, boxes: list[Box], kind: str, model: str) -> Timed[list[Reading]]:
         images = [encode(crop(frame, b, upscale=VERIFY_UPSCALE))[0] for b in boxes]
         timed = await self._call(
-            f"verify_{kind}",
-            self._settings.verify_model,
-            prompts.verify(len(boxes), kind),
-            VerifyRead,
-            images,
-            "image/png",
+            f"verify_{kind}", model, prompts.verify(len(boxes), kind), VerifyRead, images, "image/png"
         )
         readings = timed.value.readings
         if len(readings) != len(boxes):

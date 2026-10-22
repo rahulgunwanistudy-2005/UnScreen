@@ -13,6 +13,8 @@ RESULTS = ROOT / "results"
 TARGET = ROOT.parent / "apps" / "web" / "src" / "lib" / "bench" / "summary.json"
 README = ROOT.parent / "README.md"
 START, END = "<!-- bench:start -->", "<!-- bench:end -->"
+COMPARED_RUNS = ("v4", "groq", "mistral")
+"""Kill-test runs on the same 10 frames, one per model, without the cross-check read."""
 VARIANTS = {"720p": "720p", "1080p": "1080p", "1080p-degraded": "meeting window, 720p, lossy"}
 
 
@@ -23,8 +25,27 @@ def latest(pattern: str) -> tuple[str, dict[str, Any]] | None:
     return files[-1].name, json.loads(files[-1].read_text())
 
 
+def failure_reasons(data: dict[str, Any]) -> dict[str, int]:
+    reasons: dict[str, int] = {}
+    for f in data["frames"]:
+        err = f.get("error") or ""
+        if not err:
+            continue
+        if "max completion tokens" in err or "truncated" in err:
+            key = "output cut off by the free-tier token limit"
+        elif "quota" in err or "429" in err:
+            key = "free-tier quota or rate limit"
+        elif "Timeout" in err or "Connection" in err:
+            key = "timeout or connection error"
+        else:
+            key = "other API error"
+        reasons[key] = reasons.get(key, 0) + 1
+    return reasons
+
+
 def reconstruct_summary(name: str, data: dict[str, Any]) -> dict[str, Any]:
     return {
+        "failures": failure_reasons(data),
         "file": f"bench/results/{name}",
         "run_at": data["run_at"],
         "models": data["models"],
@@ -84,6 +105,25 @@ def readme_section(out: dict[str, Any]) -> str:
             else "Latency: not measured."
         )
         lines += ["", timing, ""]
+    if models := out.get("models"):
+        lines += [
+            "**Same 10 frames, one model each** (spreadsheets in a meeting window, no cross-check):",
+            "",
+            "| Model | Read | Exact | Wrong as fact | Right place | Median time per frame | Not read because |",
+            "| --- | --- | --- | --- | --- | --- | --- |",
+        ]
+        for m in models:
+            o = m["overall"]
+            u = o["unscreen"]
+            p50 = o["latency_ms"]["p50"]
+            lines.append(
+                f"| `{m['models']['reconstruct']}` | {u['frames']} of {u['frames'] + o['errors']} | {pct(u['exact_match'])} "
+                f"| {pct(u['hallucination_rate'])} | {pct(u['structure_accuracy'])} | "
+                f"{'n/a' if p50 is None else f'{p50 / 1000:.1f} s'} | "
+                + ("; ".join(f"{k} ({v})" for k, v in m["failures"].items()) or "n/a")
+                + " |"
+            )
+        lines.append("")
     if pipe := out.get("pipeline"):
         lines.append(
             f"**Without the model** ({pipe['run_at'][:10]}): with a scripted model answering instantly, an edit is spoken "
@@ -120,6 +160,9 @@ def main() -> None:
         out["full"] = reconstruct_summary(*full)
     if kill := latest("*-kill-v4.json"):
         out["kill"] = reconstruct_summary(*kill)
+    compare = [p for p in sorted(RESULTS.glob("*-kill-*.json")) if p.stem.split("-kill-")[1] in COMPARED_RUNS]
+    if compare:
+        out["models"] = [reconstruct_summary(p.name, json.loads(p.read_text())) for p in compare]
     live = [live_summary(p.name, json.loads(p.read_text())) for p in sorted(RESULTS.glob("*-live-*.json"))]
     if live:
         out["live"] = live

@@ -78,6 +78,44 @@
 		</section>
 	{/each}
 
+	{#if bench.models && bench.models.length > 1}
+		<section aria-labelledby="models">
+			<h2 id="models">Comparing models</h2>
+			<p>
+				The same 10 spreadsheet frames, shared inside a meeting window, read by one model each with no cross-check. Times
+				include waiting caused by free-tier limits, so compare them with care.
+			</p>
+			<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
+			<div class="scroll" role="region" aria-label="Model comparison, scrollable" tabindex="0">
+				<table>
+					<caption class="visually-hidden">Reading accuracy by model</caption>
+					<thead>
+						<tr>
+							<th scope="col">Model</th>
+							<th scope="col">Read</th>
+							<th scope="col">Exact</th>
+							<th scope="col">Wrong as fact</th>
+							<th scope="col">Right place</th>
+							<th scope="col">Median time per frame</th>
+						</tr>
+					</thead>
+					<tbody>
+						{#each bench.models as m (m.file)}
+							<tr>
+								<th scope="row">{m.models.reconstruct}</th>
+								<td>{done(m.overall)}</td>
+								<td>{pct(m.overall.unscreen.exact_match)}</td>
+								<td>{pct(m.overall.unscreen.hallucination_rate)}</td>
+								<td>{pct(m.overall.unscreen.structure_accuracy)}</td>
+								<td>{secs(m.overall.latency_ms.p50)}</td>
+							</tr>
+						{/each}
+					</tbody>
+				</table>
+			</div>
+		</section>
+	{/if}
+
 	{#if bench.pipeline}
 		<section aria-labelledby="overhead">
 			<h2 id="overhead">UnScreen's own latency</h2>

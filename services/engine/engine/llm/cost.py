@@ -6,6 +6,8 @@ from dataclasses import dataclass, field
 from engine.llm.client import VisionResult
 
 PRICES_PER_MTOK: dict[str, tuple[float, float]] = {
+    # https://console.groq.com/docs/model/qwen/qwen3.8-27b (fetched 2026-10-22)
+    "groq:qwen/qwen3.8-27b": (0.80, 4.00),
     "gemini-3.8-flash": (0.75, 3.75),
     "gemini-3.6-flash": (0.75, 3.75),
     "gemini-3-flash-preview": (0.50, 3.00),
@@ -15,8 +17,12 @@ PRICES_PER_MTOK: dict[str, tuple[float, float]] = {
 }
 
 
-def cost_usd(result: VisionResult) -> float:
-    price_in, price_out = PRICES_PER_MTOK.get(result.model, (0.0, 0.0))
+def cost_usd(result: VisionResult) -> float | None:
+    """None when no published price is on record for the model (we never guess one)."""
+    prices = PRICES_PER_MTOK.get(result.model)
+    if prices is None:
+        return None
+    price_in, price_out = prices
     out_tokens = result.usage.output_tokens + result.usage.thought_tokens
     return (result.usage.input_tokens * price_in + out_tokens * price_out) / 1_000_000
 
@@ -28,6 +34,7 @@ class CostMeter:
     output_tokens: int = 0
     thought_tokens: int = 0
     usd: float = 0.0
+    unpriced_calls: int = 0
     by_purpose: dict[str, float] = field(default_factory=dict)
 
     def add(self, purpose: str, result: VisionResult) -> None:
@@ -36,5 +43,8 @@ class CostMeter:
         self.output_tokens += result.usage.output_tokens
         self.thought_tokens += result.usage.thought_tokens
         c = cost_usd(result)
+        if c is None:
+            self.unpriced_calls += 1
+            return
         self.usd += c
         self.by_purpose[purpose] = self.by_purpose.get(purpose, 0.0) + c

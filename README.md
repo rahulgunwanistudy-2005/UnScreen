@@ -35,7 +35,14 @@ Anything UnScreen cannot read with confidence is shown as *unclear* or *unreadab
 
 Reconstruction time per frame: median 74.5 s, p95 106.9 s. Cost per frame: $0.0053.
 
-**Without the model** (2026-10-21): with a scripted model answering instantly, an edit is spoken 2.7 s later (median of 5 edits, max 2.7 s). This is UnScreen's own share of the latency: capture, change gate, engine and announcement coalescing.
+**Same 10 frames, one model each** (spreadsheets in a meeting window, no cross-check):
+
+| Model | Read | Exact | Wrong as fact | Right place | Median time per frame | Not read because |
+| --- | --- | --- | --- | --- | --- | --- |
+| `groq:qwen/qwen3.8-27b` | 3 of 10 | 60.9% | 1.5% | 100.0% | 54.5 s | output cut off by the free-tier token limit (7) |
+| `gemini-3.6-flash` | 6 of 10 | 99.1% | 0.9% | 100.0% | 74.5 s | timeout or connection error (4) |
+
+**Without the model** (2026-10-21): with a scripted model answering instantly, an edit is spoken 2.6 s later (median of 5 edits, max 2.6 s). This is UnScreen's own share of the latency: capture, change gate, engine and announcement coalescing.
 
 **Live loop** (sheet, 2026-10-21): no frame was read; the API returned rate-limit errors and timeouts (1 engine error). Nothing was announced.
 
@@ -122,7 +129,7 @@ SvelteKit, Svelte 5, TypeScript, Python, FastAPI, Pydantic, Google Gemini API (`
 
 ## Limitations
 
-- **Latency with the model is unproven.** UnScreen's own share is 2.7 s (median, scripted model). Measurements with Gemini were made on a free-tier key (20 requests per day per model), where refused calls were retried, so they show tens of seconds that are not the model's speed. See [`/benchmark`](apps/web/src/routes/(site)/benchmark/+page.svelte).
+- **Latency with the model is unproven.** UnScreen's own share is 2.6–2.7 s (median, two runs with a scripted model). Measurements with Gemini were made on a free-tier key (20 requests per day per model), where refused calls were retried, so they show tens of seconds that are not the model's speed. See [`/benchmark`](apps/web/src/routes/(site)/benchmark/+page.svelte).
 - Reading depends on Gemini; frames are sent to Google ([privacy](apps/web/src/routes/(site)/privacy/+page.svelte)). There is no offline mode.
 - Tested on generated fixtures and Chrome on macOS. Manual NVDA results are in [`docs/research/results.md`](docs/research) only once sessions have happened.
 - Pointer and Ask are tested with scripted model responses only, not yet against live Gemini.

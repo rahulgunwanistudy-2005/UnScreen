@@ -42,3 +42,14 @@ Sources: https://webaim.org/techniques/aria/, NVDA browse-mode docs (https://www
 ## Not verified (could not find a primary source)
 
 - A Chromium switch that auto-selects a tab by title for `getDisplayMedia` in automation. End-to-end tests therefore stub `getDisplayMedia` with a canvas stream fed by the fixture page (see `DECISIONS.md`).
+
+## Groq and Mistral (fetched 2026-10-22)
+
+Sources: https://console.groq.com/docs/vision, /docs/structured-outputs, /docs/model/qwen/qwen3.8-27b; Mistral OpenAPI spec (https://docs.mistral.ai/openapi.yaml) and https://docs.mistral.ai/capabilities/vision/
+
+- **Groq vision models:** `qwen/qwen3.8-27b` (the only one this key lists) and `meta-models/muse-spark-open` (limited preview). Qwen: 3 images per request, each counted as 2,048 input tokens, 20 MB max; 131,072-token context, 16,384 max output; reasoning by default, turned off with `reasoning_effort: "none"`. Price: $0.80 input, $4.00 output per 1M tokens.
+- **Groq structured output:** `response_format: {type: "json_schema", json_schema: {name, schema, strict: true}}` on `qwen/qwen3.8-27b` and others. Strict mode needs every property required and `additionalProperties: false`.
+- **Groq free tier, as observed:** output-tokens-per-minute limit of 1,000 for this model (from a 429 body); a request whose `max_completion_tokens` exceeds it is refused outright.
+- **Mistral vision models listed for this key:** `mistral-medium-latest` (Medium 3.5), `mistral-small-latest` (2603), `ministral-{3b,8b,14b}-latest`, `magistral-{small,medium}-latest`, `mistral-ocr-latest`.
+- **Mistral request shape:** image chunk `{"type": "image_url", "image_url": "data:…"}` (string or `{url}`); `response_format` `{type: "json_schema", json_schema: {name, schema, strict}}`.
+- **Mistral key status, as observed:** every call returns 429 with `x-ratelimit-limit-req-minute: 0`, meaning the workspace has no active plan. Mistral publishes no per-model API prices on its pricing page; none are assumed.

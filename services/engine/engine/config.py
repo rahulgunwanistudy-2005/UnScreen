@@ -20,6 +20,8 @@ class Settings(BaseSettings):
     )
 
     gemini_api_key: SecretStr | None = Field(default=None, validation_alias="GEMINI_API_KEY")
+    mistral_api_key: SecretStr | None = Field(default=None, validation_alias="MISTRAL_API_KEY")
+    groq_api_key: SecretStr | None = Field(default=None, validation_alias="GROQ_API_KEY")
     llm_mode: LlmMode = "live"
     golden_dir: Path = ENGINE_ROOT / "tests" / "golden" / "responses"
 

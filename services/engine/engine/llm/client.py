@@ -226,7 +226,9 @@ class RecordingVisionModel:
 def build_model(settings: Settings) -> VisionModel:
     if settings.llm_mode == "replay":
         return ReplayVisionModel(settings.golden_dir)
-    live = GeminiVisionModel(settings)
+    from engine.llm.providers import RoutingVisionModel  # providers imports this module
+
+    live: VisionModel = RoutingVisionModel(settings)
     if settings.llm_mode == "record":
         return RecordingVisionModel(live, settings.golden_dir)
     return live

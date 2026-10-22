@@ -153,3 +153,18 @@ async def test_failed_cross_check_falls_back_to_verifying_changes() -> None:
     out = await pipe.process(sheet_frame([["x", "y", "z"]] * 8, marker="big change"))
     assert "verify_cell" in model.purposes()
     assert [a.text for a in out.announces] == ["Acme Corp, Q3 revenue: $1.1M to $1.2M."]
+
+
+async def test_verify_is_batched_for_models_that_take_few_images() -> None:
+    from engine.model.document import Box
+    from engine.pipeline.frames import decode
+
+    model = ScriptedModel()
+    pipe = SessionPipeline(
+        model, Settings(gemini_api_key=None, llm_mode="replay", verify_model="groq:qwen/qwen3.8-27b")
+    )
+    model.push("verify_cell", *[VerifyRead(readings=[Reading(text=str(i), legibility="clear")] * 3) for i in range(2)])
+    boxes = [Box(x0=0, y0=0, x1=100, y1=50)] * 5
+    timed = await pipe.reader.verify(decode(sheet_frame(ROWS)), boxes, "cell")
+    assert len(model.calls) == 2 and [len(c.images) for c in model.calls] == [3, 2]
+    assert len(timed.value) == 5
