@@ -30,10 +30,19 @@ export class ReaderSession {
 	readonly doc = new DocStore();
 	recordingSource = $state<string | null>(null);
 	private playbackTimers: ReturnType<typeof setTimeout>[] = [];
-	private speech = new SpeechPreview();
+	speechError = $state('');
+	private speech = new SpeechPreview((message) => (this.speechError = message));
 
 	setHearIt(enabled: boolean): void {
 		this.speech.setEnabled(enabled);
+		if (!enabled) this.speechError = '';
+	}
+
+	/** Called from the Hear it click itself, so the browser counts the speech as user-initiated. */
+	confirmHearIt(): void {
+		this.speechError = '';
+		this.speech.setEnabled(true);
+		this.speech.say('Hear it is on. Announcements will be spoken aloud.');
 	}
 
 	private lastSpoken = '';

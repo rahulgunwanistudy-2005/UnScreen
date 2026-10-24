@@ -6,6 +6,8 @@ test('audible preview is off by default and stops when screen-reader mode is tur
 		Object.defineProperty(window, 'speechSynthesis', { value: {
 			speaking: false,
 			pending: false,
+			resume: () => {},
+			getVoices: () => [],
 			cancel: () => spoken.push('[cancel]'),
 			speak: (utterance: SpeechSynthesisUtterance) => spoken.push(utterance.text)
 		} });
@@ -22,6 +24,7 @@ test('audible preview is off by default and stops when screen-reader mode is tur
 	await page.keyboard.press('Alt+Shift+KeyW');
 	expect((await spokenSoFar()).filter((s) => s !== '[cancel]')).toEqual([]);
 	await hear.check();
+	await expect.poll(spokenSoFar).toContain('Hear it is on. Announcements will be spoken aloud.');
 	await page.keyboard.press('Alt+Shift+KeyW');
 	await expect.poll(spokenSoFar).toContain('Not reading.');
 	await screenReader.check();

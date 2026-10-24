@@ -122,8 +122,9 @@
 			<summary>Hear announcements without a screen reader</summary>
 			<p id="hear-hint">For sighted demos. Leave this off when NVDA, VoiceOver or another screen reader is speaking, to avoid overlapping voices.</p>
 			<label><input type="checkbox" bind:checked={usingScreenReader} /> I am using a screen reader</label>
-			<label><input type="checkbox" bind:checked={hearIt} disabled={usingScreenReader || !speechAvailable} aria-describedby="hear-hint" /> Hear it: speak announcements aloud</label>
+			<label><input type="checkbox" bind:checked={hearIt} disabled={usingScreenReader || !speechAvailable} aria-describedby="hear-hint" onchange={(e) => e.currentTarget.checked && session.confirmHearIt()} /> Hear it: speak announcements aloud</label>
 			{#if !speechAvailable}<p>Speech preview is unavailable in this browser.</p>{/if}
+			{#if session.speechError}<p role="alert">{session.speechError}</p>{/if}
 		</details>
 		<p id="status-line" class="status" class:alarm={session.alert !== ''}>
 			{session.alert || session.status}
