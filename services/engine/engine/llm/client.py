@@ -88,12 +88,19 @@ class ModelError(Exception):
     """The model call failed after retries, or returned something unusable."""
 
     def __init__(
-        self, message: str, *, retryable: bool = False, status: int | None = None, quota_exhausted: bool = False
+        self,
+        message: str,
+        *,
+        retryable: bool = False,
+        status: int | None = None,
+        quota_exhausted: bool = False,
+        not_configured: bool = False,
     ) -> None:
         super().__init__(message)
         self.retryable = retryable
         self.status = status
         self.quota_exhausted = quota_exhausted
+        self.not_configured = not_configured
 
 
 class GoldenMissingError(ModelError):
@@ -121,7 +128,7 @@ def _status_of(exc: Exception) -> int | None:
 class GeminiVisionModel:
     def __init__(self, settings: Settings) -> None:
         if settings.gemini_api_key is None:
-            raise ModelError("GEMINI_API_KEY is not set")
+            raise ModelError("GEMINI_API_KEY is not set", not_configured=True)
         self._client = genai.Client(api_key=settings.gemini_api_key.get_secret_value())
         self._timeout = settings.llm_timeout_s
         self._retries = settings.llm_max_retries

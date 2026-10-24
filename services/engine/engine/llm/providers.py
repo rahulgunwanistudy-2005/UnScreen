@@ -186,7 +186,7 @@ class RoutingVisionModel:
             else:
                 key = s.mistral_api_key if provider == "mistral" else s.groq_api_key
                 if key is None:
-                    raise ModelError(f"{provider.upper()}_API_KEY is not set")
+                    raise ModelError(f"{provider.upper()}_API_KEY is not set", not_configured=True)
                 self._models[provider] = ChatVisionModel(PROVIDERS[provider], key.get_secret_value(), s)
         return self._models[provider]
 

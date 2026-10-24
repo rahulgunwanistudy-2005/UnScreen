@@ -134,3 +134,19 @@ def test_daily_quota_is_reported_plainly_and_not_retried() -> None:
             ws.send_bytes(sheet_frame(ROWS, marker="2"))
             assert until(ws, "status")["stage"] in ("busy", "idle")
     assert len(model.calls) == 2
+
+
+def test_missing_api_key_is_reported_plainly() -> None:
+    from engine.llm.client import ModelError
+
+    model = ScriptedModel()
+    model.push("reconstruct", ModelError("GEMINI_API_KEY is not set", not_configured=True))
+    model.push("crosscheck", ModelError("GEMINI_API_KEY is not set", not_configured=True))
+    with client(model) as c:
+        grant = c.post("/v1/session").json()
+        url = f"/v1/session/{grant['session_id']}/ws?token={grant['token']}"
+        with c.websocket_connect(url, headers=ORIGIN) as ws:
+            ws.send_text(frame_msg(1))
+            ws.send_bytes(sheet_frame(ROWS))
+            err = until(ws, "error")
+            assert err["code"] == "engine_busy" and "no model API key" in err["message"]

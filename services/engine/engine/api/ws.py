@@ -78,7 +78,13 @@ class Connection:
                 continue
             except ModelError as exc:
                 log.warning("session %s model failure: %s", self.session.id, exc)
-                if exc.quota_exhausted:
+                if exc.not_configured:
+                    await self.error(
+                        "engine_busy",
+                        "The reading engine has no model API key configured, so it cannot read the screen. "
+                        "Try Watch a recorded session instead.",
+                    )
+                elif exc.quota_exhausted:
                     breaker.open_for(3600.0)
                     await self.error(
                         "engine_busy",
