@@ -17,7 +17,7 @@
 	let content: HTMLElement;
 	let askPanel: AskPanel;
 	let changesPanel: ChangesPanel;
-	let usingScreenReader = $state(true);
+	let usingScreenReader = $state(false);
 	let hearIt = $state(false);
 	let speechAvailable = $state(false);
 	let recordingError = $state('');
@@ -118,7 +118,7 @@
 		{#if session.recordingSource}
 			<p class="recording-notice"><strong>Recorded session, played at 2× speed.</strong> These are actual engine messages from a real-model run on a generated test sheet. This is a recording, not a live meeting. Source: <code>{session.recordingSource}</code>. Live Ask and pointer requests are disabled during playback.</p>
 		{/if}
-		<details class="audio-preview">
+		<details class="audio-preview" open>
 			<summary>Hear announcements without a screen reader</summary>
 			<p id="hear-hint">For sighted demos. Leave this off when NVDA, VoiceOver or another screen reader is speaking, to avoid overlapping voices.</p>
 			<label><input type="checkbox" bind:checked={usingScreenReader} /> I am using a screen reader</label>

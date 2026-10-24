@@ -9,7 +9,8 @@ export class SpeechPreview {
 
 	say(text: string): void {
 		if (!this.enabled || typeof speechSynthesis === 'undefined') return;
-		speechSynthesis.cancel();
+		// Chrome can drop an utterance queued straight after cancel(), so only cancel when busy.
+		if (speechSynthesis.speaking || speechSynthesis.pending) speechSynthesis.cancel();
 		speechSynthesis.speak(new SpeechSynthesisUtterance(text));
 	}
 

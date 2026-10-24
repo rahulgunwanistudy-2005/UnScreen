@@ -56,11 +56,12 @@ test('a live spreadsheet is rebuilt, edits are announced, and focus survives', a
 		const caption = app.locator('main table caption');
 		await expect(caption).toContainText(truth0.title, { timeout: 20_000 });
 		await expect(app.locator('[role="status"][aria-live="polite"]')).toContainText('Now showing: Spreadsheet');
-		const cells = await app.locator('main table tbody tr').evaluateAll((trs) =>
-			trs.map((tr) => [...tr.children].map((c) => c.textContent!.trim()))
-		);
-		const live: Truth = (await fixture.evaluate(() => window.__truth!())) as Truth;
-		expect(cells).toEqual(live.sheet.rows);
+		// The fixture keeps editing, so compare against its truth until the table catches up.
+		const readCells = () =>
+			app.locator('main table tbody tr').evaluateAll((trs) => trs.map((tr) => [...tr.children].map((c) => c.textContent!.trim())));
+		const readTruth = async () => (await fixture.evaluate(() => window.__truth!())) as Truth;
+		await expect.poll(async () => JSON.stringify(await readCells()) === JSON.stringify((await readTruth()).sheet.rows), { timeout: 20_000 }).toBe(true);
+		const live = await readTruth();
 
 		// Hold focus on a cell while the presenter keeps editing.
 		const firstCell = app.locator('main table tbody tr').first().locator('th, td').nth(1);
