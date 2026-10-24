@@ -64,3 +64,11 @@ The vision model never sees or produces ids. Its response schema (`engine/llm/sc
 | Session expired | A new session starts and a fresh frame is sent. |
 | Share stopped or tab closed | Assertive alert: "Sharing ended. Press Start to read again." |
 | Permission denied | "Sharing was cancelled or blocked. Press Start and choose the meeting tab or window." |
+
+## Daily allowance and retention
+
+Every live provider attempt, including retries and Ask, reserves estimated USD and a call in a shared SQLite ledger before contacting the provider. Successful calls reconcile to measured token usage with prices in `cost.py`; failed or timed-out calls retain their reservation. An unavailable ledger or unknown model price fails closed via the plain-language daily-limit message. UTC dates define reset; zero caps disable paid calls. The ledger contains no frames or content. It must be on a writable persistent volume for a future single-instance host; it is not a distributed billing ledger.
+
+Gemini Interactions requests explicitly set `store=false`. The live engine holds frames only in memory. Fixture screenshots and opted-in golden response recordings are separate benchmark assets.
+
+Full reads with a failed cross-check retain the last verified version. Cross-checks cover sheet cells, code uncertainty and slide/document blocks. An oversized region that cannot be independently verified is marked unclear. Ask refuses unsupported references and declines factual answers based on unclear content. Uncertain old values, newly inserted lines and row/column labels are not announced as confident text.

@@ -2,7 +2,9 @@
 
 **Every screen share, readable by a screen reader, live.**
 
-Zoom, Google Meet and Microsoft Teams send shared content as a picture, so a screen reader can only say that someone is sharing. UnScreen reads the shared tab or window, rebuilds it as a real table, code listing or outline, and announces what changed. It needs nothing from the presenter and works with NVDA, VoiceOver and ChromeVox in any meeting app.
+Local build with measured Gemini fixture runs. Spreadsheet results, code/slide limitations and live-loop failures are reported separately below. Human screen-reader and real Google Meet validation remain pending.
+
+Zoom, Google Meet and Microsoft Teams send shared content as a picture, so a screen reader can only say that someone is sharing. UnScreen reads the shared tab or window, rebuilds it as a real table, code listing or outline, and announces what changed. It needs nothing from the presenter. It is designed for NVDA, VoiceOver and ChromeVox; a human screen-reader pass remains pending.
 
 Built for the Taskforge hackathon (October 17–24, 2026). All code in this repository was written during the event.
 
@@ -27,11 +29,44 @@ Anything UnScreen cannot read with confidence is shown as *unclear* or *unreadab
 ## Results
 
 <!-- bench:start -->
-**Kill test (10 spreadsheets in a meeting window)**, 2026-10-21, reads by `gemini-3.6-flash`, no cross-check read (added after this run):
+**Configuration comparison: gemini-3.6-flash / gemini-3.5-flash-lite**, 2026-10-24, reads by `gemini-3.6-flash`, cross-checked by `gemini-3.5-flash-lite`:
 
-| Frames | Read | Exact (UnScreen) | Exact (OCR) | Wrong as fact (UnScreen) | Wrong as fact (OCR) | Right place (UnScreen) | Right place (OCR) |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| sheet, meeting window, 720p, lossy | 6 of 10 | 99.1% | 41.3% | 0.9% | 49.8% | 100.0% | 79.6% |
+| Frames | Read | Exact (UnScreen) | Exact (OCR) | Wrong as fact (UnScreen) | Wrong as fact (OCR) | Right place (UnScreen) | Right place (OCR) | Marked unclear/unreadable |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| sheet, meeting window, 720p, lossy | 10 of 10 | 99.6% | 41.3% | 0.4% | 49.8% | 100.0% | 79.6% | 4 of 775 |
+
+Reconstruction time per frame: median 11.3 s, p95 12.0 s. Cost per frame: $0.0094.
+
+**Configuration comparison: gemini-3.6-flash / groq:qwen/qwen3.8-27b**, 2026-10-24, reads by `gemini-3.6-flash`, cross-checked by `groq:qwen/qwen3.8-27b`:
+
+| Frames | Read | Exact (UnScreen) | Exact (OCR) | Wrong as fact (UnScreen) | Wrong as fact (OCR) | Right place (UnScreen) | Right place (OCR) | Marked unclear/unreadable |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| sheet, meeting window, 720p, lossy | 1 of 1 | 100.0% | 5.3% | n/a | 77.8% | 100.0% | 80.0% | 75 of 75 |
+
+Reconstruction time per frame: median 7.0 s, p95 7.0 s. Cost per frame: $0.0074.
+
+**Configuration comparison: mistral:mistral-small-2603 / gemini-3.5-flash-lite**, 2026-10-24, reads by `mistral:mistral-small-2603`, cross-checked by `gemini-3.5-flash-lite`:
+
+| Frames | Read | Exact (UnScreen) | Exact (OCR) | Wrong as fact (UnScreen) | Wrong as fact (OCR) | Right place (UnScreen) | Right place (OCR) | Marked unclear/unreadable |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| sheet, meeting window, 720p, lossy | 0 of 1 | n/a | 5.3% | n/a | 77.8% | n/a | 80.0% | 0 of 0 |
+
+Latency: not measured.
+
+**Focused code and slide benchmark**, 2026-10-24, reads by `gemini-3.6-flash`, cross-checked by `gemini-3.5-flash-lite`:
+
+| Frames | Read | Exact (UnScreen) | Exact (OCR) | Wrong as fact (UnScreen) | Wrong as fact (OCR) | Right place (UnScreen) | Right place (OCR) | Marked unclear/unreadable |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| code, meeting window, 720p, lossy | 10 of 10 | 85.1% | 7.5% | 9.2% | 96.1% | 100.0% | 88.0% | 35 of 295 |
+| slide, meeting window, 720p, lossy | 10 of 10 | 62.8% | 48.7% | 7.5% | 53.7% | 100.0% | 100.0% | 29 of 78 |
+
+Reconstruction time per frame: median 11.1 s, p95 13.6 s. Cost per frame: $0.0094.
+
+**Historical kill test (10 spreadsheets in a meeting window)**, 2026-10-21, reads by `gemini-3.6-flash`, no cross-check read (added after this run):
+
+| Frames | Read | Exact (UnScreen) | Exact (OCR) | Wrong as fact (UnScreen) | Wrong as fact (OCR) | Right place (UnScreen) | Right place (OCR) | Marked unclear/unreadable |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| sheet, meeting window, 720p, lossy | 6 of 10 | 99.1% | 41.3% | 0.9% | 49.8% | 100.0% | 79.6% | 0 of 459 |
 
 Reconstruction time per frame: median 74.5 s, p95 106.9 s. Cost per frame: $0.0053.
 
@@ -46,6 +81,12 @@ Reconstruction time per frame: median 74.5 s, p95 106.9 s. Cost per frame: $0.00
 
 **Live loop** (sheet, 2026-10-21): no frame was read; the API returned rate-limit errors and timeouts (1 engine error). Nothing was announced.
 
+**Live loop** (code, 2026-10-24): 6 scripted changes, recall 100.0%, precision 54.5%, change to announcement median 11.2 s.
+
+**Live loop** (sheet, 2026-10-24): 11 scripted changes, recall 100.0%, precision 100.0%, change to announcement median 8.5 s, final table 42 of 42 cells correct.
+
+**Live loop** (sheet, 2026-10-24): 13 scripted changes, recall 100.0%, precision 86.7%, change to announcement median 8.7 s, final table 42 of 42 cells correct.
+
 OCR is Tesseract 5.5 (best of three settings) with help to find table cells; screen reader OCR gets none.
 <!-- bench:end -->
 
@@ -55,19 +96,18 @@ Method, definitions and failures: [`/benchmark`](apps/web/src/routes/(site)/benc
 
 Requirements: Node 24 with pnpm, Python 3.12 with [uv](https://docs.astral.sh/uv/), Chrome or Edge, and a [Gemini API key](https://aistudio.google.com/apikey).
 
-```bash
-git clone https://github.com/rahulgunwanistudy-2005/unscreen.git
-```
+Public source publication is deferred by request. From the supplied `UnScreen` project folder:
 
 ```bash
-cd unscreen && pnpm install && (cd services/engine && uv sync)
+pnpm install
+(cd services/engine && uv sync)
 ```
 
 ```bash
 cp .env.example .env
 ```
 
-Put your key in `.env` as `GEMINI_API_KEY=...`, then start the engine and the web app in two terminals:
+Put your key in `.env` as `GEMINI_API_KEY=...`. Set `UNSCREEN_DAILY_MODEL_USD` to your own spending cap and `UNSCREEN_DAILY_MODEL_CALLS` to your daily call limit. The default USD cap is an estimated guard, not a provider billing guarantee. Then start the engine and web app in two terminals:
 
 ```bash
 pnpm dev:engine
@@ -77,16 +117,16 @@ pnpm dev:engine
 pnpm dev:web
 ```
 
-Open <http://localhost:5173/app>. With no meeting to hand, open <http://localhost:5173/fixture/sheet?seed=1> in another tab (a test spreadsheet that edits itself every 8 seconds), press Start and choose that tab.
+Open <http://localhost:5173/app>. To try the finished reader without paid calls or a meeting, choose **Watch a recorded session**. It replays actual Gemini engine messages from the generated-sheet validation run at twice their original speed, with an explicit recording label. Live Ask and pointer controls are disabled during playback. With no meeting to hand, open <http://localhost:5173/fixture/sheet?seed=1> in another tab (a test spreadsheet that edits itself every 8 seconds), press Start and choose that tab.
 
 ### Checks
 
 ```bash
-cd services/engine && uv run ruff check engine tests && uv run mypy engine && uv run pytest
+cd services/engine && uv run ruff check engine tests && uv run ruff format --check engine tests && uv run mypy engine && uv run pytest --cov=engine.pipeline --cov=engine.model --cov-fail-under=85
 ```
 
 ```bash
-cd apps/web && pnpm check && pnpm exec vitest run && pnpm exec playwright test
+cd apps/web && pnpm check && pnpm lint && pnpm exec vitest run && pnpm exec playwright test
 ```
 
 CI runs the same checks (`.github/workflows/ci.yml`) and never calls the live API: recorded model responses are replayed (`services/engine/tests/golden`).
@@ -105,7 +145,11 @@ cd bench && PYTHONPATH=. uv run --project ../services/engine python -m unscreen_
 cd bench && PYTHONPATH=. uv run --project ../services/engine python -m unscreen_bench.run --concurrency 1
 ```
 
-`node bench/live-run.mjs` measures the live loop (engine on :8787, web on :5173).
+`node bench/live-run.mjs --kind sheet --edits 6 --interval 25000` measures the live loop (engine on :8787, web on :5173). Repeat with `--kind code`. It edits the real fixture page only after the first verified read; latency ends at the polite live region, not an audio device. This canvas-stream harness is not a Google Meet or a human screen-reader test.
+
+Routine browser tests never publish latency results. To deliberately record overhead, run `RECORD_RESULTS=1 pnpm --filter web exec playwright test tests/loop.spec.ts`, then `pnpm bench:publish`. Publishing updates the README, Devpost result section and `/benchmark` from the same result files. Human-validation status comes from `docs/research/results.md`.
+
+The spending ledger lives in `services/engine/.local/model-budget.sqlite3`. Every network attempt reserves estimated USD; successful responses reconcile to token usage, while timeouts and failed attempts retain the reservation. Counts and estimates are shared across sessions, retries and benchmark processes using that path and reset at 00:00 UTC. Unknown prices refuse calls. Do not delete the ledger to reset a cap. For a future hosted instance, use one service instance and a persistent, writable `UNSCREEN_BUDGET_PATH`; separate hosts do not share SQLite accounting.
 
 ## How we built it
 
@@ -129,12 +173,12 @@ SvelteKit, Svelte 5, TypeScript, Python, FastAPI, Pydantic, Google Gemini API (`
 
 ## Limitations
 
-- **Latency with the model is unproven.** UnScreen's own share is 2.6–2.7 s (median, two runs with a scripted model). Measurements with Gemini were made on a free-tier key (20 requests per day per model), where refused calls were retried, so they show tens of seconds that are not the model's speed. See [`/benchmark`](apps/web/src/routes/(site)/benchmark/+page.svelte).
+- **Latency and accuracy have limits.** Current paid-tier measurements are shown above, alongside the historical quota-limited runs. They use generated fixtures, not a real Google Meet. The model still makes errors, and announcements can take several seconds. See [`/benchmark`](apps/web/src/routes/(site)/benchmark/+page.svelte).
 - Reading depends on Gemini; frames are sent to Google ([privacy](apps/web/src/routes/(site)/privacy/+page.svelte)). There is no offline mode.
-- Tested on generated fixtures and Chrome on macOS. Manual NVDA results are in [`docs/research/results.md`](docs/research) only once sessions have happened.
-- Pointer and Ask are tested with scripted model responses only, not yet against live Gemini.
+- Tested on generated fixtures and Chrome on macOS. The pending human checklist is in [`docs/research/results.md`](docs/research/results.md). No human pass or real Google Meet validation has been recorded.
+- Pointer and Ask are exercised by the live-model harness. The first run exposed a cursor-direction bug; the fix and follow-up measurements are documented in the results and progress log.
 - Screen capture needs a desktop browser; it does not work on phones.
-- Digits damaged by video compression can be misread. The second read catches most, not all.
+- Digits damaged by video compression can be misread. Agreeing independent reads can still share an error; cross-checking does not guarantee correctness.
 
 ## Team
 
@@ -143,7 +187,7 @@ SvelteKit, Svelte 5, TypeScript, Python, FastAPI, Pydantic, Google Gemini API (`
 ## Disclosure
 
 - **Pre-existing work:** none. Created October 17–24, 2026.
-- **AI assistance:** built with Claude Code as a coding assistant. At runtime, UnScreen uses Google Gemini to read shared screens.
+- **Runtime model:** UnScreen uses Google Gemini to read shared screens.
 - **Examples:** every spreadsheet, code file and slide shown is a generated test fixture from this repository.
 
 ## Licence

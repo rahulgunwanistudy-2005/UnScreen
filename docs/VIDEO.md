@@ -1,14 +1,20 @@
-# Demo video script (2:00 or less)
+# Demo recording plan — under two minutes
 
-Record on Windows with NVDA speech audible, or on macOS with VoiceOver. Turn on NVDA's Speech Viewer so its text can be captioned. Use a paid-tier Gemini key so the reads come back promptly; on the free tier the demo will stall after 20 requests. Show only fixture content. Add captions, and publish this script alongside as the transcript.
+Status: ready to record locally; no actual video or upload exists. Hosting is excluded by the user. A recording of a local build must be labelled local. Do not imply that the screen reader, real meeting or human study has been tested before it has.
 
-| Time | Picture | Sound and captions |
+The local build includes a genuine recorded-session demo for rehearsal without more model calls. The final human demonstration should still show the actual screen reader and state whether it is using a recording or a live share.
+
+Use Chrome with NVDA on Windows, or VoiceOver on macOS and identify which. Keep Hear it disabled when using a screen reader. NVDA Speech Viewer or VoiceOver's caption panel can help transcribe actual output. Show only owned generated fixture content, with no API keys or personal data.
+
+| Target time | Shot | Audio and caption plan |
 | --- | --- | --- |
-| 0:00–0:15 | A meeting tab (Meet, or the generic meeting fixture `/fixture/sheet?seed=3&frame=meet`) with a spreadsheet shared. Speech Viewer open. | NVDA reads the meeting page: it can only say that someone is presenting. Caption: "This is all a screen reader gets from a shared screen." |
-| 0:15–0:45 | Switch to UnScreen. Press Alt+Shift+S, pick the meeting tab. The table appears. Move with Ctrl+Alt+arrows. | NVDA: "Now showing: Spreadsheet …", then the headers and values as you move. Caption the key lines. |
-| 0:45–1:05 | The presenter edits a cell. Keep focus on a different row. | The polite announcement ("Row, column: old to new"). Show that the focus stayed on the same cell. |
-| 1:05–1:20 | The presenter switches to the code fixture. Press Alt+Shift+P. | "Now showing: Code …", line numbers, then "Pointer is on line N …". |
-| 1:20–1:40 | The `/benchmark` page. | Voice-over: "On compressed meeting frames, UnScreen read 99.1% of cells exactly; OCR, given help, read 41.3%. And only 0.9% of what it stated was wrong." Use the numbers on the page at recording time. |
-| 1:40–2:00 | Limitations and the URL. | "It needs a paid model key to be fast, and it has been tested on fixtures, [with N blind participants / with sighted proxies]. Try it at [URL]." Add a participant quote only with written permission. |
+| 00:00–00:15 | Shared fixture inside a meeting, or a clearly labelled fixture tab if the real meeting has not happened | Explain the picture-only barrier. Do not invent a screen-reader utterance. |
+| 00:15–00:40 | Start UnScreen and choose the tab. Navigate headers and values | Keep actual NVDA/VoiceOver speech audible and transcribe it verbatim. |
+| 00:40–01:00 | Edit one value while focus remains on another | Capture the real announcement and focus behavior. Keep uncertainty warnings and failures. |
+| 01:00–01:20 | Switch to code; pointer and Ask | Show actual results. A failed question is a limitation, not a reason to dub a successful answer. |
+| 01:20–01:40 | Current benchmark page | Cite only the displayed measured result, its date and configuration. |
+| 01:40–01:55 | Privacy, pending validation and local setup | State the actual validation status. Use a public URL only after the user separately publishes it. |
 
-Do not show a value being announced that UnScreen marked unclear. If one occurs, keep it and let it say "possibly changed, unclear"; that is the product working.
+`docs/video/narration-draft.md` and `captions-draft.vtt` are drafts. After recording, make a verbatim `transcript.md`, retime a final `captions.vtt`, check the complete video is under two minutes and verify captions are legible. A written script is not a finished video.
+
+No participant quote may be included without written permission for that exact wording. Do not call sighted proxies blind participants. Upload/submission and public-link checks remain pending; no URL is invented in the Devpost draft.

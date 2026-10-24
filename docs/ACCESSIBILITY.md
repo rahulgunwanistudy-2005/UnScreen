@@ -47,3 +47,9 @@ UnScreen is a screen-reader product first. This file is the contract the code is
 ## Manual test log
 
 Manual passes with NVDA, VoiceOver and ChromeVox are recorded in `docs/research/results.md`, including what was found and fixed. Results are only written there after a pass has actually been done.
+
+## Opt-in speech preview
+
+The reader offers “Hear it” for sighted demos. It starts off every visit, is never persisted, and is disabled while “I am using a screen reader” is checked (the default). Screen-reader detection is not claimed; browsers do not provide a dependable signal. Re-enabling screen-reader mode cancels preview speech. The normal live regions remain the assistive-technology path. A browser regression checks default-off, deliberate opt-in, cancellation and reset after reload.
+
+The ready-to-run manual checklist and session table are in `docs/research/results.md`. They remain pending until a human drives the screen reader.

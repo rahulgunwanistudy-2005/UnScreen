@@ -1,0 +1,26 @@
+WEBVTT
+
+NOTE Timing and narration draft only. No recorded video or verbatim screen-reader transcript exists yet.
+
+00:00.000 --> 00:15.000
+Shared screens arrive as pictures.
+UnScreen rebuilds navigable content.
+
+00:15.000 --> 00:40.000
+Choose a shared tab and navigate the table.
+Listen to the actual screen-reader output.
+
+00:40.000 --> 01:00.000
+Follow a change while keeping your reading position.
+Unclear content stays labelled unclear.
+
+01:00.000 --> 01:20.000
+Read code, locate the pointer and ask about the screen.
+
+01:20.000 --> 01:40.000
+Measured results and failures are on the benchmark page.
+Check the run date and model configuration.
+
+01:40.000 --> 01:55.000
+This is a local build. Human and real-meeting
+validation remain pending until completed.

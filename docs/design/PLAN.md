@@ -1,6 +1,6 @@
 # Design plan
 
-Written with the frontend-design skill (`docs/design/frontend-design.SKILL.md`), two passes.
+Written in two design passes.
 
 ## Subject, audience, job
 

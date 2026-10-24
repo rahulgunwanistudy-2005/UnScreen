@@ -53,3 +53,19 @@ Sources: https://console.groq.com/docs/vision, /docs/structured-outputs, /docs/m
 - **Mistral vision models listed for this key:** `mistral-medium-latest` (Medium 3.5), `mistral-small-latest` (2603), `ministral-{3b,8b,14b}-latest`, `magistral-{small,medium}-latest`, `mistral-ocr-latest`.
 - **Mistral request shape:** image chunk `{"type": "image_url", "image_url": "data:…"}` (string or `{url}`); `response_format` `{type: "json_schema", json_schema: {name, schema, strict}}`.
 - **Mistral key status, as observed:** every call returns 429 with `x-ratelimit-limit-req-minute: 0`, meaning the workspace has no active plan. Mistral publishes no per-model API prices on its pricing page; none are assumed.
+
+## Rechecked 2026-10-24
+
+- User reports Gemini billing and Mistral plan active. Model listing returned HTTP 200 for all three provider keys. This does not prove generation quotas; no paid generation was attempted before a spending cap was agreed.
+- Gemini Interactions stores requests by default. `store=false` opts into stateless behavior; added to every request. Source: https://ai.google.dev/gemini-api/docs/interactions-overview#data-storage-and-retention . Paid-tier training and abuse-monitoring terms still apply.
+- Gemini 3.6 Flash standard paid rates remain $0.75 input / $3.75 output per million tokens through 2026-12-31. Source: https://ai.google.dev/gemini-api/docs/pricing .
+- Mistral Medium 3.5 model card lists $1.50 input / $7.50 output per million tokens: https://docs.mistral.ai/models/mistral-medium-3-5-26-04 . Mistral Small 4 (`mistral-small-2603`) lists $0.15 input / $0.60 output: https://docs.mistral.ai/models/mistral-small-4-0-26-03 . Prices now recorded in `cost.py`; aliases must be rechecked when providers move them.
+- Firecrawl retrieval was unavailable because the connected account has no credits; official documentation was read using the available web tool instead.
+
+## Live access verified in the completion pass
+
+Gemini generation succeeded on the active paid key. The dated configuration, focused content and live-loop JSON files in `bench/results` contain actual outcomes and token usage. The fresh focused benchmark recorded zero replayed calls.
+
+The Mistral Small screening returned HTTP 429 with a provider rate-limit message despite the user's active plan; it was not retried. This does not establish the account's plan status. The Groq cross-check screening returned a result that left every primary value unclear, so it was excluded from production. Gemini remains the shipped default.
+
+The chosen configuration and exact metrics are referenced by `bench/results/production.json`; do not substitute old free-tier measurements for the new paid-tier evidence. Code and slide/document performance is weaker and is reported separately.
