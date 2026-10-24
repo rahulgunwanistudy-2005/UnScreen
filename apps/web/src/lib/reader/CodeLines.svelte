@@ -46,9 +46,11 @@
 		font-family: var(--font-mono);
 		font-size: var(--s0);
 		line-height: 1.6;
-		border-top: 2px solid var(--ink);
-		border-bottom: 2px solid var(--ink);
-		padding-block: 0.5em;
+		border-top: 1px solid var(--rule);
+		border-bottom: 1px solid var(--rule);
+		padding-block: 0.8em;
+		background: var(--surface-raised);
+		border-radius: 10px;
 	}
 	.line {
 		display: flex;

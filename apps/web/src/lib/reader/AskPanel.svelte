@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Icon from '#lib/site/Icon.svelte';
 	import type { AnswerEntry } from '#lib/reader.svelte.ts';
 
 	let {
@@ -22,7 +23,7 @@
 </script>
 
 <section aria-labelledby="ask-h">
-	<h2 id="ask-h">Ask about the screen</h2>
+	<h2 id="ask-h"><Icon name="spark" size={19} /> Ask about the screen</h2>
 	<form onsubmit={submit}>
 		<label for="ask-q">Question</label>
 		<div class="row">
@@ -69,6 +70,7 @@
 		font-size: var(--s-1);
 		color: var(--ink-soft);
 		margin-top: 0.5em;
+		line-height: 1.6;
 	}
 	.answers {
 		list-style: none;
@@ -89,8 +91,8 @@
 	}
 	.ref {
 		background: none;
-		border: 1px solid var(--ink);
-		border-radius: 2px;
+		border: 1px solid var(--rule);
+		border-radius: 6px;
 		padding: 0.1em 0.4em;
 		cursor: pointer;
 		font-family: var(--font-mono);

@@ -1,8 +1,852 @@
 {
+ "focused": {
+  "failures": {},
+  "note": null,
+  "file": "bench/results/2026-10-24-focused.json",
+  "run_at": "2026-10-24T07:46:11+00:00",
+  "models": {
+   "reconstruct": "gemini-3.6-flash",
+   "verify": "gemini-3.5-flash-lite",
+   "thinking_level": "minimal",
+   "image_resolution": "high",
+   "cross_check": true
+  },
+  "overall": {
+   "unscreen": {
+    "frames": 20,
+    "items": 373,
+    "exact_match": 0.8043,
+    "cer": 0.0227,
+    "hallucination_rate": 0.0895,
+    "structure_accuracy": 1.0,
+    "text_recall": 0.6408,
+    "flagged": 64,
+    "flagged_wrong": 49
+   },
+   "ocr": {
+    "frames": 20,
+    "items": 373,
+    "exact_match": 0.1609,
+    "cer": 0.7282,
+    "hallucination_rate": 0.9108,
+    "structure_accuracy": 0.9524,
+    "text_recall": 0.1689,
+    "flagged": 0,
+    "flagged_wrong": 0
+   },
+   "ocr_config": "psm11x2",
+   "ocr_by_config": {
+    "psm3x1": {
+     "frames": 20,
+     "items": 373,
+     "exact_match": 0.1019,
+     "cer": 0.8446,
+     "hallucination_rate": 0.8348,
+     "structure_accuracy": 1.0,
+     "text_recall": 0.1019,
+     "flagged": 0,
+     "flagged_wrong": 0
+    },
+    "psm6x2": {
+     "frames": 20,
+     "items": 373,
+     "exact_match": 0.1072,
+     "cer": 0.7941,
+     "hallucination_rate": 0.8977,
+     "structure_accuracy": 0.8889,
+     "text_recall": 0.1206,
+     "flagged": 0,
+     "flagged_wrong": 0
+    },
+    "psm11x2": {
+     "frames": 20,
+     "items": 373,
+     "exact_match": 0.1609,
+     "cer": 0.7282,
+     "hallucination_rate": 0.9108,
+     "structure_accuracy": 0.9524,
+     "text_recall": 0.1689,
+     "flagged": 0,
+     "flagged_wrong": 0
+    }
+   },
+   "content_type_accuracy": 1.0,
+   "errors": 0,
+   "latency_ms": {
+    "p50": 11093.0,
+    "p95": 13644.0,
+    "max": 13766.0
+   },
+   "cost_usd_per_frame": 0.009419,
+   "calls_per_frame": 2.0
+  },
+  "groups": {
+   "code/1080p-degraded": {
+    "unscreen": {
+     "frames": 10,
+     "items": 295,
+     "exact_match": 0.8508,
+     "cer": 0.024,
+     "hallucination_rate": 0.0923,
+     "structure_accuracy": 1.0,
+     "text_recall": 0.6441,
+     "flagged": 35,
+     "flagged_wrong": 20
+    },
+    "ocr": {
+     "frames": 10,
+     "items": 295,
+     "exact_match": 0.0746,
+     "cer": 1.0191,
+     "hallucination_rate": 0.9614,
+     "structure_accuracy": 0.88,
+     "text_recall": 0.0847,
+     "flagged": 0,
+     "flagged_wrong": 0
+    },
+    "ocr_config": "psm11x2",
+    "ocr_by_config": {
+     "psm3x1": {
+      "frames": 10,
+      "items": 295,
+      "exact_match": 0.0,
+      "cer": 1.0812,
+      "hallucination_rate": 1.0,
+      "structure_accuracy": null,
+      "text_recall": 0.0,
+      "flagged": 0,
+      "flagged_wrong": 0
+     },
+     "psm6x2": {
+      "frames": 10,
+      "items": 295,
+      "exact_match": 0.0169,
+      "cer": 1.1192,
+      "hallucination_rate": 0.9828,
+      "structure_accuracy": 0.5,
+      "text_recall": 0.0339,
+      "flagged": 0,
+      "flagged_wrong": 0
+     },
+     "psm11x2": {
+      "frames": 10,
+      "items": 295,
+      "exact_match": 0.0746,
+      "cer": 1.0191,
+      "hallucination_rate": 0.9614,
+      "structure_accuracy": 0.88,
+      "text_recall": 0.0847,
+      "flagged": 0,
+      "flagged_wrong": 0
+     }
+    },
+    "content_type_accuracy": 1.0,
+    "errors": 0,
+    "latency_ms": {
+     "p50": 12865.0,
+     "p95": 13766.0,
+     "max": 13766.0
+    },
+    "cost_usd_per_frame": 0.011865,
+    "calls_per_frame": 2.0
+   },
+   "slide/1080p-degraded": {
+    "unscreen": {
+     "frames": 10,
+     "items": 78,
+     "exact_match": 0.6282,
+     "cer": 0.0196,
+     "hallucination_rate": 0.0755,
+     "structure_accuracy": 1.0,
+     "text_recall": 0.6282,
+     "flagged": 29,
+     "flagged_wrong": 29
+    },
+    "ocr": {
+     "frames": 10,
+     "items": 78,
+     "exact_match": 0.4872,
+     "cer": 0.2876,
+     "hallucination_rate": 0.5366,
+     "structure_accuracy": 1.0,
+     "text_recall": 0.4872,
+     "flagged": 0,
+     "flagged_wrong": 0
+    },
+    "ocr_config": "psm3x1",
+    "ocr_by_config": {
+     "psm3x1": {
+      "frames": 10,
+      "items": 78,
+      "exact_match": 0.4872,
+      "cer": 0.2876,
+      "hallucination_rate": 0.5366,
+      "structure_accuracy": 1.0,
+      "text_recall": 0.4872,
+      "flagged": 0,
+      "flagged_wrong": 0
+     },
+     "psm6x2": {
+      "frames": 10,
+      "items": 78,
+      "exact_match": 0.4487,
+      "cer": 0.0288,
+      "hallucination_rate": 0.6535,
+      "structure_accuracy": 1.0,
+      "text_recall": 0.4487,
+      "flagged": 0,
+      "flagged_wrong": 0
+     },
+     "psm11x2": {
+      "frames": 10,
+      "items": 78,
+      "exact_match": 0.4872,
+      "cer": 0.0433,
+      "hallucination_rate": 0.6311,
+      "structure_accuracy": 1.0,
+      "text_recall": 0.4872,
+      "flagged": 0,
+      "flagged_wrong": 0
+     }
+    },
+    "content_type_accuracy": 1.0,
+    "errors": 0,
+    "latency_ms": {
+     "p50": 10228.0,
+     "p95": 13223.0,
+     "max": 13223.0
+    },
+    "cost_usd_per_frame": 0.006974,
+    "calls_per_frame": 2.0
+   }
+  },
+  "frames": 20
+ },
+ "configurations": [
+  {
+   "failures": {},
+   "note": null,
+   "file": "bench/results/2026-10-24-config-gemini.json",
+   "run_at": "2026-10-24T07:27:48+00:00",
+   "models": {
+    "reconstruct": "gemini-3.6-flash",
+    "verify": "gemini-3.5-flash-lite",
+    "thinking_level": "minimal",
+    "image_resolution": "high",
+    "cross_check": true
+   },
+   "overall": {
+    "unscreen": {
+     "frames": 10,
+     "items": 775,
+     "exact_match": 0.9961,
+     "cer": 0.0006,
+     "hallucination_rate": 0.0039,
+     "structure_accuracy": 1.0,
+     "text_recall": 0.9961,
+     "flagged": 4,
+     "flagged_wrong": 0
+    },
+    "ocr": {
+     "frames": 10,
+     "items": 775,
+     "exact_match": 0.4129,
+     "cer": 0.4908,
+     "hallucination_rate": 0.4984,
+     "structure_accuracy": 0.796,
+     "text_recall": 0.5187,
+     "flagged": 0,
+     "flagged_wrong": 0
+    },
+    "ocr_config": "psm6x2",
+    "ocr_by_config": {
+     "psm3x1": {
+      "frames": 10,
+      "items": 775,
+      "exact_match": 0.0052,
+      "cer": 1.0223,
+      "hallucination_rate": 0.9619,
+      "structure_accuracy": 0.5,
+      "text_recall": 0.0103,
+      "flagged": 0,
+      "flagged_wrong": 0
+     },
+     "psm6x2": {
+      "frames": 10,
+      "items": 775,
+      "exact_match": 0.4129,
+      "cer": 0.4908,
+      "hallucination_rate": 0.4984,
+      "structure_accuracy": 0.796,
+      "text_recall": 0.5187,
+      "flagged": 0,
+      "flagged_wrong": 0
+     },
+     "psm11x2": {
+      "frames": 10,
+      "items": 775,
+      "exact_match": 0.0503,
+      "cer": 0.9318,
+      "hallucination_rate": 0.9416,
+      "structure_accuracy": 0.1554,
+      "text_recall": 0.3239,
+      "flagged": 0,
+      "flagged_wrong": 0
+     }
+    },
+    "content_type_accuracy": 1.0,
+    "errors": 0,
+    "latency_ms": {
+     "p50": 11254.0,
+     "p95": 12026.0,
+     "max": 12026.0
+    },
+    "cost_usd_per_frame": 0.009433,
+    "calls_per_frame": 2.0
+   },
+   "groups": {
+    "sheet/1080p-degraded": {
+     "unscreen": {
+      "frames": 10,
+      "items": 775,
+      "exact_match": 0.9961,
+      "cer": 0.0006,
+      "hallucination_rate": 0.0039,
+      "structure_accuracy": 1.0,
+      "text_recall": 0.9961,
+      "flagged": 4,
+      "flagged_wrong": 0
+     },
+     "ocr": {
+      "frames": 10,
+      "items": 775,
+      "exact_match": 0.4129,
+      "cer": 0.4908,
+      "hallucination_rate": 0.4984,
+      "structure_accuracy": 0.796,
+      "text_recall": 0.5187,
+      "flagged": 0,
+      "flagged_wrong": 0
+     },
+     "ocr_config": "psm6x2",
+     "ocr_by_config": {
+      "psm3x1": {
+       "frames": 10,
+       "items": 775,
+       "exact_match": 0.0052,
+       "cer": 1.0223,
+       "hallucination_rate": 0.9619,
+       "structure_accuracy": 0.5,
+       "text_recall": 0.0103,
+       "flagged": 0,
+       "flagged_wrong": 0
+      },
+      "psm6x2": {
+       "frames": 10,
+       "items": 775,
+       "exact_match": 0.4129,
+       "cer": 0.4908,
+       "hallucination_rate": 0.4984,
+       "structure_accuracy": 0.796,
+       "text_recall": 0.5187,
+       "flagged": 0,
+       "flagged_wrong": 0
+      },
+      "psm11x2": {
+       "frames": 10,
+       "items": 775,
+       "exact_match": 0.0503,
+       "cer": 0.9318,
+       "hallucination_rate": 0.9416,
+       "structure_accuracy": 0.1554,
+       "text_recall": 0.3239,
+       "flagged": 0,
+       "flagged_wrong": 0
+      }
+     },
+     "content_type_accuracy": 1.0,
+     "errors": 0,
+     "latency_ms": {
+      "p50": 11254.0,
+      "p95": 12026.0,
+      "max": 12026.0
+     },
+     "cost_usd_per_frame": 0.009433,
+     "calls_per_frame": 2.0
+    }
+   },
+   "frames": 10
+  },
+  {
+   "failures": {},
+   "note": "The primary text matched, but every value was flagged by the cross-check. No confident outputs means wrong-as-fact rate is undefined, not 0%.",
+   "file": "bench/results/2026-10-24-config-groq-screen.json",
+   "run_at": "2026-10-24T07:28:56+00:00",
+   "models": {
+    "reconstruct": "gemini-3.6-flash",
+    "verify": "groq:qwen/qwen3.8-27b",
+    "thinking_level": "minimal",
+    "image_resolution": "high",
+    "cross_check": true
+   },
+   "overall": {
+    "unscreen": {
+     "frames": 1,
+     "items": 75,
+     "exact_match": 1.0,
+     "cer": 0.0,
+     "hallucination_rate": null,
+     "structure_accuracy": 1.0,
+     "text_recall": 1.0,
+     "flagged": 75,
+     "flagged_wrong": 0
+    },
+    "ocr": {
+     "frames": 1,
+     "items": 75,
+     "exact_match": 0.0533,
+     "cer": 0.9541,
+     "hallucination_rate": 0.7778,
+     "structure_accuracy": 0.8,
+     "text_recall": 0.0667,
+     "flagged": 0,
+     "flagged_wrong": 0
+    },
+    "ocr_config": "psm6x2",
+    "ocr_by_config": {
+     "psm3x1": {
+      "frames": 1,
+      "items": 75,
+      "exact_match": 0.0,
+      "cer": 1.0652,
+      "hallucination_rate": 1.0,
+      "structure_accuracy": 0.0,
+      "text_recall": 0.0,
+      "flagged": 0,
+      "flagged_wrong": 0
+     },
+     "psm6x2": {
+      "frames": 1,
+      "items": 75,
+      "exact_match": 0.0533,
+      "cer": 0.9541,
+      "hallucination_rate": 0.7778,
+      "structure_accuracy": 0.8,
+      "text_recall": 0.0667,
+      "flagged": 0,
+      "flagged_wrong": 0
+     },
+     "psm11x2": {
+      "frames": 1,
+      "items": 75,
+      "exact_match": 0.0133,
+      "cer": 0.9662,
+      "hallucination_rate": 0.9688,
+      "structure_accuracy": 0.1111,
+      "text_recall": 0.12,
+      "flagged": 0,
+      "flagged_wrong": 0
+     }
+    },
+    "content_type_accuracy": 1.0,
+    "errors": 0,
+    "latency_ms": {
+     "p50": 6971.0,
+     "p95": 6971.0,
+     "max": 6971.0
+    },
+    "cost_usd_per_frame": 0.007367,
+    "calls_per_frame": 2.0
+   },
+   "groups": {
+    "sheet/1080p-degraded": {
+     "unscreen": {
+      "frames": 1,
+      "items": 75,
+      "exact_match": 1.0,
+      "cer": 0.0,
+      "hallucination_rate": null,
+      "structure_accuracy": 1.0,
+      "text_recall": 1.0,
+      "flagged": 75,
+      "flagged_wrong": 0
+     },
+     "ocr": {
+      "frames": 1,
+      "items": 75,
+      "exact_match": 0.0533,
+      "cer": 0.9541,
+      "hallucination_rate": 0.7778,
+      "structure_accuracy": 0.8,
+      "text_recall": 0.0667,
+      "flagged": 0,
+      "flagged_wrong": 0
+     },
+     "ocr_config": "psm6x2",
+     "ocr_by_config": {
+      "psm3x1": {
+       "frames": 1,
+       "items": 75,
+       "exact_match": 0.0,
+       "cer": 1.0652,
+       "hallucination_rate": 1.0,
+       "structure_accuracy": 0.0,
+       "text_recall": 0.0,
+       "flagged": 0,
+       "flagged_wrong": 0
+      },
+      "psm6x2": {
+       "frames": 1,
+       "items": 75,
+       "exact_match": 0.0533,
+       "cer": 0.9541,
+       "hallucination_rate": 0.7778,
+       "structure_accuracy": 0.8,
+       "text_recall": 0.0667,
+       "flagged": 0,
+       "flagged_wrong": 0
+      },
+      "psm11x2": {
+       "frames": 1,
+       "items": 75,
+       "exact_match": 0.0133,
+       "cer": 0.9662,
+       "hallucination_rate": 0.9688,
+       "structure_accuracy": 0.1111,
+       "text_recall": 0.12,
+       "flagged": 0,
+       "flagged_wrong": 0
+      }
+     },
+     "content_type_accuracy": 1.0,
+     "errors": 0,
+     "latency_ms": {
+      "p50": 6971.0,
+      "p95": 6971.0,
+      "max": 6971.0
+     },
+     "cost_usd_per_frame": 0.007367,
+     "calls_per_frame": 2.0
+    }
+   },
+   "frames": 1
+  },
+  {
+   "failures": {
+    "provider quota or rate limit": 1
+   },
+   "note": null,
+   "file": "bench/results/2026-10-24-config-mistral-small-screen.json",
+   "run_at": "2026-10-24T07:30:33+00:00",
+   "models": {
+    "reconstruct": "mistral:mistral-small-2603",
+    "verify": "gemini-3.5-flash-lite",
+    "thinking_level": "minimal",
+    "image_resolution": "high",
+    "cross_check": true
+   },
+   "overall": {
+    "unscreen": {
+     "frames": 0,
+     "items": 0,
+     "exact_match": null,
+     "cer": null,
+     "hallucination_rate": null,
+     "structure_accuracy": null,
+     "text_recall": null,
+     "flagged": 0,
+     "flagged_wrong": 0
+    },
+    "ocr": {
+     "frames": 1,
+     "items": 75,
+     "exact_match": 0.0533,
+     "cer": 0.9541,
+     "hallucination_rate": 0.7778,
+     "structure_accuracy": 0.8,
+     "text_recall": 0.0667,
+     "flagged": 0,
+     "flagged_wrong": 0
+    },
+    "ocr_config": "psm6x2",
+    "ocr_by_config": {
+     "psm3x1": {
+      "frames": 1,
+      "items": 75,
+      "exact_match": 0.0,
+      "cer": 1.0652,
+      "hallucination_rate": 1.0,
+      "structure_accuracy": 0.0,
+      "text_recall": 0.0,
+      "flagged": 0,
+      "flagged_wrong": 0
+     },
+     "psm6x2": {
+      "frames": 1,
+      "items": 75,
+      "exact_match": 0.0533,
+      "cer": 0.9541,
+      "hallucination_rate": 0.7778,
+      "structure_accuracy": 0.8,
+      "text_recall": 0.0667,
+      "flagged": 0,
+      "flagged_wrong": 0
+     },
+     "psm11x2": {
+      "frames": 1,
+      "items": 75,
+      "exact_match": 0.0133,
+      "cer": 0.9662,
+      "hallucination_rate": 0.9688,
+      "structure_accuracy": 0.1111,
+      "text_recall": 0.12,
+      "flagged": 0,
+      "flagged_wrong": 0
+     }
+    },
+    "content_type_accuracy": 0.0,
+    "errors": 1,
+    "latency_ms": {
+     "p50": null,
+     "p95": null,
+     "max": null
+    },
+    "cost_usd_per_frame": null,
+    "calls_per_frame": null
+   },
+   "groups": {
+    "sheet/1080p-degraded": {
+     "unscreen": {
+      "frames": 0,
+      "items": 0,
+      "exact_match": null,
+      "cer": null,
+      "hallucination_rate": null,
+      "structure_accuracy": null,
+      "text_recall": null,
+      "flagged": 0,
+      "flagged_wrong": 0
+     },
+     "ocr": {
+      "frames": 1,
+      "items": 75,
+      "exact_match": 0.0533,
+      "cer": 0.9541,
+      "hallucination_rate": 0.7778,
+      "structure_accuracy": 0.8,
+      "text_recall": 0.0667,
+      "flagged": 0,
+      "flagged_wrong": 0
+     },
+     "ocr_config": "psm6x2",
+     "ocr_by_config": {
+      "psm3x1": {
+       "frames": 1,
+       "items": 75,
+       "exact_match": 0.0,
+       "cer": 1.0652,
+       "hallucination_rate": 1.0,
+       "structure_accuracy": 0.0,
+       "text_recall": 0.0,
+       "flagged": 0,
+       "flagged_wrong": 0
+      },
+      "psm6x2": {
+       "frames": 1,
+       "items": 75,
+       "exact_match": 0.0533,
+       "cer": 0.9541,
+       "hallucination_rate": 0.7778,
+       "structure_accuracy": 0.8,
+       "text_recall": 0.0667,
+       "flagged": 0,
+       "flagged_wrong": 0
+      },
+      "psm11x2": {
+       "frames": 1,
+       "items": 75,
+       "exact_match": 0.0133,
+       "cer": 0.9662,
+       "hallucination_rate": 0.9688,
+       "structure_accuracy": 0.1111,
+       "text_recall": 0.12,
+       "flagged": 0,
+       "flagged_wrong": 0
+      }
+     },
+     "content_type_accuracy": 0.0,
+     "errors": 1,
+     "latency_ms": {
+      "p50": null,
+      "p95": null,
+      "max": null
+     },
+     "cost_usd_per_frame": null,
+     "calls_per_frame": null
+    }
+   },
+   "frames": 1
+  }
+ ],
+ "production": {
+  "failures": {},
+  "note": null,
+  "file": "bench/results/2026-10-24-config-gemini.json",
+  "run_at": "2026-10-24T07:27:48+00:00",
+  "models": {
+   "reconstruct": "gemini-3.6-flash",
+   "verify": "gemini-3.5-flash-lite",
+   "thinking_level": "minimal",
+   "image_resolution": "high",
+   "cross_check": true
+  },
+  "overall": {
+   "unscreen": {
+    "frames": 10,
+    "items": 775,
+    "exact_match": 0.9961,
+    "cer": 0.0006,
+    "hallucination_rate": 0.0039,
+    "structure_accuracy": 1.0,
+    "text_recall": 0.9961,
+    "flagged": 4,
+    "flagged_wrong": 0
+   },
+   "ocr": {
+    "frames": 10,
+    "items": 775,
+    "exact_match": 0.4129,
+    "cer": 0.4908,
+    "hallucination_rate": 0.4984,
+    "structure_accuracy": 0.796,
+    "text_recall": 0.5187,
+    "flagged": 0,
+    "flagged_wrong": 0
+   },
+   "ocr_config": "psm6x2",
+   "ocr_by_config": {
+    "psm3x1": {
+     "frames": 10,
+     "items": 775,
+     "exact_match": 0.0052,
+     "cer": 1.0223,
+     "hallucination_rate": 0.9619,
+     "structure_accuracy": 0.5,
+     "text_recall": 0.0103,
+     "flagged": 0,
+     "flagged_wrong": 0
+    },
+    "psm6x2": {
+     "frames": 10,
+     "items": 775,
+     "exact_match": 0.4129,
+     "cer": 0.4908,
+     "hallucination_rate": 0.4984,
+     "structure_accuracy": 0.796,
+     "text_recall": 0.5187,
+     "flagged": 0,
+     "flagged_wrong": 0
+    },
+    "psm11x2": {
+     "frames": 10,
+     "items": 775,
+     "exact_match": 0.0503,
+     "cer": 0.9318,
+     "hallucination_rate": 0.9416,
+     "structure_accuracy": 0.1554,
+     "text_recall": 0.3239,
+     "flagged": 0,
+     "flagged_wrong": 0
+    }
+   },
+   "content_type_accuracy": 1.0,
+   "errors": 0,
+   "latency_ms": {
+    "p50": 11254.0,
+    "p95": 12026.0,
+    "max": 12026.0
+   },
+   "cost_usd_per_frame": 0.009433,
+   "calls_per_frame": 2.0
+  },
+  "groups": {
+   "sheet/1080p-degraded": {
+    "unscreen": {
+     "frames": 10,
+     "items": 775,
+     "exact_match": 0.9961,
+     "cer": 0.0006,
+     "hallucination_rate": 0.0039,
+     "structure_accuracy": 1.0,
+     "text_recall": 0.9961,
+     "flagged": 4,
+     "flagged_wrong": 0
+    },
+    "ocr": {
+     "frames": 10,
+     "items": 775,
+     "exact_match": 0.4129,
+     "cer": 0.4908,
+     "hallucination_rate": 0.4984,
+     "structure_accuracy": 0.796,
+     "text_recall": 0.5187,
+     "flagged": 0,
+     "flagged_wrong": 0
+    },
+    "ocr_config": "psm6x2",
+    "ocr_by_config": {
+     "psm3x1": {
+      "frames": 10,
+      "items": 775,
+      "exact_match": 0.0052,
+      "cer": 1.0223,
+      "hallucination_rate": 0.9619,
+      "structure_accuracy": 0.5,
+      "text_recall": 0.0103,
+      "flagged": 0,
+      "flagged_wrong": 0
+     },
+     "psm6x2": {
+      "frames": 10,
+      "items": 775,
+      "exact_match": 0.4129,
+      "cer": 0.4908,
+      "hallucination_rate": 0.4984,
+      "structure_accuracy": 0.796,
+      "text_recall": 0.5187,
+      "flagged": 0,
+      "flagged_wrong": 0
+     },
+     "psm11x2": {
+      "frames": 10,
+      "items": 775,
+      "exact_match": 0.0503,
+      "cer": 0.9318,
+      "hallucination_rate": 0.9416,
+      "structure_accuracy": 0.1554,
+      "text_recall": 0.3239,
+      "flagged": 0,
+      "flagged_wrong": 0
+     }
+    },
+    "content_type_accuracy": 1.0,
+    "errors": 0,
+    "latency_ms": {
+     "p50": 11254.0,
+     "p95": 12026.0,
+     "max": 12026.0
+    },
+    "cost_usd_per_frame": 0.009433,
+    "calls_per_frame": 2.0
+   }
+  },
+  "frames": 10
+ },
  "kill": {
   "failures": {
    "timeout or connection error": 4
   },
+  "note": null,
   "file": "bench/results/2026-10-21-kill-v4.json",
   "run_at": "2026-10-21T16:33:04+00:00",
   "models": {
@@ -158,6 +1002,7 @@
    "failures": {
     "output cut off by the free-tier token limit": 7
    },
+   "note": null,
    "file": "bench/results/2026-10-21-kill-groq.json",
    "run_at": "2026-10-21T22:34:22+00:00",
    "models": {
@@ -313,6 +1158,7 @@
    "failures": {
     "timeout or connection error": 4
    },
+   "note": null,
    "file": "bench/results/2026-10-21-kill-v4.json",
    "run_at": "2026-10-21T16:33:04+00:00",
    "models": {
@@ -483,8 +1329,72 @@
     "ok": 0,
     "total": 36
    },
+   "validation_note": null,
    "engine_errors": 1,
    "never_read": true
+  },
+  {
+   "file": "bench/results/2026-10-24-live-paid-code.json",
+   "run_at": "2026-10-24T07:51:01.370Z",
+   "kind": "code",
+   "edit_interval_ms": 20000,
+   "first_snapshot_ms": 12671,
+   "truth_changes": 6,
+   "recall": 1,
+   "precision": 0.5454545454545454,
+   "change_to_announce_ms": {
+    "p50": 11172,
+    "p95": 11585,
+    "n": 6
+   },
+   "final_dom_vs_truth": null,
+   "validation_note": "Focus was preserved. The pointer and Ask correctly identified the blank second line. A region reread with verification was observed. Extra confidence-change announcements reduce precision.",
+   "engine_errors": 0,
+   "never_read": false
+  },
+  {
+   "file": "bench/results/2026-10-24-live-paid-sheet-fixed.json",
+   "run_at": "2026-10-24T07:57:41.509Z",
+   "kind": "sheet",
+   "edit_interval_ms": 20000,
+   "first_snapshot_ms": 9330,
+   "truth_changes": 11,
+   "recall": 1,
+   "precision": 1,
+   "change_to_announce_ms": {
+    "p50": 8508,
+    "p95": 9237,
+    "n": 11
+   },
+   "final_dom_vs_truth": {
+    "ok": 42,
+    "total": 42
+   },
+   "validation_note": "The final pointer target and Ask answer matched fixture truth, and the original focused cell stayed focused. This is a generated-fixture browser run, not a human screen-reader or Google Meet pass.",
+   "engine_errors": 0,
+   "never_read": false
+  },
+  {
+   "file": "bench/results/2026-10-24-live-paid-sheet.json",
+   "run_at": "2026-10-24T07:39:37.761Z",
+   "kind": "sheet",
+   "edit_interval_ms": 25000,
+   "first_snapshot_ms": 9713,
+   "truth_changes": 13,
+   "recall": 1,
+   "precision": 0.8666666666666667,
+   "change_to_announce_ms": {
+    "p50": 8708,
+    "p95": 12572,
+    "n": 13
+   },
+   "final_dom_vs_truth": {
+    "ok": 42,
+    "total": 42
+   },
+   "validation_note": "The initial pointer probe reported the old cursor location. Focus was preserved and Ask matched the fixture value. The pointer-direction bug was then fixed; the later fixed-sheet run verifies the correction.",
+   "engine_errors": 0,
+   "never_read": false
   }
  ],
  "pipeline": {
@@ -501,5 +1411,9 @@
   ],
   "p50_ms": 2616,
   "max_ms": 2627
+ },
+ "research": {
+  "file": "docs/research/results.md",
+  "summary": "No human screen-reader pass or participant session has been recorded. NVDA, VoiceOver and real-meeting validation remain pending. Automated browser checks cover focus preservation and accessibility rules; they do not establish usability with a screen reader."
  }
 }

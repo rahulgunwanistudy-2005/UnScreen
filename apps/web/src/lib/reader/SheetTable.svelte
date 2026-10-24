@@ -76,6 +76,7 @@
 		border-collapse: collapse;
 		font-size: var(--s0);
 		min-width: min(100%, 36rem);
+		width: 100%;
 	}
 	caption {
 		text-align: start;
@@ -92,8 +93,9 @@
 		white-space: nowrap;
 	}
 	thead th {
-		border-bottom: 2px solid var(--ink);
-		font-weight: 800;
+		border-bottom: 1px solid var(--rule);
+		background: var(--surface-raised);
+		font-weight: 600;
 	}
 	tbody th {
 		font-weight: 700;

@@ -3,11 +3,11 @@ import summary from './summary.json';
 export type Pool = {
 	frames: number;
 	items: number;
-	exact_match: number;
-	cer: number;
-	hallucination_rate: number;
-	structure_accuracy: number;
-	text_recall: number;
+	exact_match: number | null;
+	cer: number | null;
+	hallucination_rate: number | null;
+	structure_accuracy: number | null;
+	text_recall: number | null;
 	flagged: number;
 	flagged_wrong: number;
 };
@@ -24,6 +24,8 @@ export type Aggregate = {
 };
 
 export type Run = {
+	failures?: Partial<Record<string, number>>;
+	note?: string | null;
 	file: string;
 	run_at: string;
 	models: Record<string, string | boolean>;
@@ -33,6 +35,7 @@ export type Run = {
 };
 
 export type LiveRun = {
+	validation_note?: string | null;
 	file: string;
 	run_at: string;
 	kind: string;
@@ -49,10 +52,12 @@ export type LiveRun = {
 
 export type Pipeline = { file: string; run_at: string; note: string; edits: number; latencies_ms: number[]; p50_ms: number; max_ms: number };
 
-export const bench = summary as { full?: Run; kill?: Run; models?: Run[]; live?: LiveRun[]; pipeline?: Pipeline };
+export const bench = summary as { full?: Run; focused?: Run; real?: Run; kill?: Run; production?: Run; configurations?: Run[]; models?: Run[]; live?: LiveRun[]; pipeline?: Pipeline; research?: { file: string; summary: string } };
 
 /** The headline run: the full benchmark when it exists, otherwise the Day-1 kill test. */
-export const headline: { run: Run; label: string } | null = bench.full
+export const headline: { run: Run; label: string } | null = bench.production
+	? { run: bench.production, label: 'selected configuration' }
+	: bench.full
 	? { run: bench.full, label: 'full benchmark' }
 	: bench.kill
 		? { run: bench.kill, label: 'kill test' }

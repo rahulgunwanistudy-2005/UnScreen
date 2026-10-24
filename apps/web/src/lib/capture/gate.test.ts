@@ -73,4 +73,21 @@ describe('ChangeGate', () => {
 		expect(gate.push(frame(b, 1000)).kind).toBe('wait');
 		expect(gate.push(frame(b, 1500)).kind).toBe('send');
 	});
+
+	it('tracks an upward first jump to the new cursor rather than its old location', () => {
+		const gate = new ChangeGate();
+		const old = rect(canvas(), 200, 120, 3, 4);
+		gate.push(frame(old, 0)); gate.push(frame(old, 500));
+		const moved = gate.push(frame(rect(canvas(), 40, 40, 3, 4), 1000));
+		expect(moved.kind).toBe('pointer');
+		if (moved.kind === 'pointer') { expect(moved.x).toBeLessThan(150); expect(moved.y).toBeLessThan(250); }
+	});
+
+	it('does not guess a pointer when two distant content marks appear', () => {
+		const gate = new ChangeGate(); const old = canvas();
+		gate.push(frame(old, 0)); gate.push(frame(old, 500));
+		const next = rect(rect(old, 40, 40, 3, 4), 200, 120, 3, 4);
+		expect(gate.push(frame(next, 1000)).kind).toBe('wait');
+		expect(gate.push(frame(next, 1500)).kind).toBe('send');
+	});
 });

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Icon from '#lib/site/Icon.svelte';
 	import { resolve } from '$app/paths';
 	import { prefs, type Preferences } from '#lib/a11y/settings.svelte.ts';
 
@@ -12,7 +13,7 @@
 	}
 </script>
 
-<button class="button quiet" type="button" onclick={() => dialog.showModal()}>Settings</button>
+<button class="button quiet" type="button" onclick={() => dialog.showModal()}><Icon name="settings" size={17} /> Settings</button>
 
 <dialog bind:this={dialog} aria-labelledby="settings-h">
 	<h2 id="settings-h">Settings</h2>
@@ -70,14 +71,16 @@
 <style>
 	dialog {
 		max-width: min(36rem, calc(100vw - 2rem));
-		border: 2px solid var(--ink);
-		border-radius: 2px;
-		background: var(--paper);
+		border: 1px solid var(--rule);
+		border-radius: 20px;
+		background: var(--surface);
 		color: var(--ink);
-		padding: 1.5rem;
+		padding: 2rem;
+		box-shadow: var(--shadow);
 	}
 	dialog::backdrop {
-		background: rgb(0 0 0 / 0.55);
+		background: rgb(0 5 15 / 0.8);
+		backdrop-filter: blur(8px);
 	}
 	fieldset {
 		border: 0;

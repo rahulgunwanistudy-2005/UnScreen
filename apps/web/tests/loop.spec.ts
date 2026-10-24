@@ -89,12 +89,55 @@ test('a live spreadsheet is rebuilt, edits are announced, and focus survives', a
 		// The Changes list records the version.
 		await expect(app.getByRole('heading', { name: 'Changes' })).toBeVisible();
 		await expect(app.locator('aside ol li').first()).toContainText('Version');
+		const historyButton = app.locator('aside ol li').first().getByRole('button');
+		const historyHandle = await historyButton.elementHandle();
+		await historyButton.click();
+		await expect(app.locator('#past-h')).toBeFocused();
+		await app.getByRole('button', { name: 'Close this version' }).click();
+		expect(await app.evaluate((el) => document.activeElement === el, historyHandle)).toBe(true);
 	} finally {
 		done = true;
 		await feeding;
 		await fixtureCtx.close();
 		await appCtx.close();
 	}
+});
+
+test('an upward cursor jump reports the current cell, not the old pointer position', async ({ browser }) => {
+	const fixtureCtx = await browser.newContext({ viewport: { width: 1280, height: 720 } });
+	const appCtx = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+	const fixture = await fixtureCtx.newPage();
+	const app = await appCtx.newPage();
+	const settingsSent: { type: string; numeric_style?: string }[] = [];
+	app.on('websocket', (ws) => ws.on('framesent', ({ payload }) => {
+		if (typeof payload === 'string') { const msg = JSON.parse(payload) as { type: string; numeric_style?: string }; if (msg.type === 'settings') settingsSent.push(msg); }
+	}));
+	await app.addInitScript(() => {
+		localStorage.setItem('unscreen:prefs:v1', JSON.stringify({ numericStyle: 'new_only' }));
+		navigator.mediaDevices.getDisplayMedia = async () => {
+			const c = document.createElement('canvas'); c.width = 1280; c.height = 720;
+			const ctx = c.getContext('2d')!;
+			(window as unknown as { __feed: (b: string) => Promise<void> }).__feed = async (b64) => {
+				const img = new Image(); img.src = `data:image/jpeg;base64,${b64}`; await img.decode(); ctx.drawImage(img, 0, 0);
+			};
+			return c.captureStream(5);
+		};
+	});
+	await fixture.goto('/fixture/sheet?seed=3&mode=static&cursor=on');
+	await fixture.waitForFunction(() => typeof window.__truth === 'function');
+	await app.goto('/app'); await app.waitForLoadState('networkidle');
+	let done = false;
+	const feeding = feedLoop(fixture, app, () => done);
+	try {
+		await app.getByRole('button', { name: 'Start reading the shared screen' }).click();
+		await expect(app.locator('main table caption')).toBeVisible({ timeout: 20_000 });
+		expect(settingsSent.some((m) => m.numeric_style === 'new_only')).toBe(true);
+		await fixture.evaluate(() => window.__movePointer!());
+		const truth = (await fixture.evaluate(() => window.__truth!())) as Truth;
+		await expect(app.locator('aside')).toContainText(`${truth.sheet.rows[0][0]}, Assignee: ${truth.sheet.rows[0][1]}`, { timeout: 10_000 });
+		await app.getByRole('button', { name: 'What is the pointer on?' }).click();
+		await expect(app.locator('[role="status"][aria-live="polite"]')).toContainText(truth.sheet.rows[0][1]);
+	} finally { done = true; await feeding; await fixtureCtx.close(); await appCtx.close(); }
 });
 
 test('pipeline overhead without the model: edit to spoken announcement', async ({ browser }) => {
@@ -174,9 +217,11 @@ test('pipeline overhead without the model: edit to spoken announcement', async (
 		p50_ms: sorted[Math.floor((sorted.length - 1) / 2)],
 		max_ms: sorted[sorted.length - 1]
 	};
-	const { writeFile, mkdir } = await import('node:fs/promises');
-	await mkdir('../../bench/results', { recursive: true });
-	await writeFile(`../../bench/results/${report.run_at.slice(0, 10)}-pipeline-overhead.json`, JSON.stringify(report, null, 2));
+	if (process.env.RECORD_RESULTS === '1') {
+		const { writeFile, mkdir } = await import('node:fs/promises');
+		await mkdir('../../bench/results', { recursive: true });
+		await writeFile(`../../bench/results/${report.run_at.slice(0, 10)}-pipeline-overhead.json`, JSON.stringify(report, null, 2));
+	}
 	console.log(JSON.stringify(report));
 	expect(report.max_ms).toBeLessThan(6000);
 });

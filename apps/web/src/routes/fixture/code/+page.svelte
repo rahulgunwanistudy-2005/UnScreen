@@ -45,18 +45,35 @@
 
 	onMount(() => {
 		window.__truth = truth;
-		if (!params.live) return;
 		const rng = createRng(params.seed * 104729);
-		const timer = setInterval(() => {
-			applyCodeEdit(code, nextCodeEdit(code, rng));
+		const advance = () => {
+			let edit = nextCodeEdit(code, rng);
+			if (!params.live) {
+				for (let attempt = 0; edit.kind === 'cursor' && attempt < 20; attempt++) edit = nextCodeEdit(code, rng);
+			}
+			applyCodeEdit(code, edit);
 			edits += 1;
-		}, params.intervalMs);
+		};
+		window.__advance = advance;
+		window.__movePointer = () => {
+			const target = root.querySelector<HTMLElement>('[data-truth="l2"]');
+			const icon = root.querySelector<SVGElement>('svg.cursor');
+			if (!target || !icon) return;
+			const p = (icon as unknown as HTMLElement).offsetParent?.getBoundingClientRect() ?? root.getBoundingClientRect();
+			const t = target.getBoundingClientRect();
+			cursor = { x: ((t.left + t.width / 2 - p.left - 2) / p.width) * 100, y: ((t.top + t.height / 2 - p.top - 2) / p.height) * 100 };
+		};
+		if (!params.live) return () => { delete window.__advance; delete window.__truth; delete window.__movePointer; };
+		const timer = setInterval(advance, params.intervalMs);
 		const mover = setInterval(() => {
 			cursor = { x: 10 + rng.next() * 50, y: 15 + rng.next() * 65 };
 		}, Math.max(1500, params.intervalMs / 2.5));
 		return () => {
 			clearInterval(timer);
 			clearInterval(mover);
+			delete window.__advance;
+			delete window.__truth;
+			delete window.__movePointer;
 		};
 	});
 </script>

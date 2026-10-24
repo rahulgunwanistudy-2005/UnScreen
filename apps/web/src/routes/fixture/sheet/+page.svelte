@@ -47,22 +47,36 @@
 
 	onMount(() => {
 		window.__truth = truth;
-		if (!params.live) return;
 		const rng = createRng(params.seed * 7919);
-		const timer = setInterval(() => {
+		const advance = () => {
 			for (const edit of nextSheetEdits(sheet, rng)) {
 				applySheetEdit(sheet, edit);
 				if (edit.kind === 'cell') selected = { row: edit.row, col: edit.col };
 				if (edit.kind === 'add_row' && sheet.rows.length > MAX_ROWS && rng.chance(0.5)) firstRow += 1;
 			}
 			edits += 1;
-		}, params.intervalMs);
+		};
+		window.__advance = advance;
+		window.__movePointer = () => {
+			const target = root.querySelector<HTMLElement>('[data-truth="r0c1"]');
+			const icon = root.querySelector<SVGElement>('svg.cursor');
+			const parent = icon?.parentElement?.closest<HTMLElement>('.surface') ?? root;
+			if (!target || !icon) return;
+			const p = (icon as unknown as HTMLElement).offsetParent?.getBoundingClientRect() ?? parent.getBoundingClientRect();
+			const t = target.getBoundingClientRect();
+			cursor = { x: ((t.left + t.width / 2 - p.left - 2) / p.width) * 100, y: ((t.top + t.height / 2 - p.top - 2) / p.height) * 100 };
+		};
+		if (!params.live) return () => { delete window.__advance; delete window.__truth; delete window.__movePointer; };
+		const timer = setInterval(advance, params.intervalMs);
 		const mover = setInterval(() => {
 			cursor = { x: 8 + rng.next() * 70, y: 18 + rng.next() * 60 };
 		}, Math.max(1500, params.intervalMs / 2.5));
 		return () => {
 			clearInterval(timer);
 			clearInterval(mover);
+			delete window.__advance;
+			delete window.__truth;
+			delete window.__movePointer;
 		};
 	});
 </script>

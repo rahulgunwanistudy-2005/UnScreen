@@ -1,5 +1,7 @@
 <script lang="ts">
+	import Icon from '#lib/site/Icon.svelte';
 	import type { HistoryEntry } from '#lib/doc/store.svelte.ts';
+	import { tick } from 'svelte';
 	import DocView from './DocView.svelte';
 
 	let { history }: { history: HistoryEntry[] } = $props();
@@ -7,6 +9,7 @@
 	let selected = $state<number | null>(null);
 	let heading: HTMLHeadingElement;
 	let viewHeading = $state<HTMLHeadingElement>();
+	let origin: HTMLButtonElement | null = null;
 	const viewing = $derived(selected === null ? null : (history.find((h) => h.version === selected) ?? null));
 	const time = (at: number) => new Date(at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 
@@ -14,21 +17,30 @@
 		heading.focus();
 	}
 
-	function open(version: number) {
+	async function open(version: number, button: HTMLButtonElement) {
+		origin = button;
 		selected = version;
-		queueMicrotask(() => viewHeading?.focus());
+		await tick();
+		viewHeading?.focus();
+	}
+
+	async function close() {
+		selected = null;
+		await tick();
+		if (origin?.isConnected) origin.focus();
+		else heading.focus();
 	}
 </script>
 
 <section aria-labelledby="changes-h">
-	<h2 id="changes-h" tabindex="-1" bind:this={heading}>Changes</h2>
+	<h2 id="changes-h" tabindex="-1" bind:this={heading}><Icon name="history" size={19} /> Changes</h2>
 	{#if history.length === 0}
 		<p>Each change to the shared screen is listed here, newest first. Choose one to read that version.</p>
 	{:else}
 		<ol reversed class="timeline">
 			{#each history as h (h.version)}
 				<li>
-					<button type="button" aria-current={selected === h.version ? 'true' : undefined} onclick={() => open(h.version)}>
+					<button type="button" aria-current={selected === h.version ? 'true' : undefined} onclick={(e) => open(h.version, e.currentTarget)}>
 						<span class="when">Version {h.version}, {time(h.at)}</span>
 						<span class="what">{h.summary}</span>
 					</button>
@@ -42,7 +54,7 @@
 	<section class="past" aria-labelledby="past-h">
 		<h2 id="past-h" tabindex="-1" bind:this={viewHeading}>Version {viewing.version}, {time(viewing.at)}</h2>
 		<p>This is an earlier version. The live screen keeps updating above.</p>
-		<button class="button quiet" type="button" onclick={() => (selected = null)}>Close this version</button>
+		<button class="button quiet" type="button" onclick={close}>Close this version</button>
 		<div class="past-doc"><DocView doc={viewing.doc} idPrefix="v{viewing.version}-" /></div>
 	</section>
 {/if}

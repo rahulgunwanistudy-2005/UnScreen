@@ -105,7 +105,10 @@
 </script>
 
 <figure class="hero" aria-labelledby="hero-caption">
-	<div class="stage" class:done={phase === 'done'} style:aspect-ratio="{hero.image.width} / {hero.image.height}">
+	<div class="preview-window">
+ <div class="window-bar" aria-hidden="true"><div class="window-dots"><i></i><i></i><i></i></div><span>UnScreen / reconstructed content</span><span class="window-type">Spreadsheet</span></div>
+ <div class="preview-content">
+ <div class="stage" class:done={phase === 'done'} style:aspect-ratio="{hero.image.width} / {hero.image.height}">
 		<div class="layer" aria-hidden="true">
 			<canvas bind:this={canvas}></canvas>
 			{#each cells as c, k (k)}
@@ -158,9 +161,11 @@
 		</ol>
 	</div>
 
+ </div>
+ </div>
 	<figcaption id="hero-caption">
 		<span>
-			A real frame from the benchmark: a spreadsheet shared inside a meeting window, sent at 720p with lossy compression.
+			A generated spreadsheet in a simulated meeting window, read by the real model after lossy compression at 720p.
 			UnScreen rebuilt every cell in the right place. The first spoken line is its real announcement; the others show
 			what the table's headers let a screen reader say as you move.
 		</span>
@@ -171,17 +176,76 @@
 </figure>
 
 <style>
+	.preview-window {
+		border: 1px solid var(--rule);
+		border-radius: 20px;
+		overflow: hidden;
+		background: var(--surface);
+		box-shadow: var(--shadow), 0 0 90px var(--ambient);
+	}
+	.window-bar {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		padding: .9rem 1.3rem;
+		border-bottom: 1px solid var(--rule);
+		font-size: .7rem;
+		color: var(--ink-soft);
+	}
+	.window-dots {
+		display: flex;
+		gap: 5px;
+	}
+	.window-dots i {
+		width: 6px;
+		height: 6px;
+		border-radius: 50%;
+		background: var(--mosaic);
+	}
+	.window-type {
+		margin-left: auto;
+		color: var(--accent);
+		background: var(--surface-raised);
+		border: 1px solid var(--rule);
+		border-radius: 30px;
+		padding: .1rem .6rem;
+	}
+	.preview-content {
+		padding: 1.3rem;
+		display: grid;
+		grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
+		gap: 1rem;
+		align-items: start;
+	}
+	@media (max-width: 900px) {
+		.preview-content {
+			grid-template-columns: 1fr;
+		}
+	}
+	@media (max-width: 520px) {
+		.preview-content {
+			padding: .7rem;
+		}
+		.window-type {
+			display: none;
+		}
+		.window-bar {
+			padding: .8rem;
+			font-size: .65rem;
+		}
+	}
 	.hero {
 		margin: 0;
 		display: grid;
-		gap: 1.25rem;
+		gap: 1rem;
 	}
 	.stage {
 		position: relative;
 		width: 100%;
 		max-width: 64rem;
-		border: 2px solid var(--ink);
-		background: var(--paper);
+		border: 1px solid var(--rule);
+		border-radius: 12px;
+		background: var(--surface);
 		--dot: var(--ink);
 		overflow: hidden;
 	}
@@ -219,7 +283,7 @@
 		visibility: hidden;
 	}
 	.cell.head {
-		font-weight: 800;
+		font-weight: 600;
 		border-bottom: 2px solid var(--ink);
 	}
 	.cell.on {
@@ -247,7 +311,7 @@
 	.final table {
 		border-collapse: collapse;
 		width: 100%;
-		font-size: clamp(0.62rem, 1.5vw, 1rem);
+		font-size: clamp(0.62rem, 1vw, .85rem);
 	}
 	.final caption {
 		text-align: start;
@@ -255,25 +319,28 @@
 		color: var(--ink-soft);
 		padding-bottom: 0.4em;
 	}
-	.final th,
-	.final td {
+	.final th, .final td {
 		text-align: start;
-		padding: 0.25em 0.6em;
+		padding: 0.5em 0.6em;
 		border-bottom: 1px solid var(--rule);
 		white-space: nowrap;
 	}
 	.final thead th {
 		border-bottom: 2px solid var(--ink);
-		font-weight: 800;
+		font-weight: 600;
 	}
 	.speech {
 		max-width: 64rem;
 		font-family: var(--font-mono);
 		font-size: var(--s-1);
-		border-left: 4px solid var(--ink);
-		padding-left: 1rem;
+		border: 1px solid var(--rule);
+		border-radius: 12px;
+		background: var(--surface-raised);
+		padding: 1.3rem;
+		align-self: stretch;
 	}
 	.speech-title {
+		color: var(--accent);
 		font-family: var(--font-body);
 		font-weight: 700;
 		margin-bottom: 0.3em;
@@ -284,11 +351,13 @@
 		padding: 0;
 	}
 	.speech li {
-		padding-block: 0.15em;
+		padding-block: 0.65em;
+		border-bottom: 1px solid var(--rule);
 	}
 	.who {
 		display: inline-block;
 		min-width: 15ch;
+		font-size: .7rem;
 		color: var(--ink-soft);
 	}
 	figcaption {

@@ -1,11 +1,13 @@
 import type { Announce } from '@unscreen/schema';
 import { Announcer } from './a11y/announcer.ts';
+import { SpeechPreview } from './a11y/speech.ts';
 import { prefs } from './a11y/settings.svelte.ts';
 import { CaptureError, ScreenCapture } from './capture/capture.ts';
 import { DocStore } from './doc/store.svelte.ts';
 import { EngineClient, type ConnectionState, type ServerMessage } from './engine/client.ts';
+import type { RecordedSession } from './recording/types.ts';
 
-export type Phase = 'idle' | 'starting' | 'reading' | 'stopped';
+export type Phase = 'idle' | 'starting' | 'reading' | 'recording' | 'stopped';
 
 export type AnswerEntry = { q: string; text: string; refs: string[]; version: number };
 
@@ -26,6 +28,13 @@ export class ReaderSession {
 	workerCpuMs = $state(0);
 	changed = $state<Record<string, number>>({});
 	readonly doc = new DocStore();
+	recordingSource = $state<string | null>(null);
+	private playbackTimers: ReturnType<typeof setTimeout>[] = [];
+	private speech = new SpeechPreview();
+
+	setHearIt(enabled: boolean): void {
+		this.speech.setEnabled(enabled);
+	}
 
 	private lastSpoken = '';
 	private announcer = new Announcer((text) => this.say(text));
@@ -46,6 +55,11 @@ export class ReaderSession {
 		});
 		this.capture = new ScreenCapture({
 			frame: (f) => {
+				// Content and cursor motion may overlap; a previously tracked point
+				// cannot be treated as current until the tracker sees another clean move.
+				this.pointer = null;
+				this.pointerText = null;
+				this.pointerRef = null;
 				this.frameSentAt[this.doc.version] = performance.now();
 				this.engine.sendFrame({
 					meta: { w: f.w, h: f.h, mime: 'image/webp', change_score: f.score, changed_tiles: f.tiles, pointer: null },
@@ -61,11 +75,13 @@ export class ReaderSession {
 	/** Polite live region. Re-speaking identical text needs the content to change, so toggle a no-break space. */
 	private say(text: string): void {
 		this.lastSpoken = text;
+		this.speech.say(text);
 		this.live = this.live === text ? `${text}\u00a0` : text;
 	}
 
 	private shout(text: string): void {
 		this.alert = '';
+		this.speech.say(text);
 		queueMicrotask(() => (this.alert = text));
 	}
 
@@ -77,6 +93,7 @@ export class ReaderSession {
 		if (this.phase === 'starting' || this.phase === 'reading') return;
 		this.phase = 'starting';
 		this.alert = '';
+		this.recordingSource = null;
 		this.status = 'Choose the meeting tab or window to read.';
 		this.announcer.verbosity = prefs.value.verbosity;
 		try {
@@ -88,8 +105,7 @@ export class ReaderSession {
 			this.shout(message);
 			return;
 		}
-		this.doc.clear();
-		this.changed = {};
+		this.resetContent();
 		this.phase = 'reading';
 		this.status = 'Reading the shared screen. Waiting for the first picture.';
 		this.announcer.now('Started. Reading the shared screen.');
@@ -98,18 +114,60 @@ export class ReaderSession {
 	}
 
 	stop(spoken = 'Stopped reading. The last version stays on the page.'): void {
-		if (this.phase !== 'reading' && this.phase !== 'starting') return;
+		for (const timer of this.playbackTimers) clearTimeout(timer);
+		this.playbackTimers = [];
+		this.speech.stop();
+		if (this.phase !== 'reading' && this.phase !== 'starting' && this.phase !== 'recording') return;
 		this.capture.stop();
 		this.engine.stop();
 		this.announcer.clear();
 		this.phase = 'stopped';
 		this.status = spoken;
 		this.announcer.now(spoken);
+		this.speech.stop();
 	}
 
 	toggle(): void {
-		if (this.phase === 'reading' || this.phase === 'starting') this.stop();
+		if (this.phase === 'recording') this.stop('Recording stopped. The last recorded version stays on the page.');
+		else if (this.phase === 'reading' || this.phase === 'starting') this.stop();
 		else void this.start();
+	}
+
+	private resetContent(): void {
+		this.doc.clear();
+		this.changed = {};
+		this.answers = [];
+		this.pointer = null;
+		this.pointerText = null;
+		this.pointerRef = null;
+		this.pointerAsked = false;
+		this.pointerSentAt = 0;
+		this.focusRef = null;
+		this.frameSentAt = {};
+		this.lastLatencyMs = null;
+		this.busy = false;
+	}
+
+	playRecording(recording: RecordedSession): void {
+		this.stop();
+		this.resetContent();
+		this.alert = '';
+		this.phase = 'recording';
+		this.recordingSource = recording.source;
+		this.status = 'Playing a recorded session at twice its original speed.';
+		this.announcer.now('Playing a recorded session at twice its original speed.');
+		for (const event of recording.events) {
+			this.playbackTimers.push(setTimeout(() => {
+				if (this.phase === 'recording') this.onMessage(structuredClone(event.message));
+			}, event.at / recording.playback_rate));
+		}
+		const end = recording.events[recording.events.length - 1].at / recording.playback_rate + 2500;
+		this.playbackTimers.push(setTimeout(() => {
+			this.phase = 'stopped';
+			this.busy = false;
+			this.status = 'Recording complete. The last recorded version stays on the page.';
+			this.playbackTimers = [];
+		}, end));
 	}
 
 	setFocus(ref: string | null): void {
@@ -194,6 +252,7 @@ export class ReaderSession {
 
 	private onConnection(state: ConnectionState, detail?: string): void {
 		this.connection = state;
+		if (state === 'open' && this.phase === 'reading') this.pushSettings();
 		if (state === 'reconnecting' && this.phase === 'reading') {
 			this.status = detail ?? 'Reconnecting to the reading engine.';
 		} else if (state === 'open' && this.phase === 'reading' && this.doc.doc) {
@@ -212,7 +271,7 @@ export class ReaderSession {
 		switch (msg.type) {
 			case 'snapshot':
 				this.doc.snapshot(msg);
-				this.status = `Reading: ${summarize(msg.doc)}.`;
+				this.status = `${this.phase === 'recording' ? 'Recorded' : 'Reading'}: ${summarize(msg.doc)}.`;
 				break;
 			case 'patch':
 				if (!this.doc.patch(msg)) {
@@ -234,6 +293,7 @@ export class ReaderSession {
 				else if (msg.code !== 'rate_limited') this.status = msg.message;
 				break;
 			case 'pointer_target':
+				if (this.phase === 'reading' && this.pointer === null) break;
 				this.pointerText = msg.text;
 				this.pointerRef = msg.ref;
 				if (this.pointerAsked) {

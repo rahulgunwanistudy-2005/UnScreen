@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Icon from '#lib/site/Icon.svelte';
 	import { ACTION_LABELS, conflict, DEFAULT_KEYMAP, describe, fromEvent, type Action } from '#lib/a11y/keymap.ts';
 	import { prefs } from '#lib/a11y/settings.svelte.ts';
 
@@ -54,13 +55,14 @@
 </svelte:head>
 
 <main id="main" class="wrap help">
+	<p class="page-note"><Icon name="code" size={18} /> Make it work your way</p>
 	<h1>Help and keyboard shortcuts</h1>
 	<p>
 		Shortcuts work on the reader page. They all use Alt+Shift (Option+Shift on a Mac), which NVDA, JAWS, VoiceOver and
 		ChromeVox leave free, so your screen reader's own keys keep working.
 	</p>
 
-	<h2 id="keys">Shortcuts</h2>
+	<section class="shortcut-panel" aria-labelledby="keys"><h2 id="keys">Shortcuts</h2>
 	<p class="live" role="status">{message}</p>
 	<label class="toggle">
 		<input type="checkbox" checked={prefs.value.shortcuts} onchange={(e) => prefs.update({ shortcuts: e.currentTarget.checked })} />
@@ -96,7 +98,8 @@
 	</div>
 	<p><button type="button" class="button quiet" onclick={reset}>Reset all shortcuts</button></p>
 
-	<h2>Reading the shared screen</h2>
+	</section>
+	<div class="help-content"><h2>Reading the shared screen</h2>
 	<ul>
 		<li>A spreadsheet becomes a real table with column headers. When the first column names each row, it is used as the row header too.</li>
 		<li>Code becomes a listing with one line per line of code, each starting with its line number.</li>
@@ -133,11 +136,78 @@
 		<li><strong>"Sharing ended":</strong> the meeting tab was closed or sharing was stopped from Chrome's bar. Press Start to choose it again.</li>
 		<li><strong>"Engine busy":</strong> the reading service is overloaded. The last version stays on screen; UnScreen will not announce guesses.</li>
 	</ul>
+</div>
 </main>
 
 <style>
+	.page-note {
+		display: flex;
+		align-items: center;
+		gap: .55rem;
+		color: var(--accent);
+		font-size: .8rem;
+	}
+	.help > h1 {
+		font-size: clamp(2.2rem, 4vw, 3.5rem);
+		font-weight: 400;
+	}
+	.help > p:not(.page-note) {
+		color: var(--ink-soft);
+	}
+	.shortcut-panel {
+		padding: 1.8rem;
+		margin-top: 2.5rem;
+		border: 1px solid var(--rule);
+		border-radius: 20px;
+		background: var(--surface);
+	}
+	.help .shortcut-panel h2 {
+		margin-top: 0;
+	}
+	.shortcut-panel > p:last-child {
+		margin-top: 1.2rem;
+		margin-bottom: 0;
+	}
+	.keys {
+		min-width: 40rem;
+		max-width: none;
+	}
+	.keys thead th {
+		color: var(--ink-soft);
+		font-size: .8rem;
+	}
+	.keys kbd {
+		display: inline-block;
+		padding: .2rem .5rem;
+		border: 1px solid var(--rule);
+		border-radius: 6px;
+		background: var(--surface-raised);
+		font-size: .75rem;
+		font-weight: 500;
+	}
+	.change .button {
+		min-height: 2.3rem;
+		font-size: .75rem;
+		padding-block: .45em;
+	}
+	.help-content {
+		max-width: 52rem;
+		margin-inline: auto;
+		padding-top: 1rem;
+	}
+	.help-content ul {
+		color: var(--ink-soft);
+	}
+	@media (max-width: 600px) {
+		.shortcut-panel {
+			padding: 1rem;
+		}
+		.help > h1 {
+			font-size: 2.4rem;
+		}
+	}
 	.help {
-		padding-top: 2rem;
+		padding-top: 3rem;
 	}
 	.help h2 {
 		margin-top: 2.5rem;
@@ -158,7 +228,7 @@
 	.toggle input {
 		width: 1.2rem;
 		height: 1.2rem;
-		accent-color: var(--ink);
+		accent-color: var(--accent);
 	}
 	.scroll {
 		overflow-x: auto;
@@ -169,15 +239,14 @@
 		width: 100%;
 		max-width: 52rem;
 	}
-	.keys th,
-	.keys td {
+	.keys th, .keys td {
 		text-align: start;
 		padding: 0.5em 0.8em 0.5em 0;
 		border-bottom: 1px solid var(--rule);
 		vertical-align: middle;
 	}
 	.keys thead th {
-		border-bottom: 2px solid var(--ink);
+		border-bottom: 1px solid var(--rule);
 	}
 	.keys tbody th {
 		font-weight: 400;

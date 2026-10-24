@@ -1,9 +1,13 @@
 <script lang="ts">
+	import Icon from '#lib/site/Icon.svelte';
 	import { bench, date, pct, secs, type Aggregate, type Run } from '#lib/bench/format.ts';
 
 	const runs: { title: string; run: Run }[] = [];
 	if (bench.full) runs.push({ title: 'Full benchmark', run: bench.full });
+	if (bench.focused) runs.push({ title: 'Focused code and slide benchmark', run: bench.focused });
+	if (bench.real) runs.push({ title: 'Real Google Meet group', run: bench.real });
 	if (bench.kill) runs.push({ title: 'Kill test: 10 spreadsheets in a meeting window', run: bench.kill });
+	for (const run of bench.configurations ?? []) runs.unshift({ title: `Configuration: ${run.models.reconstruct} / ${run.models.verify}`, run });
 
 	const groupName = (g: string) => {
 		const [kind, variant] = g.split('/');
@@ -20,6 +24,7 @@
 </svelte:head>
 
 <main id="main" class="wrap bench">
+	<p class="page-note"><Icon name="table" size={18} /> Measured in the open</p>
 	<h1>Benchmark</h1>
 	<p>
 		Every number on this page is measured, generated from the result files in
@@ -35,6 +40,10 @@
 					: 'no cross-check read (it was added after this run)'}; image resolution {run.models.image_resolution}. Source:
 				<code>{run.file}</code>.
 			</p>
+			{#if run.note}<p>{run.note}</p>{/if}
+			{#if run.failures && Object.keys(run.failures).length}
+				<ul>{#each Object.entries(run.failures) as [reason, count] (reason)}<li>{count} failed frame(s): {reason}.</li>{/each}</ul>
+			{/if}
 			<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 			<div class="scroll" role="region" aria-label="{title}, results table, scrollable" tabindex="0">
 				<table>
@@ -50,6 +59,7 @@
 							<th scope="col">Right place, UnScreen</th>
 							<th scope="col">Right place, OCR</th>
 							<th scope="col">Character errors, UnScreen</th>
+							<th scope="col">Marked unclear or unreadable</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -64,6 +74,7 @@
 								<td>{pct(a.unscreen.structure_accuracy)}</td>
 								<td>{pct(a.ocr.structure_accuracy)}</td>
 								<td>{pct(a.unscreen.cer, 2)}</td>
+								<td>{a.unscreen.flagged} of {a.unscreen.items}</td>
 							</tr>
 						{/each}
 					</tbody>
@@ -133,8 +144,8 @@
 		<section aria-labelledby="live">
 			<h2 id="live">Live loop</h2>
 			<p>
-				The real reader app watching a scripted spreadsheet that edits itself, through the real engine and the Gemini API.
-				Changes come from the fixture's own record of what it edited.
+				The real reader app watching generated sheet or code fixtures, through the real engine and the Gemini API.
+				Changes come from the fixture's own record of what it edited. Latency ends at the polite live region; audible screen-reader speech has not been measured. Confidence-only warnings can add announcements even when a value did not change.
 			</p>
 			<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 			<div class="scroll" role="region" aria-label="Live loop runs, scrollable" tabindex="0">
@@ -164,6 +175,9 @@
 				</tbody>
 			</table>
 			</div>
+			{#each bench.live as l (l.file)}
+				{#if l.validation_note}<p><code>{l.file}</code>: {l.validation_note}</p>{/if}
+			{/each}
 		</section>
 	{/if}
 
@@ -191,32 +205,98 @@
 			</li>
 		</ul>
 	</section>
+	{#if bench.research}
+		<section aria-labelledby="testers">
+			<h2 id="testers">What testers found</h2>
+			<p>{bench.research.summary}</p>
+			<p class="meta">Source: <code>{bench.research.file}</code>.</p>
+		</section>
+	{/if}
 
 	<section aria-labelledby="failed">
 		<h2 id="failed">What failed</h2>
 		<ul>
 			<li>
-				<strong>Speed.</strong> The target was an announcement within 3.5 seconds of a change. The times measured with
-				Gemini are tens of seconds, but they are not the model's speed: the key used was on Gemini's free tier, which allows
-				20 requests per day per model. Calls refused with HTTP 429 were retried with backoff, and that waiting is counted.
-				Without the model, UnScreen's own share is shown above.
+				<strong>Speed.</strong> Current paid-tier reconstruction and live-loop times are measured separately above. They still take several seconds. The older free-tier runs include refused calls and retry waits and should not be treated as paid-tier model speed.
 			</li>
 			<li>
-				<strong>Some frames were never read</strong> because the daily free-tier quota ran out mid-run. They are counted above
-				as not read. The full benchmark across code, slides and all resolutions needs about 240 model calls and was not run on
-				the free tier.
+				<strong>Provider limits and coverage.</strong> Historical free-tier failures remain listed. The current Mistral screening still hit a provider rate limit, and Groq marked its screening frame entirely unclear. The full multi-resolution benchmark was cut to minimize spending; the focused code and slide/document results are reported separately.
 			</li>
 			<li>
 				<strong>Digits in compressed video.</strong> On one frame, 4 of 105 cells had a digit misread (6 and 8, 9 and 3). A
-				second independent read now flags most such cells as unclear, but it did not catch every one.
+				second independent read flags disagreements, but agreeing reads can still share a wrong value. Code indentation and slide block segmentation also reduce exact matches. These are generated fixtures; real Meet and human screen-reader validation remain pending.
 			</li>
 		</ul>
 	</section>
 </main>
 
 <style>
+	.page-note {
+		display: flex;
+		align-items: center;
+		gap: .55rem;
+		color: var(--accent);
+		font-size: .8rem;
+	}
+	.bench > h1 {
+		font-size: clamp(2.2rem, 4vw, 3.5rem);
+		font-weight: 400;
+	}
+	.bench > p:not(.page-note) {
+		color: var(--ink-soft);
+	}
+	.bench section {
+		padding: 2rem;
+		margin-top: 1.5rem;
+		border: 1px solid var(--rule);
+		border-radius: 18px;
+		background: var(--surface);
+		min-width: 0;
+	}
+	.bench section h2 {
+		margin-top: 0;
+		font-size: 1.5rem;
+		overflow-wrap: anywhere;
+	}
+	.bench section p,.bench section ul {
+		color: var(--ink-soft);
+	}
+	.bench section strong {
+		color: var(--ink);
+	}
+	.bench section :last-child {
+		margin-bottom: 0;
+	}
+	.scroll {
+		margin-block: 1.5rem;
+		border: 1px solid var(--rule);
+		border-radius: 10px;
+	}
+	.scroll table {
+		margin-block: 0;
+		width: 100%;
+		font-size: .85rem;
+	}
+	.scroll th,.scroll td {
+		padding: .8em 1em;
+	}
+	.scroll thead {
+		background: var(--surface-raised);
+	}
+	.scroll thead th {
+		color: var(--ink-soft);
+		font-weight: 500;
+	}
+	.scroll tbody tr:last-child > * {
+		border-bottom: 0;
+	}
+	@media (max-width: 600px) {
+		.bench section {
+			padding: 1.2rem;
+		}
+	}
 	.bench {
-		padding-top: 2rem;
+		padding-top: 3rem;
 	}
 	.bench h2 {
 		margin-top: 2.5rem;
@@ -232,15 +312,14 @@
 		border-collapse: collapse;
 		margin-block: 1rem;
 	}
-	th,
-	td {
+	th, td {
 		text-align: start;
 		padding: 0.45em 1em 0.45em 0;
 		border-bottom: 1px solid var(--rule);
 		vertical-align: top;
 	}
 	thead th {
-		border-bottom: 2px solid var(--ink);
+		border-bottom: 1px solid var(--rule);
 		font-size: var(--s-1);
 	}
 	tbody th {

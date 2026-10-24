@@ -63,5 +63,8 @@ export function targetAt(boxes: Record<string, TruthBox>, x: number, y: number):
 declare global {
 	interface Window {
 		__truth?: () => FixtureTruth;
+		/** Advance the real fixture DOM once, for a controlled live-model measurement. */
+		__advance?: () => void;
+		__movePointer?: () => void;
 	}
 }
