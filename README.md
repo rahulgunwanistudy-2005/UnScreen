@@ -2,7 +2,9 @@
 
 **Every screen share, readable by a screen reader, live.**
 
-Local build with measured Gemini fixture runs. Spreadsheet results, code/slide limitations and live-loop failures are reported separately below. Human screen-reader and real Google Meet validation remain pending.
+**Live:** <https://unscreen-igkn.onrender.com> (reader) · engine <https://unscreen-engine.onrender.com/healthz>. Hosted on Render's free plan, so the first request after idle can take about a minute while the engine wakes.
+
+Measured Gemini fixture runs. Spreadsheet results, code/slide limitations and live-loop failures are reported separately below. Human screen-reader and real Google Meet validation remain pending.
 
 Zoom, Google Meet and Microsoft Teams send shared content as a picture, so a screen reader can only say that someone is sharing. UnScreen reads the shared tab or window, rebuilds it as a real table, code listing or outline, and announces what changed. It needs nothing from the presenter. It is designed for NVDA, VoiceOver and ChromeVox; a human screen-reader pass remains pending.
 
@@ -149,7 +151,7 @@ cd bench && PYTHONPATH=. uv run --project ../services/engine python -m unscreen_
 
 Routine browser tests never publish latency results. To deliberately record overhead, run `RECORD_RESULTS=1 pnpm --filter web exec playwright test tests/loop.spec.ts`, then `pnpm bench:publish`. Publishing updates the README, Devpost result section and `/benchmark` from the same result files. Human-validation status comes from `docs/research/results.md`.
 
-The spending ledger lives in `services/engine/.local/model-budget.sqlite3`. Every network attempt reserves estimated USD; successful responses reconcile to token usage, while timeouts and failed attempts retain the reservation. Counts and estimates are shared across sessions, retries and benchmark processes using that path and reset at 00:00 UTC. Unknown prices refuse calls. Do not delete the ledger to reset a cap. For a future hosted instance, use one service instance and a persistent, writable `UNSCREEN_BUDGET_PATH`; separate hosts do not share SQLite accounting.
+The spending ledger lives in `services/engine/.local/model-budget.sqlite3`. Every network attempt reserves estimated USD; successful responses reconcile to token usage, while timeouts and failed attempts retain the reservation. Counts and estimates are shared across sessions, retries and benchmark processes using that path and reset at 00:00 UTC. Unknown prices refuse calls. Do not delete the ledger to reset a cap. The hosted Render instance runs on the free plan without a persistent disk, so its ledger resets when the instance restarts; set a spending limit on the Gemini project as well. For a stricter hosted cap, use one paid instance with a persistent, writable `UNSCREEN_BUDGET_PATH`; separate hosts do not share SQLite accounting.
 
 ## How we built it
 

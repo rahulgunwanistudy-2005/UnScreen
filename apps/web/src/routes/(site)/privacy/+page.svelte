@@ -11,7 +11,7 @@
 	<p class="page-note"><Icon name="shield" size={18} /> A clear view of your data</p>
 	<h1>Privacy</h1>
 	<p>UnScreen reads the tab or window you choose to share. Here is exactly what happens to it.</p>
-	<p>This project is currently being validated locally. The owner has confirmed paid Gemini billing and an active Mistral plan. There is no hosted instance from this completion session. The default configuration uses Gemini for reading and cross-checking; optional provider configurations must be disclosed before hosting.</p>
+	<p>The hosted instance uses Google Gemini for reading and cross-checking. Groq and Mistral are not used by the hosted instance.</p>
 
 	<section aria-labelledby="leaves"><h2 id="leaves">What leaves your computer</h2>
 	<ul>

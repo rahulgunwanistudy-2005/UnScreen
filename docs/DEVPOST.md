@@ -143,7 +143,7 @@ OCR is Tesseract 5.5 (best of three settings) with help to find table cells; scr
 
 ## Build instructions
 
-See `README.md` for local setup. Source publication and hosting are deferred by request; no public URL is claimed.
+Live: https://unscreen-igkn.onrender.com (engine health: https://unscreen-engine.onrender.com/healthz). Source: https://github.com/rahulgunwanistudy-2005/UnScreen . See `README.md` for local setup and `render.yaml` for the hosted configuration.
 
 ## Team
 
@@ -163,7 +163,7 @@ All examples shown are generated test fixtures from this repository; no real mee
 
 ## Video and public links
 
-Actual video: pending user recording with NVDA or VoiceOver. The recording plan and draft captions are in `docs/VIDEO.md` and `docs/video/`. No video URL, hosted URL or submitted Devpost page is claimed. The user excluded committing, pushing and hosting from this session.
+Actual video: pending user recording with NVDA or VoiceOver. The recording plan and draft captions are in `docs/VIDEO.md` and `docs/video/`. No video URL or submitted Devpost page is claimed yet. Hosted reader: https://unscreen-igkn.onrender.com
 
 ## Gallery (local previews, not deployed screenshots)
 
