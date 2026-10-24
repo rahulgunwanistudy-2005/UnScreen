@@ -3,6 +3,7 @@
 import asyncio
 import base64
 import hashlib
+import io
 import json
 import logging
 import random
@@ -16,10 +17,22 @@ from google import genai
 from google.genai import errors as genai_errors
 from google.genai._gaos.errors import GenAiError
 from google.genai._gaos.lib.compat_errors import GeminiNextGenAPIClientError
+from PIL import Image
 
 from engine.config import Settings
 
 log = logging.getLogger(__name__)
+
+
+def image_digest(data: bytes) -> str:
+    """Hash of the decoded pixels. Encoded PNG bytes differ between platforms' zlib builds, so
+    hashing them would make recorded responses replay on one OS only."""
+    try:
+        with Image.open(io.BytesIO(data)) as img:
+            img.load()
+            return hashlib.sha256(f"{img.mode}{img.size}".encode() + img.tobytes()).hexdigest()
+    except OSError:
+        return hashlib.sha256(data).hexdigest()
 
 
 @dataclass(frozen=True)
@@ -45,7 +58,7 @@ class VisionRequest:
             "system": self.system,
             "prompt": self.prompt,
             "schema": self.schema,
-            "images": [hashlib.sha256(i.data).hexdigest() for i in self.images],
+            "images": [image_digest(i.data) for i in self.images],
             "resolution": self.resolution,
             "thinking": self.thinking_level,
         }
