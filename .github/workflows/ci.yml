@@ -47,6 +47,7 @@ jobs:
       - run: pnpm --filter web check
       - run: pnpm --filter web lint
       - run: pnpm --filter web exec vitest run
+      - run: node --test bench/live-score.test.mjs
       - run: pnpm --filter web build
       - name: Browser tests (focus, axe, full loop with a scripted model)
         run: |

@@ -21,3 +21,10 @@ bench/fixtures/frames/
 bench/fixtures/degraded/
 bench/.cache/
 *.log
+.local/
+DESIGN.md
+DECISIONS.md
+PROGRESS.md
+tasks/
+
+.claude/

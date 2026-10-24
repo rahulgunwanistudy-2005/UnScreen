@@ -1,16 +1,48 @@
-# Render blueprint for the engine. Set GEMINI_API_KEY in the dashboard (never commit it).
+# Render blueprint: the engine (Docker web service) and the reader (static site).
+# Set GEMINI_API_KEY in the dashboard; never commit it.
 services:
   - type: web
     name: unscreen-engine
     runtime: docker
     rootDir: services/engine
     dockerfilePath: ./Dockerfile
-    plan: starter
+    plan: free
     healthCheckPath: /healthz
     envVars:
       - key: GEMINI_API_KEY
         sync: false
-      - key: UNSCREEN_ALLOWED_ORIGINS
-        value: '["https://unscreen.vercel.app"]'
       - key: UNSCREEN_LLM_MODE
         value: live
+      - key: UNSCREEN_ALLOWED_ORIGINS
+        value: '["https://unscreen.onrender.com"]'
+      - key: UNSCREEN_DAILY_MODEL_USD
+        value: "1.00"
+      - key: UNSCREEN_DAILY_MODEL_CALLS
+        value: "200"
+      - key: UNSCREEN_LLM_MAX_RETRIES
+        value: "0"
+      - key: UNSCREEN_LLM_TIMEOUT_S
+        value: "60"
+
+  - type: web
+    name: unscreen
+    runtime: static
+    buildCommand: corepack enable && pnpm install --frozen-lockfile && pnpm --filter web build
+    staticPublishPath: apps/web/build
+    envVars:
+      - key: VITE_ENGINE_URL
+        value: https://unscreen-engine.onrender.com
+    headers:
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      - path: /*
+        name: Permissions-Policy
+        value: camera=(), microphone=(), geolocation=(), display-capture=(self)
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /200.html
