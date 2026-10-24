@@ -143,16 +143,18 @@ async def test_cross_check_marks_disagreements_unclear_and_keeps_primary_text() 
     assert not cells[1].uncertain
 
 
-async def test_failed_cross_check_falls_back_to_verifying_changes() -> None:
+async def test_failed_first_cross_check_never_publishes_unverified_values() -> None:
     model, pipe = make()
     model.push_full(full_sheet_read(HEADERS, ROWS), ModelError("down"))
-    out = await pipe.process(sheet_frame(ROWS))
-    assert out.doc is not None and not any(c.uncertain for r in out.doc.sheet.rows for c in r.cells)  # type: ignore[union-attr]
+    with pytest.raises(ModelError):
+        await pipe.process(sheet_frame(ROWS))
+    assert pipe.doc is None
+    model.push_full(full_sheet_read(HEADERS, ROWS))
+    await pipe.process(sheet_frame(ROWS))
     model.push_full(full_sheet_read(HEADERS, edited(0, 2, "$1.2M")), ModelError("down"))
-    model.push("verify_cell", VerifyRead(readings=[Reading(text="$1.2M", legibility="clear")]))
-    out = await pipe.process(sheet_frame([["x", "y", "z"]] * 8, marker="big change"))
-    assert "verify_cell" in model.purposes()
-    assert [a.text for a in out.announces] == ["Acme Corp, Q3 revenue: $1.1M to $1.2M."]
+    with pytest.raises(ModelError):
+        await pipe.process(sheet_frame([["x", "y", "z"]] * 8, marker="big change"))
+    assert pipe.doc is not None and pipe.doc.version == 1
 
 
 async def test_verify_is_batched_for_models_that_take_few_images() -> None:

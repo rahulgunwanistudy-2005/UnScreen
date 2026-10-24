@@ -31,9 +31,18 @@ def describe_pointer(doc: Document | None, x: int, y: int) -> tuple[str | None, 
         for j, col in enumerate(doc.sheet.columns):
             consider(col.bbox, col.id, f"Column header {j + 1}: {_value(col.text, col.unreadable, col.uncertain)}")
         for i, row in enumerate(doc.sheet.rows):
-            label = row.key or f"row {i + 1}"
+            label = (
+                row.key
+                if row.key and row.cells and not (row.cells[0].uncertain or row.cells[0].unreadable)
+                else f"row {i + 1}"
+            )
             for j, cell in enumerate(row.cells):
-                col_name = doc.sheet.columns[j].text if j < len(doc.sheet.columns) else f"column {j + 1}"
+                target_col = doc.sheet.columns[j] if j < len(doc.sheet.columns) else None
+                col_name = (
+                    target_col.text
+                    if target_col and not (target_col.uncertain or target_col.unreadable)
+                    else f"column {j + 1}"
+                )
                 consider(
                     cell.bbox, cell.id, f"{label}, {col_name}: {_value(cell.text, cell.unreadable, cell.uncertain)}"
                 )

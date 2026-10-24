@@ -59,6 +59,23 @@ async def ask(reader: Reader, frame: DecodedFrame, doc: Document, question: str)
     refs = [r for r in dict.fromkeys(timed.value.refs) if r in known]
     rejected = [r for r in timed.value.refs if r not in known]
     text = timed.value.answer.strip() or "No answer."
-    if rejected and not refs:
-        text += " (The answer cited nothing UnScreen could find on screen, so treat it with care.)"
+    uncertain: set[str] = set()
+    if doc.sheet:
+        uncertain |= {c.id for c in doc.sheet.columns if c.uncertain or c.unreadable}
+        for row in doc.sheet.rows:
+            flagged = {c.id for c in row.cells if c.uncertain or c.unreadable}
+            uncertain |= flagged
+            if flagged:
+                uncertain.add(row.id)
+    if doc.code:
+        uncertain |= {ln.id for ln in doc.code.lines if ln.uncertain or ln.unreadable}
+    uncertain |= {b.id for b in doc.blocks or [] if b.uncertain or b.unreadable}
+    if rejected or not refs:
+        text = (
+            "I could not verify this answer against readable references on screen. "
+            "Please ask about a visible cell, line or block."
+        )
+        refs = []
+    elif uncertain.intersection(refs):
+        text = "The content needed for this answer is unclear or unreadable. I cannot state its value with confidence."
     return AskResult(text=text, refs=refs, rejected=rejected, latency_ms=timed.latency_ms)

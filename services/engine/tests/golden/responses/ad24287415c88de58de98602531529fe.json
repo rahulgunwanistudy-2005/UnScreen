@@ -1,0 +1,11 @@
+{
+ "purpose": "crosscheck",
+ "model": "gemini-3.5-flash-lite",
+ "text": "{\n  \"content_type\": \"slide\",\n  \"title\": \"\",\n  \"content_box_2d\": [\n    32,\n    86,\n    871,\n    938\n  ],\n  \"sheet\": {\n    \"sheet_name\": \"\",\n    \"columns\": [],\n    \"rows\": [],\n    \"unclear\": []\n  },\n  \"code\": {\n    \"file_name\": \"\",\n    \"language\": \"\",\n    \"x_range\": [\n      0,\n      0\n    ],\n    \"lines\": [],\n    \"unclear\": []\n  },\n  \"blocks\": [\n    {\n      \"kind\": \"heading\",\n      \"level\": 1,\n      \"text\": \"Q3 results\",\n      \"legibility\": \"clear\",\n      \"box_2d\": [\n        131,\n        164,\n        165,\n        258\n      ]\n    },\n    {\n      \"kind\": \"list_item\",\n      \"level\": 0,\n      \"text\": \"Revenue grew 18% quarter on quarter\",\n      \"legibility\": \"clear\",\n      \"box_2d\": [\n        217,\n        165,\n        240,\n        381\n      ]\n    },\n    {\n      \"kind\": \"list_item\",\n      \"level\": 0,\n      \"text\": \"Churn fell to 2.1% from 2.9%\",\n      \"legibility\": \"clear\",\n      \"box_2d\": [\n        261,\n        165,\n        284,\n        349\n      ]\n    },\n    {\n      \"kind\": \"list_item\",\n      \"level\": 0,\n      \"text\": \"Three new enterprise accounts signed\",\n      \"legibility\": \"clear\",\n      \"box_2d\": [\n        306,\n        165,\n        330,\n        406\n      ]\n    },\n    {\n      \"kind\": \"list_item\",\n      \"level\": 0,\n      \"text\": \"Hiring paused until January\",\n      \"legibility\": \"clear\",\n      \"box_2d\": [\n        351,\n        165,\n        376,\n        344\n      ]\n    },\n    {\n      \"kind\": \"list_item\",\n      \"level\": 0,\n      \"text\": \"Cash runway: 22 months\",\n      \"legibility\": \"clear\",\n      \"box_2d\": [\n        396,\n        165,\n        421,\n        323\n      ]\n    }\n  ]\n}",
+ "latency_ms": 6925,
+ "usage": {
+  "input_tokens": 1801,
+  "output_tokens": 643,
+  "thought_tokens": 0
+ }
+}

@@ -16,7 +16,9 @@ from engine.pipeline.session import SessionPipeline
 HERE = Path(__file__).resolve().parent
 FRAMES = HERE / "frames"
 RESPONSES = HERE / "responses"
-CASES = sorted(p for p in FRAMES.glob("*.jpg")) if FRAMES.exists() else []
+ALL_CASES = sorted(p for p in FRAMES.iterdir() if p.suffix in (".jpg", ".png")) if FRAMES.exists() else []
+CASES = [p for p in ALL_CASES if json.loads(p.with_suffix(".truth.json").read_text())["content_type"] == "sheet"]
+OTHER_CASES = [p for p in ALL_CASES if p not in CASES]
 
 
 def _norm(s: str) -> str:
@@ -57,3 +59,15 @@ async def test_recorded_reconstructions_meet_the_kill_test_bar() -> None:
     cells = sum(s[0] for s in scores)
     assert sum(s[1] for s in scores) / cells >= 0.9
     assert sum(s[2] for s in scores) / cells <= 0.02
+
+
+@pytest.mark.parametrize("frame", OTHER_CASES, ids=lambda p: p.stem)
+async def test_recorded_code_and_slide_types(frame: Path) -> None:
+    """Runs automatically as real recorded code/slide frames are added; never synthesizes replies."""
+    truth = json.loads(frame.with_suffix(".truth.json").read_text())
+    settings = Settings(llm_mode="replay", golden_dir=RESPONSES)
+    pipe = SessionPipeline(ReplayVisionModel(RESPONSES), settings)
+    out = await pipe.process(frame.read_bytes())
+    assert out.doc is not None and out.doc.content_type == truth["content_type"]
+    assert pipe.meter.calls >= 2
+    assert out.announces[0].kind == "content_type"

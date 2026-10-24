@@ -23,6 +23,8 @@ class Health(BaseModel):
     protocol: str
     sessions: int
     llm_mode: str
+    models: dict[str, str]
+    cross_check: bool
 
 
 def create_app(settings: Settings | None = None, model: VisionModel | None = None) -> FastAPI:
@@ -58,7 +60,17 @@ def create_app(settings: Settings | None = None, model: VisionModel | None = Non
     @app.get("/healthz", response_model=Health)
     async def health(request: Request) -> Health:
         return Health(
-            ok=True, protocol=PROTOCOL_VERSION, sessions=len(request.app.state.store), llm_mode=settings.llm_mode
+            ok=True,
+            protocol=PROTOCOL_VERSION,
+            sessions=len(request.app.state.store),
+            llm_mode=settings.llm_mode,
+            models={
+                "reconstruct": settings.reconstruct_model,
+                "verify": settings.verify_model,
+                "region": settings.region_model,
+                "ask": settings.ask_model,
+            },
+            cross_check=settings.cross_check_full_reads,
         )
 
     @app.post("/v1/session", response_model=SessionGrant)

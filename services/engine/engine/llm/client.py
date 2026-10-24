@@ -112,6 +112,9 @@ class GeminiVisionModel:
         self._client = genai.Client(api_key=settings.gemini_api_key.get_secret_value())
         self._timeout = settings.llm_timeout_s
         self._retries = settings.llm_max_retries
+        from engine.llm.budget import DailyBudget
+
+        self._budget = DailyBudget(settings)
 
     async def generate(self, request: VisionRequest) -> VisionResult:
         content: list[dict[str, Any]] = [{"type": "text", "text": request.prompt}]
@@ -126,14 +129,16 @@ class GeminiVisionModel:
             )
         attempt = 0
         while True:
+            reservation = self._budget.reserve(request.model, request)
             started = time.perf_counter()
             try:
                 interaction = await asyncio.wait_for(
                     self._client.aio.interactions.create(
                         model=request.model,
+                        store=False,
                         input=content,
                         system_instruction=request.system,
-                        generation_config={"thinking_level": request.thinking_level},
+                        generation_config={"thinking_level": request.thinking_level, "max_output_tokens": 8192},
                         response_format={
                             "type": "text",
                             "mime_type": "application/json",
@@ -163,7 +168,7 @@ class GeminiVisionModel:
             if not text:
                 raise ModelError(f"{request.purpose}: empty response")
             usage = getattr(interaction, "usage", None)
-            return VisionResult(
+            result = VisionResult(
                 text=text,
                 model=request.model,
                 latency_ms=latency_ms,
@@ -173,6 +178,8 @@ class GeminiVisionModel:
                     thought_tokens=getattr(usage, "total_thought_tokens", None) or 0,
                 ),
             )
+            self._budget.settle(reservation, result)
+            return result
 
 
 class ReplayVisionModel:

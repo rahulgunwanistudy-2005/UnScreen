@@ -1,0 +1,89 @@
+{
+  "seed": 302,
+  "content_type": "slide",
+  "title": "Q3 results",
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "Q3 results"
+    },
+    {
+      "kind": "list_item",
+      "level": null,
+      "text": "Revenue grew 18% quarter on quarter"
+    },
+    {
+      "kind": "list_item",
+      "level": null,
+      "text": "Churn fell to 2.1% from 2.9%"
+    },
+    {
+      "kind": "list_item",
+      "level": null,
+      "text": "Three new enterprise accounts signed"
+    },
+    {
+      "kind": "list_item",
+      "level": null,
+      "text": "Hiring paused until January"
+    },
+    {
+      "kind": "list_item",
+      "level": null,
+      "text": "Cash runway: 22 months"
+    }
+  ],
+  "content_bbox": {
+    "x0": 87,
+    "y0": 21,
+    "x1": 937,
+    "y1": 871
+  },
+  "boxes": {
+    "content": {
+      "x0": 87,
+      "y0": 21,
+      "x1": 937,
+      "y1": 871
+    },
+    "b0": {
+      "x0": 164,
+      "y0": 127,
+      "x1": 860,
+      "y1": 169
+    },
+    "b1": {
+      "x0": 178,
+      "y0": 211,
+      "x1": 860,
+      "y1": 239
+    },
+    "b2": {
+      "x0": 178,
+      "y0": 257,
+      "x1": 860,
+      "y1": 285
+    },
+    "b3": {
+      "x0": 178,
+      "y0": 304,
+      "x1": 860,
+      "y1": 331
+    },
+    "b4": {
+      "x0": 178,
+      "y0": 350,
+      "x1": 860,
+      "y1": 377
+    },
+    "b5": {
+      "x0": 178,
+      "y0": 396,
+      "x1": 860,
+      "y1": 424
+    }
+  },
+  "pointer": null,
+  "edits": 0
+}

@@ -181,8 +181,11 @@ class SessionPipeline:
             raise primary
         doc = build_document(primary.value, within)
         if isinstance(second, BaseException):
-            log.warning("cross-check read failed; changed values will be verified instead: %s", second)
-            return doc, primary.latency_ms, False
+            # A first read has no CellChanged entries to verify; rows/blocks added on
+            # later reads have the same problem. Keep the last document instead.
+            if isinstance(second, ModelError):
+                raise second
+            raise ModelError("cross-check failed; keeping the last verified document") from second
         result = cross_check(doc, build_document(second.value, within))
         if result.disagreed:
             log.info("cross-check: %d of %d values disagreed and are marked unclear", result.disagreed, result.compared)
@@ -241,6 +244,8 @@ class SessionPipeline:
                 if checks is not None:
                     read = _merge_reading(read, checks[a * len(cols) + b])
                     verified.add(cells[j].id)
+                else:
+                    read = read.model_copy(update={"legibility": "unsure"})
                 cells[j] = cell_from(read, cells[j].bbox).model_copy(update={"id": cells[j].id})
             key = cells[0].text if cells and not cells[0].unreadable and cells[0].text else None
             new_rows[i] = new_rows[i].model_copy(update={"cells": cells, "key": key})
@@ -284,6 +289,8 @@ class SessionPipeline:
                 merged = _merge_reading(ReadCell(text=read.text, legibility=legibility), checks[a])
                 legibility = merged.legibility
                 verified.add(lines[i].id)
+            else:
+                legibility = "unsure"
             old = lines[i]
             conf, unreadable, uncertain = flags(legibility)
             text = "" if unreadable else read.text.replace("\t", "    ").rstrip()

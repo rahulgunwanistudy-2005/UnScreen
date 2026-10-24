@@ -166,6 +166,11 @@ class Connection:
             result = await run_ask(pipeline.reader, frame, doc, q)
         except ModelError as exc:
             log.warning("ask failed: %s", exc)
+            if exc.quota_exhausted:
+                await self.error(
+                    "engine_busy", "The reading service has used its daily limit. Try again after it resets."
+                )
+                return
             await self.send(
                 Answer(
                     q=q,

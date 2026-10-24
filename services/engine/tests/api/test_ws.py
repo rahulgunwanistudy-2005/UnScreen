@@ -57,7 +57,7 @@ def test_bad_token_and_bad_origin_are_refused() -> None:
 def test_frame_snapshot_announce_pointer_and_ask() -> None:
     model = ScriptedModel()
     model.push_full(full_sheet_read(HEADERS, ROWS))
-    model.push("ask", AskAnswer(answer="Acme Corp has $1.1M.", refs=["r1.c3", "nope"]))
+    model.push("ask", AskAnswer(answer="Acme Corp has $1.1M.", refs=["r1.c3"]))
     with client(model) as c:
         grant = c.post("/v1/session").json()
         url = f"/v1/session/{grant['session_id']}/ws?token={grant['token']}"

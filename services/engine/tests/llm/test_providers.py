@@ -74,6 +74,7 @@ async def test_request_shape_and_usage() -> None:
     assert image["image_url"]["url"].startswith("data:image/png;base64,")
     assert body["response_format"]["json_schema"]["strict"] is True
     assert body["reasoning_effort"] == "none" and body["max_completion_tokens"] == 1000
+    assert "max_tokens" not in body, "Groq must receive only its max_completion_tokens limit"
     assert result.text == '{"a": 1}' and result.usage.input_tokens == 10 and result.model == "groq:qwen/qwen3.8-27b"
 
 

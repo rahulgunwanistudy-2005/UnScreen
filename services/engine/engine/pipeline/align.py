@@ -85,13 +85,17 @@ def _scroll(old_count: int, new_count: int, pairs: dict[int, int]) -> tuple[str,
     return None
 
 
-def _cell_label(cell: Cell) -> str:
+def _cell_label(cell: Cell | CodeLine | Block) -> str:
     if cell.unreadable:
         return "unreadable"
+    if cell.uncertain:
+        return "unclear"
     return cell.text or "blank"
 
 
 def _row_label(row: Row, index: int) -> str:
+    if row.cells and (row.cells[0].uncertain or row.cells[0].unreadable):
+        return f"row {index + 1}"
     return row.key or f"row {index + 1}"
 
 
@@ -104,7 +108,9 @@ def align_sheet(old: Sheet | None, new: Sheet, minter: IdMinter) -> tuple[Sheet,
         if j in col_pairs:
             prev = old_cols[col_pairs[j]]
             columns.append(col.model_copy(update={"id": prev.id}))
-            if old is not None and prev.text != col.text:
+            if old is not None and (
+                prev.text != col.text or prev.uncertain != col.uncertain or prev.unreadable != col.unreadable
+            ):
                 changes.append(
                     CellChanged(
                         prev.id,
@@ -153,14 +159,14 @@ def align_sheet(old: Sheet | None, new: Sheet, minter: IdMinter) -> tuple[Sheet,
             if i >= len(prev_row.cells):
                 continue
             before = prev_row.cells[i]
-            if before.text != cell.text or before.unreadable != cell.unreadable:
+            if before.text != cell.text or before.unreadable != cell.unreadable or before.uncertain != cell.uncertain:
                 changes.append(
                     CellChanged(
                         f"{row_id}.{col.id}",
                         row_id,
                         col.id,
                         _row_label(row, j),
-                        col.text or f"column {k + 1}",
+                        col.text if col.text and not (col.uncertain or col.unreadable) else f"column {k + 1}",
                         _cell_label(before),
                         _cell_label(cell),
                         cell.uncertain,
@@ -211,9 +217,13 @@ def align_code(old: Code | None, new: Code, minter: IdMinter) -> tuple[Code, lis
     for j, line in enumerate(new.lines):
         prev = old_lines[pairs[j]] if j in pairs else None
         lines.append(line.model_copy(update={"id": prev.id if prev else minter.mint("l")}))
-        if prev is not None and (prev.text != line.text or prev.unreadable != line.unreadable):
+        if prev is not None and (
+            prev.text != line.text or prev.unreadable != line.unreadable or prev.uncertain != line.uncertain
+        ):
             changes.append(
-                LineChanged(prev.id, _line_label(line, j), prev.text, line.text, line.uncertain, line.unreadable)
+                LineChanged(
+                    prev.id, _line_label(line, j), _cell_label(prev), _cell_label(line), line.uncertain, line.unreadable
+                )
             )
     if old is not None:
         scroll = _scroll(len(old_lines), len(lines), pairs) if len(pairs) > len(lines) // 2 else None
@@ -238,7 +248,7 @@ def align_code(old: Code | None, new: Code, minter: IdMinter) -> tuple[Code, lis
                         "removed",
                         tuple(ln.id for _, ln in removed),
                         tuple(_line_label(ln, i) for i, ln in removed),
-                        tuple(ln.text for _, ln in removed),
+                        tuple(_cell_label(ln) for _, ln in removed),
                     )
                 )
             if added:
@@ -247,7 +257,7 @@ def align_code(old: Code | None, new: Code, minter: IdMinter) -> tuple[Code, lis
                         "added",
                         tuple(ln.id for _, ln in added),
                         tuple(_line_label(ln, j) for j, ln in added),
-                        tuple(ln.text for _, ln in added),
+                        tuple(_cell_label(ln) for _, ln in added),
                     )
                 )
     return Code(language=new.language, file_name=new.file_name, lines=lines), changes
@@ -261,16 +271,24 @@ def align_blocks(old: list[Block] | None, new: list[Block], minter: IdMinter) ->
     for j, block in enumerate(new):
         prev = old_blocks[pairs[j]] if j in pairs else None
         blocks.append(block.model_copy(update={"id": prev.id if prev else minter.mint("b")}))
-        if prev is not None and prev.text != block.text:
-            changes.append(BlockChanged(prev.id, block.kind, prev.text, block.text, block.uncertain))
+        if prev is not None and (
+            prev.text != block.text or prev.uncertain != block.uncertain or prev.unreadable != block.unreadable
+        ):
+            changes.append(
+                BlockChanged(
+                    prev.id, block.kind, _cell_label(prev), _cell_label(block), block.uncertain or block.unreadable
+                )
+            )
     if old is not None:
         kept = set(pairs.values())
         removed = [b for i, b in enumerate(old_blocks) if i not in kept]
         added = [b for j, b in enumerate(blocks) if j not in pairs]
         if removed:
-            changes.append(BlocksChanged("removed", tuple(b.id for b in removed), tuple(b.text for b in removed)))
+            changes.append(
+                BlocksChanged("removed", tuple(b.id for b in removed), tuple(_cell_label(b) for b in removed))
+            )
         if added:
-            changes.append(BlocksChanged("added", tuple(b.id for b in added), tuple(b.text for b in added)))
+            changes.append(BlocksChanged("added", tuple(b.id for b in added), tuple(_cell_label(b) for b in added)))
     return blocks, changes
 
 

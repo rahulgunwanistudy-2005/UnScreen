@@ -6,7 +6,7 @@ COPY pyproject.toml uv.lock ./
 RUN uv sync --frozen --no-dev --no-install-project
 COPY engine ./engine
 RUN uv sync --frozen --no-dev
-RUN useradd --create-home app
+RUN useradd --create-home app && mkdir -p /app/.local && chown app:app /app/.local
 USER app
 EXPOSE 8787
-CMD ["sh", "-c", "/app/.venv/bin/uvicorn engine.api.app:app --host 0.0.0.0 --port ${PORT:-8787} --proxy-headers --forwarded-allow-ips='*'"]
+CMD ["sh", "-c", "exec /app/.venv/bin/uvicorn engine.api.app:app --host 0.0.0.0 --port ${PORT:-8787} --proxy-headers --forwarded-allow-ips='*'"]

@@ -4,7 +4,7 @@ only one read found, is marked uncertain. Text is always taken from the primary 
 from dataclasses import dataclass
 from difflib import SequenceMatcher
 
-from engine.model.document import Cell, Code, CodeLine, Document, Row, Sheet
+from engine.model.document import Block, Cell, Code, CodeLine, Document, Row, Sheet
 from engine.pipeline.build import norm_text
 
 
@@ -19,7 +19,7 @@ def _same(a: str, b: str) -> bool:
     return norm_text(a).replace(" ", "").lower() == norm_text(b).replace(" ", "").lower()
 
 
-def _flag[T: (Cell, CodeLine)](item: T) -> T:
+def _flag[T: (Cell, CodeLine, Block)](item: T) -> T:
     if item.unreadable or item.uncertain:
         return item
     return item.model_copy(update={"uncertain": True, "confidence": min(item.confidence, 0.5)})
@@ -88,14 +88,19 @@ def _code(a: Code, b: Code) -> tuple[Code, int, int]:
     disagreed = 0
     for i, line in enumerate(a.lines):
         other = b.lines[pairs[i]] if i in pairs else None
-        bad = other is None or other.unreadable != line.unreadable or line.text.rstrip() != other.text.rstrip()
+        bad = (
+            other is None
+            or other.uncertain
+            or other.unreadable != line.unreadable
+            or line.text.rstrip() != other.text.rstrip()
+        )
         lines.append(_flag(line) if bad and not line.unreadable else line)
         disagreed += bad
     return a.model_copy(update={"lines": lines}), len(a.lines), disagreed
 
 
 def cross_check(primary: Document, second: Document) -> CrossCheck:
-    """Both documents must be built from reads of the same image. Blocks are not compared."""
+    """Both documents must be built from reads of the same image."""
     if primary.sheet is not None and second.sheet is not None:
         sheet, n, bad = _sheet(primary.sheet, second.sheet)
         return CrossCheck(primary.model_copy(update={"sheet": sheet}), n, bad)
@@ -114,4 +119,29 @@ def cross_check(primary: Document, second: Document) -> CrossCheck:
     if primary.code is not None:
         code = primary.code.model_copy(update={"lines": [_flag(ln) for ln in primary.code.lines]})
         return CrossCheck(primary.model_copy(update={"code": code}), len(code.lines), len(code.lines))
+    if primary.blocks:
+        others = second.blocks or []
+        pairs: dict[int, int] = {}
+        matcher = SequenceMatcher(
+            a=[(b.kind, norm_text(b.text)) for b in primary.blocks],
+            b=[(b.kind, norm_text(b.text)) for b in others],
+            autojunk=False,
+        )
+        for tag, i1, i2, j1, j2 in matcher.get_opcodes():
+            if tag in ("equal", "replace"):
+                pairs.update({i1 + k: j1 + k for k in range(min(i2 - i1, j2 - j1))})
+        blocks: list[Block] = []
+        bad_count = 0
+        for i, block in enumerate(primary.blocks):
+            other = others[pairs[i]] if i in pairs else None
+            bad = (
+                other is None
+                or other.uncertain
+                or other.unreadable
+                or block.kind != other.kind
+                or norm_text(block.text) != norm_text(other.text)
+            )
+            blocks.append(_flag(block) if bad else block)
+            bad_count += bad
+        return CrossCheck(primary.model_copy(update={"blocks": blocks}), len(blocks), bad_count)
     return CrossCheck(primary, 0, 0)

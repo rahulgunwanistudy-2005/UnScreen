@@ -98,6 +98,9 @@ class ChatVisionModel:
             transport=transport,
         )
         self._retries = settings.llm_max_retries
+        from engine.llm.budget import DailyBudget
+
+        self._budget = DailyBudget(settings)
 
     async def generate(self, request: VisionRequest) -> VisionResult:
         _, model = split_model(request.model)
@@ -113,10 +116,12 @@ class ChatVisionModel:
                 "json_schema": {"name": request.purpose, "schema": strict_schema(request.schema), "strict": True},
             },
             "temperature": 0,
+            **({"max_tokens": 8192} if self._provider.name != "groq" else {}),
             **dict(self._provider.extra),
         }
         attempt = 0
         while True:
+            reservation = self._budget.reserve(request.model, request)
             started = time.perf_counter()
             try:
                 response = await self._client.post("/chat/completions", json=body)
@@ -126,7 +131,9 @@ class ChatVisionModel:
                 wait = None
             else:
                 if response.status_code == 200:
-                    return self._result(request, response, started)
+                    result = self._result(request, response, started)
+                    self._budget.settle(reservation, result)
+                    return result
                 status = response.status_code
                 detail = response.text[:300]
                 wait = _retry_after(response)
@@ -169,6 +176,7 @@ class RoutingVisionModel:
     def __init__(self, settings: Settings) -> None:
         self._settings = settings
         self._models: dict[str, VisionModel] = {}
+        self._slots = asyncio.Semaphore(2)
 
     def _model_for(self, provider: str) -> VisionModel:
         if provider not in self._models:
@@ -184,4 +192,5 @@ class RoutingVisionModel:
 
     async def generate(self, request: VisionRequest) -> VisionResult:
         provider, _ = split_model(request.model)
-        return await self._model_for(provider).generate(request)
+        async with self._slots:
+            return await self._model_for(provider).generate(request)

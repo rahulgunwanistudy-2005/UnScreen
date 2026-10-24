@@ -47,7 +47,8 @@ async def main(frame_id: str) -> None:
     crop = pad(table, 12, 24)
     with Image.open(frame) as img:
         w, h = img.size
-        region = img.convert("RGB").crop((crop.x0 * w // 1000, crop.y0 * h // 1000, crop.x1 * w // 1000, crop.y1 * h // 1000))
+        box = (crop.x0 * w // 1000, crop.y0 * h // 1000, crop.x1 * w // 1000, crop.y1 * h // 1000)
+        region = img.convert("RGB").crop(box)
         static = WEB / "static" / "hero"
         static.mkdir(parents=True, exist_ok=True)
         region.save(static / "frame.jpg", quality=92)
@@ -59,7 +60,10 @@ async def main(frame_id: str) -> None:
         "announcement": out.announces[0].text if out.announces else "",
         "columns": [{"text": c.text, "box": rel(c.bbox, crop)} for c in doc.sheet.columns],
         "rows": [
-            {"key": r.key, "cells": [{"text": c.text, "box": rel(c.bbox, crop), "uncertain": c.uncertain} for c in r.cells]}
+            {
+                "key": r.key,
+                "cells": [{"text": c.text, "box": rel(c.bbox, crop), "uncertain": c.uncertain} for c in r.cells],
+            }
             for r in doc.sheet.rows
         ],
     }

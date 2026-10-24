@@ -1,0 +1,144 @@
+{
+  "seed": 301,
+  "content_type": "doc",
+  "title": "Lecture 7: Virtual memory",
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "Lecture 7: Virtual memory"
+    },
+    {
+      "kind": "paragraph",
+      "level": null,
+      "text": "This document describes how the service handles retries when a downstream dependency fails."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Key points"
+    },
+    {
+      "kind": "list_item",
+      "level": null,
+      "text": "Each process sees its own address space"
+    },
+    {
+      "kind": "list_item",
+      "level": null,
+      "text": "Pages are 4 KiB on most x86 systems"
+    },
+    {
+      "kind": "list_item",
+      "level": null,
+      "text": "The TLB caches recent translations"
+    },
+    {
+      "kind": "list_item",
+      "level": null,
+      "text": "A page fault traps into the kernel"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Details"
+    },
+    {
+      "kind": "paragraph",
+      "level": null,
+      "text": "Owners review the dashboard every Monday and file tickets for regressions."
+    },
+    {
+      "kind": "paragraph",
+      "level": null,
+      "text": "Idempotency keys make retries safe for payment and invite endpoints."
+    },
+    {
+      "kind": "paragraph",
+      "level": null,
+      "text": "Alerts fire when the retry rate exceeds 5% over a ten-minute window."
+    }
+  ],
+  "content_bbox": {
+    "x0": 87,
+    "y0": 21,
+    "x1": 937,
+    "y1": 871
+  },
+  "boxes": {
+    "content": {
+      "x0": 87,
+      "y0": 21,
+      "x1": 937,
+      "y1": 871
+    },
+    "b0": {
+      "x0": 249,
+      "y0": 142,
+      "x1": 775,
+      "y1": 185
+    },
+    "b1": {
+      "x0": 249,
+      "y0": 202,
+      "x1": 775,
+      "y1": 228
+    },
+    "b2": {
+      "x0": 249,
+      "y0": 248,
+      "x1": 775,
+      "y1": 281
+    },
+    "b3": {
+      "x0": 263,
+      "y0": 290,
+      "x1": 775,
+      "y1": 315
+    },
+    "b4": {
+      "x0": 263,
+      "y0": 315,
+      "x1": 775,
+      "y1": 341
+    },
+    "b5": {
+      "x0": 263,
+      "y0": 341,
+      "x1": 775,
+      "y1": 366
+    },
+    "b6": {
+      "x0": 263,
+      "y0": 366,
+      "x1": 775,
+      "y1": 392
+    },
+    "b7": {
+      "x0": 249,
+      "y0": 412,
+      "x1": 775,
+      "y1": 445
+    },
+    "b8": {
+      "x0": 249,
+      "y0": 454,
+      "x1": 775,
+      "y1": 479
+    },
+    "b9": {
+      "x0": 249,
+      "y0": 491,
+      "x1": 775,
+      "y1": 517
+    },
+    "b10": {
+      "x0": 249,
+      "y0": 529,
+      "x1": 775,
+      "y1": 554
+    }
+  },
+  "pointer": null,
+  "edits": 0
+}

@@ -33,6 +33,10 @@ class Settings(BaseSettings):
     image_resolution: Literal["low", "medium", "high", "ultra_high"] = "high"
     llm_timeout_s: float = 120.0
     llm_max_retries: int = 2
+    daily_model_calls: int = Field(default=500, ge=0)
+    daily_model_usd: float = Field(default=2.0, ge=0, allow_inf_nan=False)
+    model_call_reserve_usd: float = Field(default=0.10, gt=0, allow_inf_nan=False)
+    budget_path: Path = ENGINE_ROOT / ".local" / "model-budget.sqlite3"
 
     allowed_origins: list[str] = ["http://localhost:5173", "http://127.0.0.1:5173"]
     session_ttl_s: int = 30 * 60
