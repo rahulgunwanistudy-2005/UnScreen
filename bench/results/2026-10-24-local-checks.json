@@ -1,0 +1,28 @@
+{
+  "name": "local-checks",
+  "run_at": "2026-10-24T08:06:02+00:00",
+  "scope": "Local build checks and genuine recorded fixture evidence. No human screen-reader pass, real Google Meet pass or hosted CI is claimed.",
+  "engine": {
+    "ruff_check": "passed",
+    "ruff_format_check": "passed",
+    "mypy": "passed",
+    "pytest_passed": 89,
+    "pytest_skipped": 0,
+    "skip_reason": null,
+    "pipeline_model_coverage_percent": 86.75
+  },
+  "web": {
+    "svelte_check": "passed: zero errors and warnings",
+    "eslint": "passed",
+    "vitest_passed": 21,
+    "playwright_passed": 18,
+    "browser_scope": "Chromium; axe in light/dark; focus and history restoration; actual-pointer screenshot regression; saved numeric settings; genuine recording replay with zero engine requests; scripted capture loop"
+  },
+  "live_score_regressions": {
+    "passed": 6
+  },
+  "schema_drift": "passed",
+  "docker": "Daemon unavailable; container not built. Dockerfile permissions prepared only.",
+  "github_actions": "Not run; committing/pushing excluded.",
+  "paid_validation_spend_source": "bench/results/2026-10-24-validation-spend.json"
+}

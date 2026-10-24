@@ -2,7 +2,7 @@
 // scripted fixture that edits itself. Measures change-detection precision and recall and
 // change-to-announcement latency against the fixture's own ground truth.
 //
-// Usage: node live-run.mjs [--kind sheet|code] [--seed 3] [--edits 6] [--interval 60000] [--name live]
+// Usage: node live-run.mjs [--kind sheet|code] [--seed 3] [--edits 6] [--interval 25000] [--name live]
 // Needs the web app on :5173 and the engine on :8787.
 //
 // Browser tab capture cannot start inside automation on macOS ("Could not start video
@@ -11,6 +11,7 @@
 import { chromium } from 'playwright';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import { norm, matches, scoreChanges } from './live-score.mjs';
 
 const arg = (k, d) => {
 	const i = process.argv.indexOf(`--${k}`);
@@ -19,12 +20,14 @@ const arg = (k, d) => {
 const KIND = arg('kind', 'sheet');
 const SEED = Number(arg('seed', '3'));
 const EDITS = Number(arg('edits', '6'));
-const INTERVAL = Number(arg('interval', '60000'));
+const INTERVAL = Number(arg('interval', '25000'));
 const NAME = arg('name', `live-${KIND}`);
-const BASE = 'http://localhost:5173';
-const GRACE_MS = Number(arg('grace', '240000'));
-
-const norm = (s) => String(s ?? '').replace(/\s+/g, ' ').trim().toLowerCase();
+const BASE = arg('base', 'http://localhost:5173');
+const ENGINE = arg('engine', 'http://localhost:8787');
+const GRACE_MS = Number(arg('grace', '120000'));
+if (!['sheet', 'code'].includes(KIND) || !Number.isInteger(EDITS) || EDITS < 6 || INTERVAL < 20000 || INTERVAL > 30000) {
+	throw new Error('Use sheet or code, at least 6 edits, and an interval from 20000 to 30000 ms.');
+}
 
 function diffTruth(a, b) {
 	const out = [];
@@ -41,6 +44,7 @@ function diffTruth(a, b) {
 				if (prev[j] !== v) out.push({ kind: 'cell', row: row[0], col: cols[j], old: prev[j], new: v });
 			});
 		}
+		for (const row of a.sheet.rows) if (!b.sheet.rows.some((r) => r[0] === row[0])) out.push({ kind: 'row_removed', row: row[0] });
 	} else {
 		const before = a.code.lines.map((l) => l.text);
 		const after = b.code.lines.map((l) => l.text);
@@ -50,15 +54,10 @@ function diffTruth(a, b) {
 	return out;
 }
 
-function matches(change, msg) {
-	const t = norm(msg.text);
-	if (change.kind === 'cell') return t.includes(norm(change.row)) && t.includes(norm(change.col));
-	if (change.kind === 'row_added') return msg.kind === 'row_added' && t.includes(norm(change.row));
-	if (change.kind === 'line') return t.includes(`line ${change.n}`);
-	if (change.kind === 'lines') return ['lines_added', 'lines_removed', 'line', 'scroll'].includes(msg.kind);
-	return false;
-}
-
+const healthResponse = await fetch(`${ENGINE}/healthz`);
+if (!healthResponse.ok) throw new Error('The engine health check failed.');
+const health = await healthResponse.json();
+if (health.llm_mode !== 'live') throw new Error('Live measurements require UNSCREEN_LLM_MODE=live; scripted/replayed results are refused.');
 const browser = await chromium.launch();
 const fixtureCtx = await browser.newContext({ viewport: { width: 1280, height: 720 } });
 const appCtx = await browser.newContext({ viewport: { width: 1280, height: 900 } });
@@ -87,12 +86,15 @@ app.on('console', (m) => consoleLog.push(`${m.type()}: ${m.text()}`));
 app.on('pageerror', (e) => consoleLog.push(`pageerror: ${e.message}`));
 const events = [];
 const announces = [];
+const messages = [];
+const probes = [];
 let snapshotAt = null;
 app.on('websocket', (ws) => {
 	ws.on('framereceived', (f) => {
 		if (typeof f.payload !== 'string') return;
 		const msg = JSON.parse(f.payload);
 		const at = Date.now() - t0;
+		messages.push({ at, message: msg });
 		if (msg.type === 'announce') announces.push({ at, ...msg });
 		if (msg.type === 'snapshot' && snapshotAt === null) snapshotAt = at;
 		if (msg.type === 'status' && msg.latency_ms) events.push({ at, stage: msg.stage, mode: msg.detail, latency_ms: msg.latency_ms });
@@ -102,7 +104,7 @@ app.on('websocket', (ws) => {
 const spoken = [];
 await app.exposeFunction('__spoken', (text) => spoken.push({ at: Date.now() - t0, text }));
 
-await fixture.goto(`${BASE}/fixture/${KIND}?seed=${SEED}&mode=live&interval=${INTERVAL}`);
+await fixture.goto(`${BASE}/fixture/${KIND}?seed=${SEED}&mode=static&cursor=on`);
 await fixture.waitForFunction(() => typeof window.__truth === 'function');
 await app.goto(`${BASE}/app`, { waitUntil: 'networkidle' });
 await app.waitForFunction(() => document.querySelector('#status-line') !== null);
@@ -122,7 +124,10 @@ const feeder = (async () => {
 })();
 
 await app.getByRole('button', { name: 'Start reading the shared screen' }).click();
-await new Promise((r) => setTimeout(r, 4000));
+const initialDeadline = Date.now() + 180000;
+while (snapshotAt === null && Date.now() < initialDeadline && !events.some((e) => e.error === 'engine_busy')) {
+	await new Promise((r) => setTimeout(r, 250));
+}
 console.log('status after start:', await app.locator('#status-line').textContent());
 if (consoleLog.length) console.log(consoleLog.join('\n'));
 
@@ -130,25 +135,51 @@ const truthLog = [];
 let prev = await fixture.evaluate(() => window.__truth());
 truthLog.push({ at: Date.now() - t0, edits: prev.edits });
 const changes = [];
-while (prev.edits < EDITS) {
-	await new Promise((r) => setTimeout(r, 250));
+let focusTarget = null;
+if (snapshotAt !== null) {
+	const target = app.locator(KIND === 'sheet' ? 'main table tbody tr:first-child > :nth-child(2)' : 'main .line').first();
+	if (await target.count()) { await target.focus(); focusTarget = await target.elementHandle(); }
+}
+while (snapshotAt !== null && prev.edits < EDITS) {
+	await new Promise((r) => setTimeout(r, INTERVAL));
+	const editAt = Date.now() - t0;
+	await fixture.evaluate(() => window.__advance());
+	await fixture.evaluate(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))));
 	const cur = await fixture.evaluate(() => window.__truth());
 	if (cur.edits !== prev.edits) {
-		const at = Date.now() - t0;
+		const at = editAt;
 		for (const c of diffTruth(prev, cur)) changes.push({ at, edit: cur.edits, ...c });
 		truthLog.push({ at, edits: cur.edits });
 		prev = cur;
 	}
 }
-// Freeze the fixture so late announcements can be attributed, then wait for the engine.
-await fixture.evaluate(() => {
-	for (let i = 1; i < 99999; i++) clearInterval(i);
-});
+// Controlled DOM edits are now finished. Allow the final frame to settle.
 const lastEditAt = Date.now() - t0;
 while (Date.now() - t0 - lastEditAt < GRACE_MS) {
 	await new Promise((r) => setTimeout(r, 2000));
 	const pending = changes.filter((c) => !announces.some((a) => a.at > c.at && matches(c, a)));
 	if (pending.length === 0) break;
+}
+const focusValidation = focusTarget ? await focusTarget.evaluate((el) => ({ original_connected: el.isConnected, same_active_element: document.activeElement === el })) : null;
+
+if (snapshotAt !== null) {
+	await fixture.evaluate(() => window.__movePointer?.());
+	await new Promise((r) => setTimeout(r, 2000));
+	const pointer = await fixture.evaluate(() => window.__truth().pointer);
+	if (pointer) {
+		await app.getByRole('button', { name: 'What is the pointer on?' }).click();
+		await new Promise((r) => setTimeout(r, 1000));
+		probes.push({ kind: 'pointer', truth: pointer, result: messages.findLast((e) => e.message.type === 'pointer_target')?.message ?? null });
+	}
+	feeding = false;
+	await feeder;
+	const truth = await fixture.evaluate(() => window.__truth());
+	const question = KIND === 'sheet' ? `What is ${truth.sheet.rows[0][0]}'s ${truth.sheet.columns[2]}? Cite the cell.` : 'What does line 2 say? Cite the line.';
+	await app.getByLabel('Question', { exact: true }).fill(question);
+	await app.getByRole('button', { name: 'Ask', exact: true }).click();
+	const deadline = Date.now() + 120000;
+	while (!messages.some((e) => e.message.type === 'answer') && Date.now() < deadline && !events.some((e) => e.error === 'engine_busy')) await new Promise((r) => setTimeout(r, 250));
+	probes.push({ kind: 'ask', question, expected: KIND === 'sheet' ? truth.sheet.rows[0][2] : truth.code.lines[1]?.text, result: messages.findLast((e) => e.message.type === 'answer')?.message ?? null });
 }
 feeding = false;
 await feeder;
@@ -156,18 +187,8 @@ await feeder;
 const domRows = await app.evaluate(() => [...document.querySelectorAll('main table tbody tr')].map((tr) => [...tr.children].map((c) => c.textContent.trim())));
 const finalTruth = await fixture.evaluate(() => window.__truth());
 
-const rows = changes.map((c) => {
-	const hit = announces.find((a) => a.at > c.at && matches(c, a));
-	return {
-		...c,
-		announced: !!hit,
-		unclear: hit ? hit.kind === 'uncertain' : null,
-		latency_ms: hit ? hit.at - c.at : null,
-		text: hit?.text ?? null
-	};
-});
-const contentAnnounces = announces.filter((a) => a.kind !== 'content_type');
-const truePositives = contentAnnounces.filter((a) => changes.some((c) => a.at > c.at && matches(c, a)));
+const scored = scoreChanges(changes, announces, spoken);
+const rows = scored.rows;
 const lat = rows.filter((r) => r.latency_ms !== null).map((r) => r.latency_ms).sort((a, b) => a - b);
 const pick = (q) => (lat.length ? lat[Math.min(lat.length - 1, Math.round(q * (lat.length - 1)))] : null);
 let finalCellsMatch = null;
@@ -185,22 +206,31 @@ const report = {
 	run_at: new Date().toISOString(),
 	kind: KIND,
 	seed: SEED,
+	models: health.models,
+	cross_check: health.cross_check,
+	llm_mode: health.llm_mode,
 	edit_interval_ms: INTERVAL,
 	first_snapshot_ms: snapshotAt,
 	truth_changes: rows.length,
-	recall: rows.length ? rows.filter((r) => r.announced).length / rows.length : null,
-	precision: contentAnnounces.length ? truePositives.length / contentAnnounces.length : null,
+	measurement_version: 3,
+	note: 'Real fixture screenshots through a canvas capture stream; this is not a Google Meet or human screen-reader pass. Latency ends at the polite live region, not an audio device.',
+	recall: scored.recall,
+	spoken_recall: scored.spoken_recall,
+	precision: scored.precision,
 	change_to_announce_ms: { p50: pick(0.5), p95: pick(0.95), n: lat.length },
 	final_dom_vs_truth: finalCellsMatch,
 	changes: rows,
 	announces,
 	spoken,
 	engine_events: events,
+	probes,
+	focus_validation: focusValidation,
+	messages,
 	console: consoleLog
 };
 await mkdir(join(import.meta.dirname, 'results'), { recursive: true });
 const out = join(import.meta.dirname, 'results', `${new Date().toISOString().slice(0, 10)}-${NAME}.json`);
 await writeFile(out, JSON.stringify(report, null, 2));
-console.log(JSON.stringify({ ...report, changes: undefined, announces: undefined, spoken: undefined, engine_events: undefined }, null, 2));
+console.log(JSON.stringify({ ...report, changes: undefined, announces: undefined, spoken: undefined, engine_events: undefined, messages: undefined, console: undefined }, null, 2));
 console.log(`wrote ${out}`);
 await browser.close();

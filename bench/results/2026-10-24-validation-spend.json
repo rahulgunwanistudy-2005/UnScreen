@@ -1,0 +1,9 @@
+{
+  "name": "validation-spend",
+  "run_at": "2026-10-24T08:06:02+00:00",
+  "ledger_day_utc": "2026-10-24",
+  "attempts": 115,
+  "tracked_estimated_usd_including_retained_reservations": 0.592793,
+  "ceiling_usd": 1.0,
+  "note": "Conservative ledger estimate, not a provider invoice. Successful calls reconcile to token usage; failures retain reservations. Includes the discarded interrupted development-server pass. No more paid validation is planned."
+}

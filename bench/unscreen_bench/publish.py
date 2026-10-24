@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 RESULTS = ROOT / "results"
 TARGET = ROOT.parent / "apps" / "web" / "src" / "lib" / "bench" / "summary.json"
 README = ROOT.parent / "README.md"
+DEVPOST = ROOT.parent / "docs" / "DEVPOST.md"
 START, END = "<!-- bench:start -->", "<!-- bench:end -->"
 COMPARED_RUNS = ("v4", "groq", "mistral")
 """Kill-test runs on the same 10 frames, one per model, without the cross-check read."""
@@ -33,8 +34,10 @@ def failure_reasons(data: dict[str, Any]) -> dict[str, int]:
             continue
         if "max completion tokens" in err or "truncated" in err:
             key = "output cut off by the free-tier token limit"
+        elif "daily limit" in err:
+            key = "daily spending or call limit"
         elif "quota" in err or "429" in err:
-            key = "free-tier quota or rate limit"
+            key = "provider quota or rate limit"
         elif "Timeout" in err or "Connection" in err:
             key = "timeout or connection error"
         else:
@@ -46,6 +49,7 @@ def failure_reasons(data: dict[str, Any]) -> dict[str, int]:
 def reconstruct_summary(name: str, data: dict[str, Any]) -> dict[str, Any]:
     return {
         "failures": failure_reasons(data),
+        "note": data.get("measurement_note"),
         "file": f"bench/results/{name}",
         "run_at": data["run_at"],
         "models": data["models"],
@@ -57,7 +61,7 @@ def reconstruct_summary(name: str, data: dict[str, Any]) -> dict[str, Any]:
 
 def live_summary(name: str, data: dict[str, Any]) -> dict[str, Any]:
     keys = ("run_at", "kind", "edit_interval_ms", "first_snapshot_ms", "truth_changes", "recall", "precision",
-            "change_to_announce_ms", "final_dom_vs_truth")
+            "change_to_announce_ms", "final_dom_vs_truth", "validation_note")
     errors = [e for e in data.get("engine_events", []) if "error" in e]
     return {
         "file": f"bench/results/{name}",
@@ -73,10 +77,9 @@ def pct(v: float | None) -> str:
 
 def readme_section(out: dict[str, Any]) -> str:
     lines: list[str] = []
-    for key, title in (("full", "Full benchmark"), ("kill", "Kill test (10 spreadsheets in a meeting window)")):
-        run = out.get(key)
-        if not run:
-            continue
+    runs = [(title, out[key]) for key, title in (("real", "Real Google Meet group"), ("full", "Full benchmark"), ("focused", "Focused code and slide benchmark"), ("kill", "Historical kill test (10 spreadsheets in a meeting window)")) if key in out]
+    runs = [(f"Configuration comparison: {r['models']['reconstruct']} / {r['models']['verify']}", r) for r in out.get("configurations", [])] + runs
+    for title, run in runs:
         checked = (
             f"cross-checked by `{run['models']['verify']}`"
             if run["models"].get("cross_check")
@@ -85,8 +88,8 @@ def readme_section(out: dict[str, Any]) -> str:
         lines += [
             f"**{title}**, {run['run_at'][:10]}, reads by `{run['models']['reconstruct']}`, {checked}:",
             "",
-            "| Frames | Read | Exact (UnScreen) | Exact (OCR) | Wrong as fact (UnScreen) | Wrong as fact (OCR) | Right place (UnScreen) | Right place (OCR) |",
-            "| --- | --- | --- | --- | --- | --- | --- | --- |",
+            "| Frames | Read | Exact (UnScreen) | Exact (OCR) | Wrong as fact (UnScreen) | Wrong as fact (OCR) | Right place (UnScreen) | Right place (OCR) | Marked unclear/unreadable |",
+            "| --- | --- | --- | --- | --- | --- | --- | --- | --- |",
         ]
         for g, a in run["groups"].items():
             kind, variant = g.split("/")
@@ -94,7 +97,7 @@ def readme_section(out: dict[str, Any]) -> str:
             lines.append(
                 f"| {kind}, {VARIANTS.get(variant, variant)} | {u['frames']} of {u['frames'] + a['errors']} "
                 f"| {pct(u['exact_match'])} | {pct(o['exact_match'])} | {pct(u['hallucination_rate'])} "
-                f"| {pct(o['hallucination_rate'])} | {pct(u['structure_accuracy'])} | {pct(o['structure_accuracy'])} |"
+                f"| {pct(o['hallucination_rate'])} | {pct(u['structure_accuracy'])} | {pct(o['structure_accuracy'])} | {u['flagged']} of {u['items']} |"
             )
         lat = run["overall"]["latency_ms"]
         cost = run["overall"]["cost_usd_per_frame"]
@@ -158,6 +161,16 @@ def main() -> None:
     out: dict[str, Any] = {}
     if full := latest("*-full.json"):
         out["full"] = reconstruct_summary(*full)
+    if focused := latest("*-focused.json"):
+        out["focused"] = reconstruct_summary(*focused)
+    if real := latest("*-real-meet.json"):
+        out["real"] = reconstruct_summary(*real)
+    configurations = sorted(RESULTS.glob("*-config-*.json"))
+    if configurations:
+        out["configurations"] = [reconstruct_summary(p.name, json.loads(p.read_text())) for p in configurations]
+    if selection := latest("production.json"):
+        source = RESULTS / selection[1]["source"]
+        out["production"] = reconstruct_summary(source.name, json.loads(source.read_text()))
     if kill := latest("*-kill-v4.json"):
         out["kill"] = reconstruct_summary(*kill)
     compare = [p for p in sorted(RESULTS.glob("*-kill-*.json")) if p.stem.split("-kill-")[1] in COMPARED_RUNS]
@@ -169,6 +182,11 @@ def main() -> None:
     if overhead := latest("*-pipeline-overhead.json"):
         name, data = overhead
         out["pipeline"] = {"file": f"bench/results/{name}", **{k: data[k] for k in ("run_at", "note", "edits", "latencies_ms", "p50_ms", "max_ms")}}
+    research = ROOT.parent / "docs" / "research" / "results.md"
+    if research.exists():
+        text = research.read_text()
+        if "## Publishable summary\n" in text:
+            out["research"] = {"file": "docs/research/results.md", "summary": text.split("## Publishable summary\n", 1)[1].split("\n## ", 1)[0].strip()}
     TARGET.parent.mkdir(parents=True, exist_ok=True)
     TARGET.write_text(json.dumps(out, indent=1) + "\n")
     readme = README.read_text()
@@ -176,6 +194,11 @@ def main() -> None:
         head, rest = readme.split(START, 1)
         _, tail = rest.split(END, 1)
         README.write_text(f"{head}{START}\n{readme_section(out)}\n{END}{tail}")
+    devpost = DEVPOST.read_text()
+    if START in devpost and END in devpost:
+        head, rest = devpost.split(START, 1)
+        _, tail = rest.split(END, 1)
+        DEVPOST.write_text(f"{head}{START}\n{readme_section(out)}\n{END}{tail}")
     print(f"wrote {TARGET} and README results: {', '.join(out) or 'nothing'}")
 
 

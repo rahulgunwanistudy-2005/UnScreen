@@ -1,0 +1,3796 @@
+{
+  "name": "live-paid-sheet",
+  "run_at": "2026-10-24T07:39:37.761Z",
+  "kind": "sheet",
+  "seed": 3,
+  "models": {
+    "reconstruct": "gemini-3.6-flash",
+    "verify": "gemini-3.5-flash-lite",
+    "region": "gemini-3.6-flash",
+    "ask": "gemini-3.6-flash"
+  },
+  "cross_check": true,
+  "llm_mode": "live",
+  "edit_interval_ms": 25000,
+  "first_snapshot_ms": 9713,
+  "truth_changes": 13,
+  "measurement_version": 3,
+  "note": "Real fixture screenshots through a canvas capture stream; this is not a Google Meet or human screen-reader pass. Latency ends at the polite live region, not an audio device.",
+  "recall": 1,
+  "spoken_recall": 1,
+  "precision": 0.8666666666666667,
+  "change_to_announce_ms": {
+    "p50": 8708,
+    "p95": 12572,
+    "n": 13
+  },
+  "final_dom_vs_truth": {
+    "ok": 42,
+    "total": 42
+  },
+  "changes": [
+    {
+      "at": 34979,
+      "edit": 1,
+      "kind": "cell",
+      "row": "Cache warmup",
+      "col": "Status",
+      "old": "Open",
+      "new": "Review",
+      "announced": true,
+      "spoken": true,
+      "unclear": false,
+      "latency_ms": 7930,
+      "engine_latency_ms": 6433,
+      "text": "Cache warmup, Status: Open to Review."
+    },
+    {
+      "at": 60035,
+      "edit": 2,
+      "kind": "row_added",
+      "row": "Localise dates",
+      "announced": true,
+      "spoken": true,
+      "unclear": false,
+      "latency_ms": 8341,
+      "engine_latency_ms": 6840,
+      "text": "Row added: Localise dates."
+    },
+    {
+      "at": 85088,
+      "edit": 3,
+      "kind": "cell",
+      "row": "Billing alerts",
+      "col": "Due",
+      "old": "25 Aug 2026",
+      "new": "10 Nov 2026",
+      "announced": true,
+      "spoken": true,
+      "unclear": false,
+      "latency_ms": 8463,
+      "engine_latency_ms": 6959,
+      "text": "Billing alerts, Due: 25 Aug 2026 to 10 Nov 2026."
+    },
+    {
+      "at": 85088,
+      "edit": 3,
+      "kind": "cell",
+      "row": "Dark mode toggle",
+      "col": "Due",
+      "old": "28 Nov 2026",
+      "new": "22 Aug 2026",
+      "announced": true,
+      "spoken": true,
+      "unclear": false,
+      "latency_ms": 8463,
+      "engine_latency_ms": 6960,
+      "text": "Dark mode toggle, Due: 28 Nov 2026 to 22 Aug 2026."
+    },
+    {
+      "at": 110136,
+      "edit": 4,
+      "kind": "cell",
+      "row": "Billing alerts",
+      "col": "Assignee",
+      "old": "Asha Rao",
+      "new": "Hana Sato",
+      "announced": true,
+      "spoken": true,
+      "unclear": false,
+      "latency_ms": 12572,
+      "engine_latency_ms": 11072,
+      "text": "Billing alerts, Assignee: Asha Rao to Hana Sato."
+    },
+    {
+      "at": 110136,
+      "edit": 4,
+      "kind": "cell",
+      "row": "Billing alerts",
+      "col": "Ticket",
+      "old": "DL-7884",
+      "new": "EN-8597",
+      "announced": true,
+      "spoken": true,
+      "unclear": false,
+      "latency_ms": 12572,
+      "engine_latency_ms": 11073,
+      "text": "Billing alerts, Ticket: DL-7884 to EN-8597."
+    },
+    {
+      "at": 110136,
+      "edit": 4,
+      "kind": "cell",
+      "row": "Dark mode toggle",
+      "col": "Due",
+      "old": "22 Aug 2026",
+      "new": "5 Oct 2026",
+      "announced": true,
+      "spoken": true,
+      "unclear": false,
+      "latency_ms": 12572,
+      "engine_latency_ms": 11074,
+      "text": "Dark mode toggle, Due: 22 Aug 2026 to 5 Oct 2026."
+    },
+    {
+      "at": 135185,
+      "edit": 5,
+      "kind": "cell",
+      "row": "Billing alerts",
+      "col": "Points",
+      "old": "4",
+      "new": "265",
+      "announced": true,
+      "spoken": true,
+      "unclear": false,
+      "latency_ms": 9223,
+      "engine_latency_ms": 7718,
+      "text": "Billing alerts, Points: 4 to 265."
+    },
+    {
+      "at": 135185,
+      "edit": 5,
+      "kind": "cell",
+      "row": "Dark mode toggle",
+      "col": "Ticket",
+      "old": "DL-6803",
+      "new": "CR-3081",
+      "announced": true,
+      "spoken": true,
+      "unclear": false,
+      "latency_ms": 9223,
+      "engine_latency_ms": 7721,
+      "text": "Dark mode toggle, Ticket: DL-6803 to CR-3081."
+    },
+    {
+      "at": 135185,
+      "edit": 5,
+      "kind": "cell",
+      "row": "Localise dates",
+      "col": "Points",
+      "old": "393",
+      "new": "197",
+      "announced": true,
+      "spoken": true,
+      "unclear": false,
+      "latency_ms": 9223,
+      "engine_latency_ms": 7723,
+      "text": "Localise dates, Points: 393 to 197."
+    },
+    {
+      "at": 160232,
+      "edit": 6,
+      "kind": "cell",
+      "row": "Audit logging",
+      "col": "Due",
+      "old": "16 Jan 2026",
+      "new": "8 Sep 2026",
+      "announced": true,
+      "spoken": true,
+      "unclear": false,
+      "latency_ms": 8708,
+      "engine_latency_ms": 7205,
+      "text": "Audit logging, Due: 16 Jan 2026 to 8 Sep 2026."
+    },
+    {
+      "at": 160232,
+      "edit": 6,
+      "kind": "cell",
+      "row": "Reduce bundle size",
+      "col": "Due",
+      "old": "21 Feb 2026",
+      "new": "28 May 2026",
+      "announced": true,
+      "spoken": true,
+      "unclear": false,
+      "latency_ms": 8708,
+      "engine_latency_ms": 7206,
+      "text": "Reduce bundle size, Due: 21 Feb 2026 to 28 May 2026."
+    },
+    {
+      "at": 160232,
+      "edit": 6,
+      "kind": "cell",
+      "row": "Billing alerts",
+      "col": "Due",
+      "old": "10 Nov 2026",
+      "new": "19 Jun 2026",
+      "announced": true,
+      "spoken": true,
+      "unclear": false,
+      "latency_ms": 8708,
+      "engine_latency_ms": 7207,
+      "text": "Billing alerts, Due: 10 Nov 2026 to 19 Jun 2026."
+    }
+  ],
+  "announces": [
+    {
+      "at": 9724,
+      "type": "announce",
+      "version": 1,
+      "priority": "content_type",
+      "kind": "content_type",
+      "text": "Now showing: Spreadsheet, 'Sprint 42 tracker', 6 rows, 6 columns.",
+      "refs": []
+    },
+    {
+      "at": 41412,
+      "type": "announce",
+      "version": 2,
+      "priority": "other",
+      "kind": "cell",
+      "text": "Cache warmup, Status: Open to Review.",
+      "refs": [
+        "r4.c4"
+      ]
+    },
+    {
+      "at": 66875,
+      "type": "announce",
+      "version": 3,
+      "priority": "other",
+      "kind": "row_added",
+      "text": "Row added: Localise dates.",
+      "refs": [
+        "r7"
+      ]
+    },
+    {
+      "at": 92047,
+      "type": "announce",
+      "version": 4,
+      "priority": "other",
+      "kind": "cell",
+      "text": "Billing alerts, Due: 25 Aug 2026 to 10 Nov 2026.",
+      "refs": [
+        "r3.c5"
+      ]
+    },
+    {
+      "at": 92048,
+      "type": "announce",
+      "version": 4,
+      "priority": "other",
+      "kind": "cell",
+      "text": "Dark mode toggle, Due: 28 Nov 2026 to 22 Aug 2026.",
+      "refs": [
+        "r6.c5"
+      ]
+    },
+    {
+      "at": 121208,
+      "type": "announce",
+      "version": 5,
+      "priority": "other",
+      "kind": "cell",
+      "text": "Billing alerts, Assignee: Asha Rao to Hana Sato.",
+      "refs": [
+        "r3.c2"
+      ]
+    },
+    {
+      "at": 121209,
+      "type": "announce",
+      "version": 5,
+      "priority": "other",
+      "kind": "cell",
+      "text": "Billing alerts, Ticket: DL-7884 to EN-8597.",
+      "refs": [
+        "r3.c6"
+      ]
+    },
+    {
+      "at": 121210,
+      "type": "announce",
+      "version": 5,
+      "priority": "other",
+      "kind": "cell",
+      "text": "Dark mode toggle, Due: 22 Aug 2026 to 5 Oct 2026.",
+      "refs": [
+        "r6.c5"
+      ]
+    },
+    {
+      "at": 121211,
+      "type": "announce",
+      "version": 5,
+      "priority": "other",
+      "kind": "uncertain",
+      "text": "Cache warmup, Assignee: possibly changed, unclear.",
+      "refs": [
+        "r4.c2"
+      ]
+    },
+    {
+      "at": 142903,
+      "type": "announce",
+      "version": 6,
+      "priority": "other",
+      "kind": "cell",
+      "text": "Billing alerts, Points: 4 to 265.",
+      "refs": [
+        "r3.c3"
+      ]
+    },
+    {
+      "at": 142905,
+      "type": "announce",
+      "version": 6,
+      "priority": "other",
+      "kind": "cell",
+      "text": "Cache warmup, Assignee: unclear to Omar Aziz.",
+      "refs": [
+        "r4.c2"
+      ]
+    },
+    {
+      "at": 142906,
+      "type": "announce",
+      "version": 6,
+      "priority": "other",
+      "kind": "cell",
+      "text": "Dark mode toggle, Ticket: DL-6803 to CR-3081.",
+      "refs": [
+        "r6.c6"
+      ]
+    },
+    {
+      "at": 142908,
+      "type": "announce",
+      "version": 6,
+      "priority": "other",
+      "kind": "cell",
+      "text": "Localise dates, Points: 393 to 197.",
+      "refs": [
+        "r7.c3"
+      ]
+    },
+    {
+      "at": 167437,
+      "type": "announce",
+      "version": 7,
+      "priority": "other",
+      "kind": "cell",
+      "text": "Audit logging, Due: 16 Jan 2026 to 8 Sep 2026.",
+      "refs": [
+        "r1.c5"
+      ]
+    },
+    {
+      "at": 167438,
+      "type": "announce",
+      "version": 7,
+      "priority": "other",
+      "kind": "cell",
+      "text": "Reduce bundle size, Due: 21 Feb 2026 to 28 May 2026.",
+      "refs": [
+        "r2.c5"
+      ]
+    },
+    {
+      "at": 167439,
+      "type": "announce",
+      "version": 7,
+      "priority": "other",
+      "kind": "cell",
+      "text": "Billing alerts, Due: 10 Nov 2026 to 19 Jun 2026.",
+      "refs": [
+        "r3.c5"
+      ]
+    }
+  ],
+  "spoken": [
+    {
+      "at": 3259,
+      "text": "Started. Reading the shared screen."
+    },
+    {
+      "at": 11224,
+      "text": "Now showing: Spreadsheet, 'Sprint 42 tracker', 6 rows, 6 columns."
+    },
+    {
+      "at": 42909,
+      "text": "Cache warmup, Status: Open to Review."
+    },
+    {
+      "at": 68376,
+      "text": "Row added: Localise dates."
+    },
+    {
+      "at": 93551,
+      "text": "Billing alerts, Due: 25 Aug 2026 to 10 Nov 2026. Dark mode toggle, Due: 28 Nov 2026 to 22 Aug 2026."
+    },
+    {
+      "at": 122708,
+      "text": "Billing alerts, Assignee: Asha Rao to Hana Sato. Billing alerts, Ticket: DL-7884 to EN-8597. Dark mode toggle, Due: 22 Aug 2026 to 5 Oct 2026. Cache warmup, Assignee: possibly changed, unclear."
+    },
+    {
+      "at": 144408,
+      "text": "Billing alerts, Points: 4 to 265. Cache warmup, Assignee: unclear to Omar Aziz. Dark mode toggle, Ticket: DL-6803 to CR-3081. Localise dates, Points: 393 to 197."
+    },
+    {
+      "at": 168940,
+      "text": "Audit logging, Due: 16 Jan 2026 to 8 Sep 2026. Reduce bundle size, Due: 21 Feb 2026 to 28 May 2026. Billing alerts, Due: 10 Nov 2026 to 19 Jun 2026."
+    },
+    {
+      "at": 170394,
+      "text": "Pointer is on Crash on resume, Ticket: DL-3785"
+    },
+    {
+      "at": 171708,
+      "text": "Asking."
+    },
+    {
+      "at": 174292,
+      "text": "Answer: Audit logging's Points is 253."
+    }
+  ],
+  "engine_events": [
+    {
+      "at": 9727,
+      "stage": "idle",
+      "mode": "full",
+      "latency_ms": 5316
+    },
+    {
+      "at": 41420,
+      "stage": "idle",
+      "mode": "full",
+      "latency_ms": 5533
+    },
+    {
+      "at": 66875,
+      "stage": "idle",
+      "mode": "full",
+      "latency_ms": 6023
+    },
+    {
+      "at": 92048,
+      "stage": "idle",
+      "mode": "full",
+      "latency_ms": 6201
+    },
+    {
+      "at": 121212,
+      "stage": "idle",
+      "mode": "full",
+      "latency_ms": 9754
+    },
+    {
+      "at": 142908,
+      "stage": "idle",
+      "mode": "full",
+      "latency_ms": 6543
+    },
+    {
+      "at": 167439,
+      "stage": "idle",
+      "mode": "full",
+      "latency_ms": 6088
+    }
+  ],
+  "probes": [
+    {
+      "kind": "pointer",
+      "truth": {
+        "x": 211,
+        "y": 259,
+        "target": "r0c1"
+      },
+      "result": {
+        "type": "pointer_target",
+        "ref": "r5.c6",
+        "text": "Pointer is on Crash on resume, Ticket: DL-3785"
+      }
+    },
+    {
+      "kind": "ask",
+      "question": "What is Audit logging's Points? Cite the cell.",
+      "expected": "253",
+      "result": {
+        "type": "answer",
+        "q": "What is Audit logging's Points? Cite the cell.",
+        "text": "Audit logging's Points is 253.",
+        "refs": [
+          "r1.c3"
+        ],
+        "version": 7
+      }
+    }
+  ],
+  "focus_validation": {
+    "original_connected": true,
+    "same_active_element": true
+  },
+  "messages": [
+    {
+      "at": 3315,
+      "message": {
+        "type": "status",
+        "stage": "idle",
+        "latency_ms": null,
+        "detail": "ready",
+        "content_bbox": null
+      }
+    },
+    {
+      "at": 4346,
+      "message": {
+        "type": "status",
+        "stage": "reconstruct",
+        "latency_ms": null,
+        "detail": null,
+        "content_bbox": null
+      }
+    },
+    {
+      "at": 9713,
+      "message": {
+        "type": "snapshot",
+        "version": 1,
+        "doc": {
+          "version": 1,
+          "content_type": "sheet",
+          "title": "Sprint 42 tracker",
+          "content_bbox": {
+            "x0": 0,
+            "y0": 0,
+            "x1": 1000,
+            "y1": 1000
+          },
+          "sheet": {
+            "columns": [
+              {
+                "id": "c1",
+                "text": "Task",
+                "bbox": {
+                  "x0": 43,
+                  "y0": 179,
+                  "x1": 168,
+                  "y1": 232
+                },
+                "confidence": 0.95,
+                "unreadable": false,
+                "uncertain": false
+              },
+              {
+                "id": "c2",
+                "text": "Assignee",
+                "bbox": {
+                  "x0": 168,
+                  "y0": 179,
+                  "x1": 255,
+                  "y1": 232
+                },
+                "confidence": 0.95,
+                "unreadable": false,
+                "uncertain": false
+              },
+              {
+                "id": "c3",
+                "text": "Points",
+                "bbox": {
+                  "x0": 255,
+                  "y0": 179,
+                  "x1": 341,
+                  "y1": 232
+                },
+                "confidence": 0.95,
+                "unreadable": false,
+                "uncertain": false
+              },
+              {
+                "id": "c4",
+                "text": "Status",
+                "bbox": {
+                  "x0": 341,
+                  "y0": 179,
+                  "x1": 428,
+                  "y1": 232
+                },
+                "confidence": 0.95,
+                "unreadable": false,
+                "uncertain": false
+              },
+              {
+                "id": "c5",
+                "text": "Due",
+                "bbox": {
+                  "x0": 428,
+                  "y0": 179,
+                  "x1": 514,
+                  "y1": 232
+                },
+                "confidence": 0.95,
+                "unreadable": false,
+                "uncertain": false
+              },
+              {
+                "id": "c6",
+                "text": "Ticket",
+                "bbox": {
+                  "x0": 514,
+                  "y0": 179,
+                  "x1": 601,
+                  "y1": 232
+                },
+                "confidence": 0.95,
+                "unreadable": false,
+                "uncertain": false
+              }
+            ],
+            "header_rows": 1,
+            "rows": [
+              {
+                "id": "r1",
+                "key": "Audit logging",
+                "cells": [
+                  {
+                    "id": "r1.c1",
+                    "text": "Audit logging",
+                    "bbox": {
+                      "x0": 43,
+                      "y0": 232,
+                      "x1": 168,
+                      "y1": 285
+                    },
+                    "confidence": 0.95,
+                    "unreadable": false,
+                    "uncertain": false
+                  },
+                  {
+                    "id": "r1.c2",
+                    "text": "Quinn Lee",
+                    "bbox": {
+                      "x0": 168,
+                      "y0": 232,
+                      "x1": 255,
+                      "y1": 285
+                    },
+                    "confidence": 0.95,
+                    "unreadable": false,
+                    "uncertain": false
+                  },
+                  {
+                    "id": "r1.c3",
+                    "text": "253",
+                    "bbox": {
+                      "x0": 255,
+                      "y0": 232,
+                      "x1": 341,
+                      "y1": 285
+                    },
+                    "confidence": 0.95,
+                    "unreadable": false,
+                    "uncertain": false
+                  },
+                  {
+                    "id": "r1.c4",
+                    "text": "Pass",
+                    "bbox": {
+                      "x0": 341,
+                      "y0": 232,
+                      "x1": 428,
+                      "y1": 285
+                    },
+                    "confidence": 0.95,
+                    "unreadable": false,
+                    "uncertain": false
+                  },
+                  {
+                    "id": "r1.c5",
+                    "text": "16 Jan 2026",
+                    "bbox": {
+                      "x0": 428,
+                      "y0": 232,
+                      "x1": 514,
+                      "y1": 285
+                    },
+                    "confidence": 0.95,
+                    "unreadable": false,
+                    "uncertain": false
+                  },
+                  {
+                    "id": "r1.c6",
+                    "text": "EN-3172",
+                    "bbox": {
+                      "x0": 514,
+                      "y0": 232,
+                      "x1": 601,
+                      "y1": 285
+                    },
+                    "confidence": 0.95,
+                    "unreadable": false,
+                    "uncertain": false
+                  }
+                ]
+              },
+              {
+                "id": "r2",
+                "key": "Reduce bundle size",
+                "cells": [
+                  {
+                    "id": "r2.c1",
+                    "text": "Reduce bundle size",
+                    "bbox": {
+                      "x0": 43,
+                      "y0": 285,
+                      "x1": 168,
+                      "y1": 338
+                    },
+                    "confidence": 0.95,
+                    "unreadable": false,
+                    "uncertain": false
+                  },
+                  {
+                    "id": "r2.c2",
+                    "text": "Wen Zhao",
+                    "bbox": {
+                      "x0": 168,
+                      "y0": 285,
+                      "x1": 255,
+                      "y1": 338
+                    },
+                    "confidence": 0.95,
+                    "unreadable": false,
+                    "uncertain": false
+                  },
+                  {
+                    "id": "r2.c3",
+                    "text": "370",
+                    "bbox": {
+                      "x0": 255,
+                      "y0": 285,
+                      "x1": 341,
+                      "y1": 338
+                    },
+                    "confidence": 0.95,
+                    "unreadable": false,
+                    "uncertain": false
+                  },
+                  {
+                    "id": "r2.c4",
+                    "text": "Blocked",
+                    "bbox": {
+                      "x0": 341,
+                      "y0": 285,
+                      "x1": 428,
+                      "y1": 338
+                    },
+                    "confidence": 0.95,
+                    "unreadable": false,
+                    "uncertain": false
+                  },
+                  {
+                    "id": "r2.c5",
+                    "text": "21 Feb 2026",
+                    "bbox": {
+                      "x0": 428,
+                      "y0": 285,
+                      "x1": 514,
+                      "y1": 338
+                    },
+                    "confidence": 0.95,
+                    "unreadable": false,
+                    "uncertain": false
+                  },
+                  {
+                    "id": "r2.c6",
+                    "text": "BT-7254",
+                    "bbox": {
+                      "x0": 514,
+                      "y0": 285,
+                      "x1": 601,
+                      "y1": 338
+                    },
+                    "confidence": 0.95,
+                    "unreadable": false,
+                    "uncertain": false
+                  }
+                ]
+              },
+              {
+                "id": "r3",
+                "key": "Billing alerts",
+                "cells": [
+                  {
+                    "id": "r3.c1",
+                    "text": "Billing alerts",
+                    "bbox": {
+                      "x0": 43,
+                      "y0": 338,
+                      "x1": 168,
+                      "y1": 390
+                    },
+                    "confidence": 0.95,
+                    "unreadable": false,
+                    "uncertain": false
+                  },
+                  {
+                    "id": "r3.c2",
+                    "text": "Asha Rao",
+                    "bbox": {
+                      "x0": 168,
+                      "y0": 338,
+                      "x1": 255,
+                      "y1": 390
+                    },
+                    "confidence": 0.95,
+                    "unreadable": false,
+                    "uncertain": false
+                  },
+                  {
+                    "id": "r3.c3",
+                    "text": "4",
+                    "bbox": {
+                      "x0": 255,
+                      "y0": 338,
+                      "x1": 341,
+                      "y1": 390
+                    },
+                    "confidence": 0.95,
+                    "unreadable": false,
+                    "uncertain": false
+                  },
+                  {
+                    "id": "r3.c4",
+                    "text": "Blocked",
+                    "bbox": {
+                      "x0": 341,
+                      "y0": 338,
+                      "x1": 428,
+                      "y1": 390
+                    },
+                    "confidence": 0.95,
+                    "unreadable": false,
+                    "uncertain": false
+                  },
+                  {
+                    "id": "r3.c5",
+                    "text": "25 Aug 2026",
+                    "bbox": {
+                      "x0": 428,
+                      "y0": 338,
+                      "x1": 514,
+                      "y1": 390
+                    },
+                    "confidence": 0.95,
+                    "unreadable": false,
+                    "uncertain": false
+                  },
+                  {
+                    "id": "r3.c6",
+                    "text": "DL-7884",
+                    "bbox": {
+                      "x0": 514,
+                      "y0": 338,
+                      "x1": 601,
+                      "y1": 390
+                    },
+                    "confidence": 0.95,
+                    "unreadable": false,
+                    "uncertain": false
+                  }
+                ]
+              },
+              {
+                "id": "r4",
+                "key": "Cache warmup",
+                "cells": [
+                  {
+                    "id": "r4.c1",
+                    "text": "Cache warmup",
+                    "bbox": {
+                      "x0": 43,
+                      "y0": 390,
+                      "x1": 168,
+                      "y1": 442
+                    },
+                    "confidence": 0.95,
+                    "unreadable": false,
+                    "uncertain": false
+                  },
+                  {
+                    "id": "r4.c2",
+                    "text": "Omar Aziz",
+                    "bbox": {
+                      "x0": 168,
+                      "y0": 390,
+                      "x1": 255,
+                      "y1": 442
+                    },
+                    "confidence": 0.95,
+                    "unreadable": false,
+                    "uncertain": false
+                  },
+                  {
+                    "id": "r4.c3",
+                    "text": "279",
+                    "bbox": {
+                      "x0": 255,
+                      "y0": 390,
+                      "x1": 341,
+                      "y1": 442
+                    },
+                    "confidence": 0.95,
+                    "unreadable": false,
+                    "uncertain": false
+                  },
+                  {
+                    "id": "r4.c4",
+                    "text": "Open",
+                    "bbox": {
+                      "x0": 341,
+                      "y0": 390,
+                      "x1": 428,
+                      "y1": 442
+                    },
+                    "confidence": 0.95,
+                    "unreadable": false,
+                    "uncertain": false
+                  },
+                  {
+                    "id": "r4.c5",
+                    "text": "11 Jul 2026",
+                    "bbox": {
+                      "x0": 428,
+                      "y0": 390,
+                      "x1": 514,
+                      "y1": 442
+                    },
+                    "confidence": 0.95,
+                    "unreadable": false,
+                    "uncertain": false
+                  },
+                  {
+                    "id": "r4.c6",
+                    "text": "EN-4188",
+                    "bbox": {
+                      "x0": 514,
+                      "y0": 390,
+                      "x1": 601,
+                      "y1": 442
+                    },
+                    "confidence": 0.95,
+                    "unreadable": false,
+                    "uncertain": false
+                  }
+                ]
+              },
+              {
+                "id": "r5",
+                "key": "Crash on resume",
+                "cells": [
+                  {
+                    "id": "r5.c1",
+                    "text": "Crash on resume",
+                    "bbox": {
+                      "x0": 43,
+                      "y0": 442,
+                      "x1": 168,
+                      "y1": 495
+                    },
+                    "confidence": 0.95,
+                    "unreadable": false,
+                    "uncertain": false
+                  },
+                  {
+                    "id": "r5.c2",
+                    "text": "Lena Fischer",
+                    "bbox": {
+                      "x0": 168,
+                      "y0": 442,
+                      "x1": 255,
+                      "y1": 495
+                    },
+                    "confidence": 0.95,
+                    "unreadable": false,
+                    "uncertain": false
+                  },
+                  {
+                    "id": "r5.c3",
+                    "text": "238",
+                    "bbox": {
+                      "x0": 255,
+                      "y0": 442,
+                      "x1": 341,
+                      "y1": 495
+                    },
+                    "confidence": 0.95,
+                    "unreadable": false,
+                    "uncertain": false
+                  },
+                  {
+                    "id": "r5.c4",
+                    "text": "Done",
+                    "bbox": {
+                      "x0": 341,
+                      "y0": 442,
+                      "x1": 428,
+                      "y1": 495
+                    },
+                    "confidence": 0.95,
+                    "unreadable": false,
+                    "uncertain": false
+                  },
+                  {
+                    "id": "r5.c5",
+                    "text": "22 Nov 2026",
+                    "bbox": {
+                      "x0": 428,
+                      "y0": 442,
+                      "x1": 514,
+                      "y1": 495
+                    },
+                    "confidence": 0.95,
+                    "unreadable": false,
+                    "uncertain": false
+                  },
+                  {
+                    "id": "r5.c6",
+                    "text": "DL-3785",
+                    "bbox": {
+                      "x0": 514,
+                      "y0": 442,
+                      "x1": 601,
+                      "y1": 495
+                    },
+                    "confidence": 0.95,
+                    "unreadable": false,
+                    "uncertain": false
+                  }
+                ]
+              },
+              {
+                "id": "r6",
+                "key": "Dark mode toggle",
+                "cells": [
+                  {
+                    "id": "r6.c1",
+                    "text": "Dark mode toggle",
+                    "bbox": {
+                      "x0": 43,
+                      "y0": 495,
+                      "x1": 168,
+                      "y1": 545
+                    },
+                    "confidence": 0.95,
+                    "unreadable": false,
+                    "uncertain": false
+                  },
+                  {
+                    "id": "r6.c2",
+                    "text": "Quinn Lee",
+                    "bbox": {
+                      "x0": 168,
+                      "y0": 495,
+                      "x1": 255,
+                      "y1": 545
+                    },
+                    "confidence": 0.95,
+                    "unreadable": false,
+                    "uncertain": false
+                  },
+                  {
+                    "id": "r6.c3",
+                    "text": "336",
+                    "bbox": {
+                      "x0": 255,
+                      "y0": 495,
+                      "x1": 341,
+                      "y1": 545
+                    },
+                    "confidence": 0.95,
+                    "unreadable": false,
+                    "uncertain": false
+                  },
+                  {
+                    "id": "r6.c4",
+                    "text": "Blocked",
+                    "bbox": {
+                      "x0": 341,
+                      "y0": 495,
+                      "x1": 428,
+                      "y1": 545
+                    },
+                    "confidence": 0.95,
+                    "unreadable": false,
+                    "uncertain": false
+                  },
+                  {
+                    "id": "r6.c5",
+                    "text": "28 Nov 2026",
+                    "bbox": {
+                      "x0": 428,
+                      "y0": 495,
+                      "x1": 514,
+                      "y1": 545
+                    },
+                    "confidence": 0.95,
+                    "unreadable": false,
+                    "uncertain": false
+                  },
+                  {
+                    "id": "r6.c6",
+                    "text": "DL-6803",
+                    "bbox": {
+                      "x0": 514,
+                      "y0": 495,
+                      "x1": 601,
+                      "y1": 545
+                    },
+                    "confidence": 0.95,
+                    "unreadable": false,
+                    "uncertain": false
+                  }
+                ]
+              }
+            ],
+            "sheet_name": "Sprint"
+          },
+          "code": null,
+          "blocks": null
+        }
+      }
+    },
+    {
+      "at": 9724,
+      "message": {
+        "type": "announce",
+        "version": 1,
+        "priority": "content_type",
+        "kind": "content_type",
+        "text": "Now showing: Spreadsheet, 'Sprint 42 tracker', 6 rows, 6 columns.",
+        "refs": []
+      }
+    },
+    {
+      "at": 9727,
+      "message": {
+        "type": "status",
+        "stage": "idle",
+        "latency_ms": 5316,
+        "detail": "full",
+        "content_bbox": {
+          "x0": 0,
+          "y0": 0,
+          "x1": 1000,
+          "y1": 1000
+        }
+      }
+    },
+    {
+      "at": 35864,
+      "message": {
+        "type": "status",
+        "stage": "reconstruct",
+        "latency_ms": null,
+        "detail": null,
+        "content_bbox": null
+      }
+    },
+    {
+      "at": 41399,
+      "message": {
+        "type": "patch",
+        "version": 2,
+        "base": 1,
+        "ops": [
+          {
+            "op": "replace",
+            "path": "/version",
+            "value": 2
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/0/bbox/y1",
+            "value": 337
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/1/bbox/y1",
+            "value": 337
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/2/bbox/y1",
+            "value": 337
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/3/bbox/y1",
+            "value": 337
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/4/bbox/y1",
+            "value": 337
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/5/bbox/y1",
+            "value": 337
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/0/bbox/y0",
+            "value": 337
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/1/bbox/y0",
+            "value": 337
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/2/bbox/y0",
+            "value": 337
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/3/bbox/y0",
+            "value": 337
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/4/bbox/y0",
+            "value": 337
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/5/bbox/y0",
+            "value": 337
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/3/cells/3/text",
+            "value": "Review"
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/0/bbox/y1",
+            "value": 547
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/1/bbox/y1",
+            "value": 547
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/2/bbox/y1",
+            "value": 547
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/3/bbox/y1",
+            "value": 547
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/4/bbox/y1",
+            "value": 547
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/5/bbox/y1",
+            "value": 547
+          }
+        ]
+      }
+    },
+    {
+      "at": 41412,
+      "message": {
+        "type": "announce",
+        "version": 2,
+        "priority": "other",
+        "kind": "cell",
+        "text": "Cache warmup, Status: Open to Review.",
+        "refs": [
+          "r4.c4"
+        ]
+      }
+    },
+    {
+      "at": 41420,
+      "message": {
+        "type": "status",
+        "stage": "idle",
+        "latency_ms": 5533,
+        "detail": "full",
+        "content_bbox": {
+          "x0": 0,
+          "y0": 0,
+          "x1": 1000,
+          "y1": 1000
+        }
+      }
+    },
+    {
+      "at": 60842,
+      "message": {
+        "type": "status",
+        "stage": "reconstruct",
+        "latency_ms": null,
+        "detail": null,
+        "content_bbox": null
+      }
+    },
+    {
+      "at": 66870,
+      "message": {
+        "type": "patch",
+        "version": 3,
+        "base": 2,
+        "ops": [
+          {
+            "op": "replace",
+            "path": "/version",
+            "value": 3
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/0/bbox/y1",
+            "value": 338
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/1/bbox/y1",
+            "value": 338
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/2/bbox/y1",
+            "value": 338
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/3/bbox/y1",
+            "value": 338
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/4/bbox/y1",
+            "value": 338
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/5/bbox/y1",
+            "value": 338
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/0/bbox/y0",
+            "value": 338
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/1/bbox/y0",
+            "value": 338
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/2/bbox/y0",
+            "value": 338
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/3/bbox/y0",
+            "value": 338
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/4/bbox/y0",
+            "value": 338
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/5/bbox/y0",
+            "value": 338
+          },
+          {
+            "op": "add",
+            "path": "/sheet/rows/6",
+            "value": {
+              "id": "r7",
+              "key": "Localise dates",
+              "cells": [
+                {
+                  "id": "r7.c1",
+                  "text": "Localise dates",
+                  "bbox": {
+                    "x0": 43,
+                    "y0": 547,
+                    "x1": 168,
+                    "y1": 599
+                  },
+                  "confidence": 0.95,
+                  "unreadable": false,
+                  "uncertain": false
+                },
+                {
+                  "id": "r7.c2",
+                  "text": "Rhea Kapoor",
+                  "bbox": {
+                    "x0": 168,
+                    "y0": 547,
+                    "x1": 255,
+                    "y1": 599
+                  },
+                  "confidence": 0.95,
+                  "unreadable": false,
+                  "uncertain": false
+                },
+                {
+                  "id": "r7.c3",
+                  "text": "393",
+                  "bbox": {
+                    "x0": 255,
+                    "y0": 547,
+                    "x1": 341,
+                    "y1": 599
+                  },
+                  "confidence": 0.95,
+                  "unreadable": false,
+                  "uncertain": false
+                },
+                {
+                  "id": "r7.c4",
+                  "text": "Blocked",
+                  "bbox": {
+                    "x0": 341,
+                    "y0": 547,
+                    "x1": 428,
+                    "y1": 599
+                  },
+                  "confidence": 0.95,
+                  "unreadable": false,
+                  "uncertain": false
+                },
+                {
+                  "id": "r7.c5",
+                  "text": "24 May 2026",
+                  "bbox": {
+                    "x0": 428,
+                    "y0": 547,
+                    "x1": 514,
+                    "y1": 599
+                  },
+                  "confidence": 0.95,
+                  "unreadable": false,
+                  "uncertain": false
+                },
+                {
+                  "id": "r7.c6",
+                  "text": "CR-6582",
+                  "bbox": {
+                    "x0": 514,
+                    "y0": 547,
+                    "x1": 601,
+                    "y1": 599
+                  },
+                  "confidence": 0.95,
+                  "unreadable": false,
+                  "uncertain": false
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "at": 66875,
+      "message": {
+        "type": "announce",
+        "version": 3,
+        "priority": "other",
+        "kind": "row_added",
+        "text": "Row added: Localise dates.",
+        "refs": [
+          "r7"
+        ]
+      }
+    },
+    {
+      "at": 66875,
+      "message": {
+        "type": "status",
+        "stage": "idle",
+        "latency_ms": 6023,
+        "detail": "full",
+        "content_bbox": {
+          "x0": 0,
+          "y0": 0,
+          "x1": 1000,
+          "y1": 1000
+        }
+      }
+    },
+    {
+      "at": 85841,
+      "message": {
+        "type": "status",
+        "stage": "reconstruct",
+        "latency_ms": null,
+        "detail": null,
+        "content_bbox": null
+      }
+    },
+    {
+      "at": 92045,
+      "message": {
+        "type": "patch",
+        "version": 4,
+        "base": 3,
+        "ops": [
+          {
+            "op": "replace",
+            "path": "/version",
+            "value": 4
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/0/bbox/x0",
+            "value": 46
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/0/bbox/y0",
+            "value": 181
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/0/bbox/y1",
+            "value": 233
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/1/bbox/y0",
+            "value": 181
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/1/bbox/y1",
+            "value": 233
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/2/bbox/y0",
+            "value": 181
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/2/bbox/x1",
+            "value": 342
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/2/bbox/y1",
+            "value": 233
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/3/bbox/x0",
+            "value": 342
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/3/bbox/y0",
+            "value": 181
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/3/bbox/y1",
+            "value": 233
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/4/bbox/y0",
+            "value": 181
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/4/bbox/x1",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/4/bbox/y1",
+            "value": 233
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/5/bbox/x0",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/5/bbox/y0",
+            "value": 181
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/5/bbox/x1",
+            "value": 602
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/5/bbox/y1",
+            "value": 233
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/0/cells/0/bbox/x0",
+            "value": 46
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/0/cells/0/bbox/y0",
+            "value": 233
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/0/cells/1/bbox/y0",
+            "value": 233
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/0/cells/2/bbox/y0",
+            "value": 233
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/0/cells/2/bbox/x1",
+            "value": 342
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/0/cells/3/bbox/x0",
+            "value": 342
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/0/cells/3/bbox/y0",
+            "value": 233
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/0/cells/4/bbox/y0",
+            "value": 233
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/0/cells/4/bbox/x1",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/0/cells/5/bbox/x0",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/0/cells/5/bbox/y0",
+            "value": 233
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/0/cells/5/bbox/x1",
+            "value": 602
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/0/bbox/x0",
+            "value": 46
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/0/bbox/y1",
+            "value": 337
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/1/bbox/y1",
+            "value": 337
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/2/bbox/x1",
+            "value": 342
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/2/bbox/y1",
+            "value": 337
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/3/bbox/x0",
+            "value": 342
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/3/bbox/y1",
+            "value": 337
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/4/bbox/x1",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/4/bbox/y1",
+            "value": 337
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/5/bbox/x0",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/5/bbox/x1",
+            "value": 602
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/5/bbox/y1",
+            "value": 337
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/0/bbox/x0",
+            "value": 46
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/0/bbox/y0",
+            "value": 337
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/1/bbox/y0",
+            "value": 337
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/2/bbox/y0",
+            "value": 337
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/2/bbox/x1",
+            "value": 342
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/3/bbox/x0",
+            "value": 342
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/3/bbox/y0",
+            "value": 337
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/4/text",
+            "value": "10 Nov 2026"
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/4/bbox/y0",
+            "value": 337
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/4/bbox/x1",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/5/bbox/x0",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/5/bbox/y0",
+            "value": 337
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/5/bbox/x1",
+            "value": 602
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/3/cells/0/bbox/x0",
+            "value": 46
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/3/cells/2/bbox/x1",
+            "value": 342
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/3/cells/3/bbox/x0",
+            "value": 342
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/3/cells/4/bbox/x1",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/3/cells/5/bbox/x0",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/3/cells/5/bbox/x1",
+            "value": 602
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/4/cells/0/bbox/x0",
+            "value": 46
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/4/cells/0/bbox/y1",
+            "value": 494
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/4/cells/1/bbox/y1",
+            "value": 494
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/4/cells/2/bbox/x1",
+            "value": 342
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/4/cells/2/bbox/y1",
+            "value": 494
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/4/cells/3/bbox/x0",
+            "value": 342
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/4/cells/3/bbox/y1",
+            "value": 494
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/4/cells/4/bbox/x1",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/4/cells/4/bbox/y1",
+            "value": 494
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/4/cells/5/bbox/x0",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/4/cells/5/bbox/x1",
+            "value": 602
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/4/cells/5/bbox/y1",
+            "value": 494
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/0/bbox/x0",
+            "value": 46
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/0/bbox/y0",
+            "value": 494
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/0/bbox/y1",
+            "value": 546
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/1/bbox/y0",
+            "value": 494
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/1/bbox/y1",
+            "value": 546
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/2/bbox/y0",
+            "value": 494
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/2/bbox/x1",
+            "value": 342
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/2/bbox/y1",
+            "value": 546
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/3/bbox/x0",
+            "value": 342
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/3/bbox/y0",
+            "value": 494
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/3/bbox/y1",
+            "value": 546
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/4/text",
+            "value": "22 Aug 2026"
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/4/bbox/y0",
+            "value": 494
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/4/bbox/x1",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/4/bbox/y1",
+            "value": 546
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/5/bbox/x0",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/5/bbox/y0",
+            "value": 494
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/5/bbox/x1",
+            "value": 602
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/5/bbox/y1",
+            "value": 546
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/0/bbox/x0",
+            "value": 46
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/0/bbox/y0",
+            "value": 546
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/0/bbox/y1",
+            "value": 598
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/1/bbox/y0",
+            "value": 546
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/1/bbox/y1",
+            "value": 598
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/2/bbox/y0",
+            "value": 546
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/2/bbox/x1",
+            "value": 342
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/2/bbox/y1",
+            "value": 598
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/3/bbox/x0",
+            "value": 342
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/3/bbox/y0",
+            "value": 546
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/3/bbox/y1",
+            "value": 598
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/4/bbox/y0",
+            "value": 546
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/4/bbox/x1",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/4/bbox/y1",
+            "value": 598
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/5/bbox/x0",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/5/bbox/y0",
+            "value": 546
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/5/bbox/x1",
+            "value": 602
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/5/bbox/y1",
+            "value": 598
+          }
+        ]
+      }
+    },
+    {
+      "at": 92047,
+      "message": {
+        "type": "announce",
+        "version": 4,
+        "priority": "other",
+        "kind": "cell",
+        "text": "Billing alerts, Due: 25 Aug 2026 to 10 Nov 2026.",
+        "refs": [
+          "r3.c5"
+        ]
+      }
+    },
+    {
+      "at": 92048,
+      "message": {
+        "type": "announce",
+        "version": 4,
+        "priority": "other",
+        "kind": "cell",
+        "text": "Dark mode toggle, Due: 28 Nov 2026 to 22 Aug 2026.",
+        "refs": [
+          "r6.c5"
+        ]
+      }
+    },
+    {
+      "at": 92048,
+      "message": {
+        "type": "status",
+        "stage": "idle",
+        "latency_ms": 6201,
+        "detail": "full",
+        "content_bbox": {
+          "x0": 0,
+          "y0": 0,
+          "x1": 1000,
+          "y1": 1000
+        }
+      }
+    },
+    {
+      "at": 111379,
+      "message": {
+        "type": "status",
+        "stage": "reconstruct",
+        "latency_ms": null,
+        "detail": null,
+        "content_bbox": null
+      }
+    },
+    {
+      "at": 121155,
+      "message": {
+        "type": "patch",
+        "version": 5,
+        "base": 4,
+        "ops": [
+          {
+            "op": "replace",
+            "path": "/version",
+            "value": 5
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/0/bbox/x0",
+            "value": 42
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/0/bbox/y0",
+            "value": 180
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/1/bbox/y0",
+            "value": 180
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/2/bbox/y0",
+            "value": 180
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/2/bbox/x1",
+            "value": 341
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/3/bbox/x0",
+            "value": 341
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/3/bbox/y0",
+            "value": 180
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/4/bbox/y0",
+            "value": 180
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/4/bbox/x1",
+            "value": 514
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/5/bbox/x0",
+            "value": 514
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/5/bbox/y0",
+            "value": 180
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/5/bbox/x1",
+            "value": 601
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/0/cells/0/bbox/x0",
+            "value": 42
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/0/cells/0/bbox/y1",
+            "value": 286
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/0/cells/1/bbox/y1",
+            "value": 286
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/0/cells/2/bbox/x1",
+            "value": 341
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/0/cells/2/bbox/y1",
+            "value": 286
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/0/cells/3/bbox/x0",
+            "value": 341
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/0/cells/3/bbox/y1",
+            "value": 286
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/0/cells/4/bbox/x1",
+            "value": 514
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/0/cells/4/bbox/y1",
+            "value": 286
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/0/cells/5/bbox/x0",
+            "value": 514
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/0/cells/5/bbox/x1",
+            "value": 601
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/0/cells/5/bbox/y1",
+            "value": 286
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/0/bbox/x0",
+            "value": 42
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/0/bbox/y0",
+            "value": 286
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/0/bbox/y1",
+            "value": 338
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/1/bbox/y0",
+            "value": 286
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/1/bbox/y1",
+            "value": 338
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/2/bbox/y0",
+            "value": 286
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/2/bbox/x1",
+            "value": 341
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/2/bbox/y1",
+            "value": 338
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/3/bbox/x0",
+            "value": 341
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/3/bbox/y0",
+            "value": 286
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/3/bbox/y1",
+            "value": 338
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/4/bbox/y0",
+            "value": 286
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/4/bbox/x1",
+            "value": 514
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/4/bbox/y1",
+            "value": 338
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/5/bbox/x0",
+            "value": 514
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/5/bbox/y0",
+            "value": 286
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/5/bbox/x1",
+            "value": 601
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/5/bbox/y1",
+            "value": 338
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/0/bbox/x0",
+            "value": 42
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/0/bbox/y0",
+            "value": 338
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/1/text",
+            "value": "Hana Sato"
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/1/bbox/y0",
+            "value": 338
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/2/bbox/y0",
+            "value": 338
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/2/bbox/x1",
+            "value": 341
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/3/bbox/x0",
+            "value": 341
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/3/bbox/y0",
+            "value": 338
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/4/bbox/y0",
+            "value": 338
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/4/bbox/x1",
+            "value": 514
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/5/text",
+            "value": "EN-8597"
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/5/bbox/x0",
+            "value": 514
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/5/bbox/y0",
+            "value": 338
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/5/bbox/x1",
+            "value": 601
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/3/cells/0/bbox/x0",
+            "value": 42
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/3/cells/1/text",
+            "value": "Omer Aziz"
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/3/cells/1/confidence",
+            "value": 0.5
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/3/cells/1/uncertain",
+            "value": true
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/3/cells/2/bbox/x1",
+            "value": 341
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/3/cells/3/bbox/x0",
+            "value": 341
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/3/cells/4/bbox/x1",
+            "value": 514
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/3/cells/5/bbox/x0",
+            "value": 514
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/3/cells/5/bbox/x1",
+            "value": 601
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/4/cells/0/bbox/x0",
+            "value": 42
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/4/cells/2/bbox/x1",
+            "value": 341
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/4/cells/3/bbox/x0",
+            "value": 341
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/4/cells/4/bbox/x1",
+            "value": 514
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/4/cells/5/bbox/x0",
+            "value": 514
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/4/cells/5/bbox/x1",
+            "value": 601
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/0/bbox/x0",
+            "value": 42
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/2/bbox/x1",
+            "value": 341
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/3/bbox/x0",
+            "value": 341
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/4/text",
+            "value": "5 Oct 2026"
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/4/bbox/x1",
+            "value": 514
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/5/bbox/x0",
+            "value": 514
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/5/bbox/x1",
+            "value": 601
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/0/bbox/x0",
+            "value": 42
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/2/bbox/x1",
+            "value": 341
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/3/bbox/x0",
+            "value": 341
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/4/bbox/x1",
+            "value": 514
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/5/bbox/x0",
+            "value": 514
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/5/bbox/x1",
+            "value": 601
+          }
+        ]
+      }
+    },
+    {
+      "at": 121208,
+      "message": {
+        "type": "announce",
+        "version": 5,
+        "priority": "other",
+        "kind": "cell",
+        "text": "Billing alerts, Assignee: Asha Rao to Hana Sato.",
+        "refs": [
+          "r3.c2"
+        ]
+      }
+    },
+    {
+      "at": 121209,
+      "message": {
+        "type": "announce",
+        "version": 5,
+        "priority": "other",
+        "kind": "cell",
+        "text": "Billing alerts, Ticket: DL-7884 to EN-8597.",
+        "refs": [
+          "r3.c6"
+        ]
+      }
+    },
+    {
+      "at": 121210,
+      "message": {
+        "type": "announce",
+        "version": 5,
+        "priority": "other",
+        "kind": "cell",
+        "text": "Dark mode toggle, Due: 22 Aug 2026 to 5 Oct 2026.",
+        "refs": [
+          "r6.c5"
+        ]
+      }
+    },
+    {
+      "at": 121211,
+      "message": {
+        "type": "announce",
+        "version": 5,
+        "priority": "other",
+        "kind": "uncertain",
+        "text": "Cache warmup, Assignee: possibly changed, unclear.",
+        "refs": [
+          "r4.c2"
+        ]
+      }
+    },
+    {
+      "at": 121212,
+      "message": {
+        "type": "status",
+        "stage": "idle",
+        "latency_ms": 9754,
+        "detail": "full",
+        "content_bbox": {
+          "x0": 0,
+          "y0": 0,
+          "x1": 1000,
+          "y1": 1000
+        }
+      }
+    },
+    {
+      "at": 136352,
+      "message": {
+        "type": "status",
+        "stage": "reconstruct",
+        "latency_ms": null,
+        "detail": null,
+        "content_bbox": null
+      }
+    },
+    {
+      "at": 142899,
+      "message": {
+        "type": "patch",
+        "version": 6,
+        "base": 5,
+        "ops": [
+          {
+            "op": "replace",
+            "path": "/version",
+            "value": 6
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/0/bbox/x0",
+            "value": 43
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/0/bbox/y0",
+            "value": 179
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/0/bbox/y1",
+            "value": 232
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/1/bbox/y0",
+            "value": 179
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/1/bbox/y1",
+            "value": 232
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/2/bbox/y0",
+            "value": 179
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/2/bbox/x1",
+            "value": 342
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/2/bbox/y1",
+            "value": 232
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/3/bbox/x0",
+            "value": 342
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/3/bbox/y0",
+            "value": 179
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/3/bbox/y1",
+            "value": 232
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/4/bbox/y0",
+            "value": 179
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/4/bbox/x1",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/4/bbox/y1",
+            "value": 232
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/5/bbox/x0",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/5/bbox/y0",
+            "value": 179
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/5/bbox/y1",
+            "value": 232
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/0/cells/0/bbox/x0",
+            "value": 43
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/0/cells/0/bbox/y0",
+            "value": 232
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/0/cells/0/bbox/y1",
+            "value": 285
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/0/cells/1/bbox/y0",
+            "value": 232
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/0/cells/1/bbox/y1",
+            "value": 285
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/0/cells/2/bbox/y0",
+            "value": 232
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/0/cells/2/bbox/x1",
+            "value": 342
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/0/cells/2/bbox/y1",
+            "value": 285
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/0/cells/3/bbox/x0",
+            "value": 342
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/0/cells/3/bbox/y0",
+            "value": 232
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/0/cells/3/bbox/y1",
+            "value": 285
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/0/cells/4/bbox/y0",
+            "value": 232
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/0/cells/4/bbox/x1",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/0/cells/4/bbox/y1",
+            "value": 285
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/0/cells/5/bbox/x0",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/0/cells/5/bbox/y0",
+            "value": 232
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/0/cells/5/bbox/y1",
+            "value": 285
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/0/bbox/x0",
+            "value": 43
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/0/bbox/y0",
+            "value": 285
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/1/bbox/y0",
+            "value": 285
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/2/bbox/y0",
+            "value": 285
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/2/bbox/x1",
+            "value": 342
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/3/bbox/x0",
+            "value": 342
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/3/bbox/y0",
+            "value": 285
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/4/bbox/y0",
+            "value": 285
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/4/bbox/x1",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/5/bbox/x0",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/5/bbox/y0",
+            "value": 285
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/0/bbox/x0",
+            "value": 43
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/2/text",
+            "value": "265"
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/2/bbox/x1",
+            "value": 342
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/3/bbox/x0",
+            "value": 342
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/4/bbox/x1",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/5/bbox/x0",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/3/cells/0/bbox/x0",
+            "value": 43
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/3/cells/1/text",
+            "value": "Omar Aziz"
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/3/cells/1/confidence",
+            "value": 0.95
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/3/cells/1/uncertain",
+            "value": false
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/3/cells/2/bbox/x1",
+            "value": 342
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/3/cells/3/bbox/x0",
+            "value": 342
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/3/cells/4/bbox/x1",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/3/cells/5/bbox/x0",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/4/cells/0/bbox/x0",
+            "value": 43
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/4/cells/0/bbox/y1",
+            "value": 495
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/4/cells/1/bbox/y1",
+            "value": 495
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/4/cells/2/bbox/x1",
+            "value": 342
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/4/cells/2/bbox/y1",
+            "value": 495
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/4/cells/3/bbox/x0",
+            "value": 342
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/4/cells/3/bbox/y1",
+            "value": 495
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/4/cells/4/bbox/x1",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/4/cells/4/bbox/y1",
+            "value": 495
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/4/cells/5/bbox/x0",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/4/cells/5/bbox/y1",
+            "value": 495
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/0/bbox/x0",
+            "value": 43
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/0/bbox/y0",
+            "value": 495
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/0/bbox/y1",
+            "value": 547
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/1/bbox/y0",
+            "value": 495
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/1/bbox/y1",
+            "value": 547
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/2/bbox/y0",
+            "value": 495
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/2/bbox/x1",
+            "value": 342
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/2/bbox/y1",
+            "value": 547
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/3/bbox/x0",
+            "value": 342
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/3/bbox/y0",
+            "value": 495
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/3/bbox/y1",
+            "value": 547
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/4/bbox/y0",
+            "value": 495
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/4/bbox/x1",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/4/bbox/y1",
+            "value": 547
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/5/text",
+            "value": "CR-3081"
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/5/bbox/x0",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/5/bbox/y0",
+            "value": 495
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/5/bbox/y1",
+            "value": 547
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/0/bbox/x0",
+            "value": 43
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/0/bbox/y0",
+            "value": 547
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/0/bbox/y1",
+            "value": 599
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/1/bbox/y0",
+            "value": 547
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/1/bbox/y1",
+            "value": 599
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/2/text",
+            "value": "197"
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/2/bbox/y0",
+            "value": 547
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/2/bbox/x1",
+            "value": 342
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/2/bbox/y1",
+            "value": 599
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/3/bbox/x0",
+            "value": 342
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/3/bbox/y0",
+            "value": 547
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/3/bbox/y1",
+            "value": 599
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/4/bbox/y0",
+            "value": 547
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/4/bbox/x1",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/4/bbox/y1",
+            "value": 599
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/5/bbox/x0",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/5/bbox/y0",
+            "value": 547
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/5/bbox/y1",
+            "value": 599
+          }
+        ]
+      }
+    },
+    {
+      "at": 142903,
+      "message": {
+        "type": "announce",
+        "version": 6,
+        "priority": "other",
+        "kind": "cell",
+        "text": "Billing alerts, Points: 4 to 265.",
+        "refs": [
+          "r3.c3"
+        ]
+      }
+    },
+    {
+      "at": 142905,
+      "message": {
+        "type": "announce",
+        "version": 6,
+        "priority": "other",
+        "kind": "cell",
+        "text": "Cache warmup, Assignee: unclear to Omar Aziz.",
+        "refs": [
+          "r4.c2"
+        ]
+      }
+    },
+    {
+      "at": 142906,
+      "message": {
+        "type": "announce",
+        "version": 6,
+        "priority": "other",
+        "kind": "cell",
+        "text": "Dark mode toggle, Ticket: DL-6803 to CR-3081.",
+        "refs": [
+          "r6.c6"
+        ]
+      }
+    },
+    {
+      "at": 142908,
+      "message": {
+        "type": "announce",
+        "version": 6,
+        "priority": "other",
+        "kind": "cell",
+        "text": "Localise dates, Points: 393 to 197.",
+        "refs": [
+          "r7.c3"
+        ]
+      }
+    },
+    {
+      "at": 142908,
+      "message": {
+        "type": "status",
+        "stage": "idle",
+        "latency_ms": 6543,
+        "detail": "full",
+        "content_bbox": {
+          "x0": 0,
+          "y0": 0,
+          "x1": 1000,
+          "y1": 1000
+        }
+      }
+    },
+    {
+      "at": 161345,
+      "message": {
+        "type": "status",
+        "stage": "reconstruct",
+        "latency_ms": null,
+        "detail": null,
+        "content_bbox": null
+      }
+    },
+    {
+      "at": 167435,
+      "message": {
+        "type": "patch",
+        "version": 7,
+        "base": 6,
+        "ops": [
+          {
+            "op": "replace",
+            "path": "/version",
+            "value": 7
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/2/bbox/x1",
+            "value": 341
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/3/bbox/x0",
+            "value": 341
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/columns/5/bbox/x1",
+            "value": 602
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/0/cells/2/bbox/x1",
+            "value": 341
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/0/cells/3/bbox/x0",
+            "value": 341
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/0/cells/4/text",
+            "value": "8 Sep 2026"
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/0/cells/5/bbox/x1",
+            "value": 602
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/2/bbox/x1",
+            "value": 341
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/3/bbox/x0",
+            "value": 341
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/4/text",
+            "value": "28 May 2026"
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/1/cells/5/bbox/x1",
+            "value": 602
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/0/bbox/y1",
+            "value": 391
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/1/bbox/y1",
+            "value": 391
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/2/bbox/x1",
+            "value": 341
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/2/bbox/y1",
+            "value": 391
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/3/bbox/x0",
+            "value": 341
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/3/bbox/y1",
+            "value": 391
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/4/text",
+            "value": "19 Jun 2026"
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/4/bbox/y1",
+            "value": 391
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/5/bbox/x1",
+            "value": 602
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/2/cells/5/bbox/y1",
+            "value": 391
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/3/cells/0/bbox/y0",
+            "value": 391
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/3/cells/0/bbox/y1",
+            "value": 444
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/3/cells/1/bbox/y0",
+            "value": 391
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/3/cells/1/bbox/y1",
+            "value": 444
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/3/cells/2/bbox/y0",
+            "value": 391
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/3/cells/2/bbox/x1",
+            "value": 341
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/3/cells/2/bbox/y1",
+            "value": 444
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/3/cells/3/bbox/x0",
+            "value": 341
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/3/cells/3/bbox/y0",
+            "value": 391
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/3/cells/3/bbox/y1",
+            "value": 444
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/3/cells/4/bbox/y0",
+            "value": 391
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/3/cells/4/bbox/y1",
+            "value": 444
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/3/cells/5/bbox/y0",
+            "value": 391
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/3/cells/5/bbox/x1",
+            "value": 602
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/3/cells/5/bbox/y1",
+            "value": 444
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/4/cells/0/bbox/y0",
+            "value": 444
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/4/cells/0/bbox/y1",
+            "value": 496
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/4/cells/1/bbox/y0",
+            "value": 444
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/4/cells/1/bbox/y1",
+            "value": 496
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/4/cells/2/bbox/y0",
+            "value": 444
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/4/cells/2/bbox/x1",
+            "value": 341
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/4/cells/2/bbox/y1",
+            "value": 496
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/4/cells/3/bbox/x0",
+            "value": 341
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/4/cells/3/bbox/y0",
+            "value": 444
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/4/cells/3/bbox/y1",
+            "value": 496
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/4/cells/4/bbox/y0",
+            "value": 444
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/4/cells/4/bbox/y1",
+            "value": 496
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/4/cells/5/bbox/y0",
+            "value": 444
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/4/cells/5/bbox/x1",
+            "value": 602
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/4/cells/5/bbox/y1",
+            "value": 496
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/0/bbox/y0",
+            "value": 496
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/0/bbox/y1",
+            "value": 549
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/1/bbox/y0",
+            "value": 496
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/1/bbox/y1",
+            "value": 549
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/2/bbox/y0",
+            "value": 496
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/2/bbox/x1",
+            "value": 341
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/2/bbox/y1",
+            "value": 549
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/3/bbox/x0",
+            "value": 341
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/3/bbox/y0",
+            "value": 496
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/3/bbox/y1",
+            "value": 549
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/4/bbox/y0",
+            "value": 496
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/4/bbox/y1",
+            "value": 549
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/5/bbox/y0",
+            "value": 496
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/5/bbox/x1",
+            "value": 602
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/5/cells/5/bbox/y1",
+            "value": 549
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/0/bbox/y0",
+            "value": 549
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/0/bbox/y1",
+            "value": 602
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/1/bbox/y0",
+            "value": 549
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/1/bbox/y1",
+            "value": 602
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/2/bbox/y0",
+            "value": 549
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/2/bbox/x1",
+            "value": 341
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/2/bbox/y1",
+            "value": 602
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/3/bbox/x0",
+            "value": 341
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/3/bbox/y0",
+            "value": 549
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/3/bbox/y1",
+            "value": 602
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/4/bbox/y0",
+            "value": 549
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/4/bbox/y1",
+            "value": 602
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/5/bbox/y0",
+            "value": 549
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/5/bbox/x1",
+            "value": 602
+          },
+          {
+            "op": "replace",
+            "path": "/sheet/rows/6/cells/5/bbox/y1",
+            "value": 602
+          }
+        ]
+      }
+    },
+    {
+      "at": 167437,
+      "message": {
+        "type": "announce",
+        "version": 7,
+        "priority": "other",
+        "kind": "cell",
+        "text": "Audit logging, Due: 16 Jan 2026 to 8 Sep 2026.",
+        "refs": [
+          "r1.c5"
+        ]
+      }
+    },
+    {
+      "at": 167438,
+      "message": {
+        "type": "announce",
+        "version": 7,
+        "priority": "other",
+        "kind": "cell",
+        "text": "Reduce bundle size, Due: 21 Feb 2026 to 28 May 2026.",
+        "refs": [
+          "r2.c5"
+        ]
+      }
+    },
+    {
+      "at": 167439,
+      "message": {
+        "type": "announce",
+        "version": 7,
+        "priority": "other",
+        "kind": "cell",
+        "text": "Billing alerts, Due: 10 Nov 2026 to 19 Jun 2026.",
+        "refs": [
+          "r3.c5"
+        ]
+      }
+    },
+    {
+      "at": 167439,
+      "message": {
+        "type": "status",
+        "stage": "idle",
+        "latency_ms": 6088,
+        "detail": "full",
+        "content_bbox": {
+          "x0": 0,
+          "y0": 0,
+          "x1": 1000,
+          "y1": 1000
+        }
+      }
+    },
+    {
+      "at": 168767,
+      "message": {
+        "type": "pointer_target",
+        "ref": "r5.c6",
+        "text": "Pointer is on Crash on resume, Ticket: DL-3785"
+      }
+    },
+    {
+      "at": 170394,
+      "message": {
+        "type": "pointer_target",
+        "ref": "r5.c6",
+        "text": "Pointer is on Crash on resume, Ticket: DL-3785"
+      }
+    },
+    {
+      "at": 174292,
+      "message": {
+        "type": "answer",
+        "q": "What is Audit logging's Points? Cite the cell.",
+        "text": "Audit logging's Points is 253.",
+        "refs": [
+          "r1.c3"
+        ],
+        "version": 7
+      }
+    }
+  ],
+  "console": [],
+  "scoring_note": "Rescored from unchanged captured events: line additions/removals match reference counts rather than digits in their labels.",
+  "validation_note": "The initial pointer probe reported the old cursor location. Focus was preserved and Ask matched the fixture value. The pointer-direction bug was then fixed; the later fixed-sheet run verifies the correction."
+}

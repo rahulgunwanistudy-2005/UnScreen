@@ -1,0 +1,5 @@
+{
+  "source": "2026-10-24-config-gemini.json",
+  "selected_at": "2026-10-24",
+  "reason": "Gemini read all ten sheets with usable confident output. The Groq screen marked every value unclear; the Mistral Small screen failed. Further comparisons were cut to minimize spending."
+}

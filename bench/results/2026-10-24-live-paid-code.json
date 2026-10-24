@@ -1,0 +1,4053 @@
+{
+  "name": "live-paid-code",
+  "run_at": "2026-10-24T07:51:01.370Z",
+  "kind": "code",
+  "seed": 3,
+  "models": {
+    "reconstruct": "gemini-3.6-flash",
+    "verify": "gemini-3.5-flash-lite",
+    "region": "gemini-3.6-flash",
+    "ask": "gemini-3.6-flash"
+  },
+  "cross_check": true,
+  "llm_mode": "live",
+  "edit_interval_ms": 20000,
+  "first_snapshot_ms": 12671,
+  "truth_changes": 6,
+  "measurement_version": 3,
+  "note": "Real fixture screenshots through a canvas capture stream; this is not a Google Meet or human screen-reader pass. Latency ends at the polite live region, not an audio device.",
+  "recall": 1,
+  "spoken_recall": 1,
+  "precision": 0.5454545454545454,
+  "change_to_announce_ms": {
+    "p50": 11172,
+    "p95": 11585,
+    "n": 6
+  },
+  "final_dom_vs_truth": null,
+  "changes": [
+    {
+      "at": 32857,
+      "edit": 1,
+      "kind": "lines",
+      "delta": 1,
+      "announced": true,
+      "spoken": true,
+      "unclear": false,
+      "latency_ms": 11172,
+      "engine_latency_ms": 9671,
+      "text": "Line 25 added: return nil"
+    },
+    {
+      "at": 52897,
+      "edit": 2,
+      "kind": "line",
+      "n": 3,
+      "old": "PASS_MARK = 6",
+      "new": "PASS_MARK = 685",
+      "announced": true,
+      "spoken": true,
+      "unclear": false,
+      "latency_ms": 10988,
+      "engine_latency_ms": 9484,
+      "text": "Line 3 changed. Was: PASS_MARK = 6. Now: PASS_MARK = 685"
+    },
+    {
+      "at": 72929,
+      "edit": 3,
+      "kind": "line",
+      "n": 3,
+      "old": "PASS_MARK = 685",
+      "new": "PASS_MARK = 206",
+      "announced": true,
+      "spoken": true,
+      "unclear": false,
+      "latency_ms": 6445,
+      "engine_latency_ms": 4945,
+      "text": "Line 3 changed. Was: PASS_MARK = 685. Now: PASS_MARK = 206"
+    },
+    {
+      "at": 92961,
+      "edit": 4,
+      "kind": "lines",
+      "delta": 1,
+      "announced": true,
+      "spoken": true,
+      "unclear": false,
+      "latency_ms": 11585,
+      "engine_latency_ms": 10083,
+      "text": "Line 23 added: return nil"
+    },
+    {
+      "at": 112994,
+      "edit": 5,
+      "kind": "line",
+      "n": 4,
+      "old": "WEIGHTS = {\"quiz\": 0.8, \"midterm\": 0.3, \"final\": 0.5}",
+      "new": "WEIGHTS = {\"quiz\": 508.8, \"midterm\": 0.3, \"final\": 0.5}",
+      "announced": true,
+      "spoken": true,
+      "unclear": false,
+      "latency_ms": 11416,
+      "engine_latency_ms": 9909,
+      "text": "Line 4 changed. Was: unclear. Now: WEIGHTS = {\"quiz\": 508.8, \"midterm\": 0.3, \"final\": 0.5}"
+    },
+    {
+      "at": 133041,
+      "edit": 6,
+      "kind": "line",
+      "n": 21,
+      "old": "        \"average\": int(mean(scores)) if scores else 0,",
+      "new": "        \"average\": int(mean(scores)) if scores else 105,",
+      "announced": true,
+      "spoken": true,
+      "unclear": false,
+      "latency_ms": 10884,
+      "engine_latency_ms": 9381,
+      "text": "Line 21 changed. Was: \"average\": int(mean(scores)) if scores else 0,. Now: \"average\": int(mean(scores)) if scores else 105,"
+    }
+  ],
+  "announces": [
+    {
+      "at": 12688,
+      "type": "announce",
+      "version": 1,
+      "priority": "content_type",
+      "kind": "content_type",
+      "text": "Now showing: Code python, 'grades.py', 26 lines.",
+      "refs": []
+    },
+    {
+      "at": 42527,
+      "type": "announce",
+      "version": 2,
+      "priority": "other",
+      "kind": "uncertain",
+      "text": "Line 27: possibly changed, unclear.",
+      "refs": [
+        "l26"
+      ]
+    },
+    {
+      "at": 42528,
+      "type": "announce",
+      "version": 2,
+      "priority": "other",
+      "kind": "lines_added",
+      "text": "Line 25 added: return nil",
+      "refs": [
+        "l27"
+      ]
+    },
+    {
+      "at": 62381,
+      "type": "announce",
+      "version": 3,
+      "priority": "other",
+      "kind": "line",
+      "text": "Line 3 changed. Was: PASS_MARK = 6. Now: PASS_MARK = 685",
+      "refs": [
+        "l3"
+      ]
+    },
+    {
+      "at": 62383,
+      "type": "announce",
+      "version": 3,
+      "priority": "other",
+      "kind": "line",
+      "text": "Line 27 changed. Was: unclear. Now: print(client_id([{\"quiz\": 80, \"midterm\": 72, \"final\": 65}]))",
+      "refs": [
+        "l26"
+      ]
+    },
+    {
+      "at": 77874,
+      "type": "announce",
+      "version": 4,
+      "priority": "other",
+      "kind": "line",
+      "text": "Line 3 changed. Was: PASS_MARK = 685. Now: PASS_MARK = 206",
+      "refs": [
+        "l3"
+      ]
+    },
+    {
+      "at": 103042,
+      "type": "announce",
+      "version": 5,
+      "priority": "other",
+      "kind": "uncertain",
+      "text": "Line 4: possibly changed, unclear.",
+      "refs": [
+        "l4"
+      ]
+    },
+    {
+      "at": 103044,
+      "type": "announce",
+      "version": 5,
+      "priority": "other",
+      "kind": "lines_added",
+      "text": "Line 23 added: return nil",
+      "refs": [
+        "l28"
+      ]
+    },
+    {
+      "at": 122903,
+      "type": "announce",
+      "version": 6,
+      "priority": "other",
+      "kind": "line",
+      "text": "Line 4 changed. Was: unclear. Now: WEIGHTS = {\"quiz\": 508.8, \"midterm\": 0.3, \"final\": 0.5}",
+      "refs": [
+        "l4"
+      ]
+    },
+    {
+      "at": 122905,
+      "type": "announce",
+      "version": 6,
+      "priority": "other",
+      "kind": "uncertain",
+      "text": "Line 23: possibly changed, unclear.",
+      "refs": [
+        "l28"
+      ]
+    },
+    {
+      "at": 122906,
+      "type": "announce",
+      "version": 6,
+      "priority": "other",
+      "kind": "uncertain",
+      "text": "Line 26: possibly changed, unclear.",
+      "refs": [
+        "l27"
+      ]
+    },
+    {
+      "at": 142422,
+      "type": "announce",
+      "version": 7,
+      "priority": "other",
+      "kind": "line",
+      "text": "Line 21 changed. Was: \"average\": int(mean(scores)) if scores else 0,. Now: \"average\": int(mean(scores)) if scores else 105,",
+      "refs": [
+        "l21"
+      ]
+    }
+  ],
+  "spoken": [
+    {
+      "at": 2864,
+      "text": "Started. Reading the shared screen."
+    },
+    {
+      "at": 14192,
+      "text": "Now showing: Code python, 'grades.py', 26 lines."
+    },
+    {
+      "at": 44029,
+      "text": "Line 27: possibly changed, unclear. Line 25 added: return nil"
+    },
+    {
+      "at": 63885,
+      "text": "Line 3 changed. Was: PASS_MARK = 6. Now: PASS_MARK = 685 Line 27 changed. Was: unclear. Now: print(client_id([{\"quiz\": 80, \"midterm\": 72, \"final\": 65}]))"
+    },
+    {
+      "at": 79374,
+      "text": "Line 3 changed. Was: PASS_MARK = 685. Now: PASS_MARK = 206"
+    },
+    {
+      "at": 104546,
+      "text": "Line 4: possibly changed, unclear. Line 23 added: return nil"
+    },
+    {
+      "at": 124410,
+      "text": "Line 4 changed. Was: unclear. Now: WEIGHTS = {\"quiz\": 508.8, \"midterm\": 0.3, \"final\": 0.5} Line 23: possibly changed, unclear. Line 26: possibly changed, unclear."
+    },
+    {
+      "at": 143925,
+      "text": "Line 21 changed. Was: \"average\": int(mean(scores)) if scores else 0,. Now: \"average\": int(mean(scores)) if scores else 105,"
+    },
+    {
+      "at": 165205,
+      "text": "Pointer is on Line 2: blank"
+    },
+    {
+      "at": 166375,
+      "text": "Asking."
+    },
+    {
+      "at": 168977,
+      "text": "Answer: Line 2 is empty."
+    }
+  ],
+  "engine_events": [
+    {
+      "at": 12690,
+      "stage": "idle",
+      "mode": "full",
+      "latency_ms": 8682
+    },
+    {
+      "at": 42528,
+      "stage": "idle",
+      "mode": "full",
+      "latency_ms": 8557
+    },
+    {
+      "at": 62383,
+      "stage": "idle",
+      "mode": "full",
+      "latency_ms": 8440
+    },
+    {
+      "at": 77874,
+      "stage": "idle",
+      "mode": "region",
+      "latency_ms": 3417
+    },
+    {
+      "at": 103044,
+      "stage": "idle",
+      "mode": "full",
+      "latency_ms": 9082
+    },
+    {
+      "at": 122906,
+      "stage": "idle",
+      "mode": "full",
+      "latency_ms": 8949
+    },
+    {
+      "at": 142422,
+      "stage": "idle",
+      "mode": "full",
+      "latency_ms": 7980
+    }
+  ],
+  "probes": [
+    {
+      "kind": "pointer",
+      "truth": {
+        "x": 94,
+        "y": 120,
+        "target": "l2"
+      },
+      "result": {
+        "type": "pointer_target",
+        "ref": "l2",
+        "text": "Pointer is on Line 2: blank"
+      }
+    },
+    {
+      "kind": "ask",
+      "question": "What does line 2 say? Cite the line.",
+      "expected": "",
+      "result": {
+        "type": "answer",
+        "q": "What does line 2 say? Cite the line.",
+        "text": "Line 2 is empty.",
+        "refs": [
+          "l2"
+        ],
+        "version": 7
+      }
+    }
+  ],
+  "focus_validation": {
+    "original_connected": true,
+    "same_active_element": true
+  },
+  "messages": [
+    {
+      "at": 2899,
+      "message": {
+        "type": "status",
+        "stage": "idle",
+        "latency_ms": null,
+        "detail": "ready",
+        "content_bbox": null
+      }
+    },
+    {
+      "at": 3938,
+      "message": {
+        "type": "status",
+        "stage": "reconstruct",
+        "latency_ms": null,
+        "detail": null,
+        "content_bbox": null
+      }
+    },
+    {
+      "at": 12671,
+      "message": {
+        "type": "snapshot",
+        "version": 1,
+        "doc": {
+          "version": 1,
+          "content_type": "code",
+          "title": "grades.py",
+          "content_bbox": {
+            "x0": 0,
+            "y0": 0,
+            "x1": 1000,
+            "y1": 1000
+          },
+          "sheet": null,
+          "code": {
+            "language": "python",
+            "file_name": "grades.py",
+            "lines": [
+              {
+                "id": "l1",
+                "n": 1,
+                "text": "from statistics import mean",
+                "bbox": {
+                  "x0": 93,
+                  "y0": 80,
+                  "x1": 513,
+                  "y1": 96
+                },
+                "confidence": 0.95,
+                "unreadable": false,
+                "uncertain": false
+              },
+              {
+                "id": "l2",
+                "n": 2,
+                "text": "",
+                "bbox": {
+                  "x0": 93,
+                  "y0": 110,
+                  "x1": 513,
+                  "y1": 126
+                },
+                "confidence": 0.95,
+                "unreadable": false,
+                "uncertain": false
+              },
+              {
+                "id": "l3",
+                "n": 3,
+                "text": "PASS_MARK = 6",
+                "bbox": {
+                  "x0": 93,
+                  "y0": 139,
+                  "x1": 513,
+                  "y1": 155
+                },
+                "confidence": 0.95,
+                "unreadable": false,
+                "uncertain": false
+              },
+              {
+                "id": "l4",
+                "n": 4,
+                "text": "WEIGHTS = {\"quiz\": 0.8, \"midterm\": 0.3, \"final\": 0.5}",
+                "bbox": {
+                  "x0": 93,
+                  "y0": 168,
+                  "x1": 513,
+                  "y1": 184
+                },
+                "confidence": 0.95,
+                "unreadable": false,
+                "uncertain": false
+              },
+              {
+                "id": "l5",
+                "n": 5,
+                "text": "",
+                "bbox": {
+                  "x0": 93,
+                  "y0": 197,
+                  "x1": 513,
+                  "y1": 213
+                },
+                "confidence": 0.95,
+                "unreadable": false,
+                "uncertain": false
+              },
+              {
+                "id": "l6",
+                "n": 6,
+                "text": "",
+                "bbox": {
+                  "x0": 93,
+                  "y0": 226,
+                  "x1": 513,
+                  "y1": 242
+                },
+                "confidence": 0.95,
+                "unreadable": false,
+                "uncertain": false
+              },
+              {
+                "id": "l7",
+                "n": 7,
+                "text": "def weighted_score(cache: dict[str, float]) -> float:",
+                "bbox": {
+                  "x0": 93,
+                  "y0": 255,
+                  "x1": 513,
+                  "y1": 271
+                },
+                "confidence": 0.95,
+                "unreadable": false,
+                "uncertain": false
+              },
+              {
+                "id": "l8",
+                "n": 8,
+                "text": "    total = 0.0",
+                "bbox": {
+                  "x0": 93,
+                  "y0": 284,
+                  "x1": 513,
+                  "y1": 300
+                },
+                "confidence": 0.95,
+                "unreadable": false,
+                "uncertain": false
+              },
+              {
+                "id": "l9",
+                "n": 9,
+                "text": "    for part, weight in WEIGHTS.items():",
+                "bbox": {
+                  "x0": 93,
+                  "y0": 313,
+                  "x1": 513,
+                  "y1": 329
+                },
+                "confidence": 0.95,
+                "unreadable": false,
+                "uncertain": false
+              },
+              {
+                "id": "l10",
+                "n": 10,
+                "text": "        total += cache.get(part, 0.0) * weight",
+                "bbox": {
+                  "x0": 93,
+                  "y0": 342,
+                  "x1": 513,
+                  "y1": 358
+                },
+                "confidence": 0.95,
+                "unreadable": false,
+                "uncertain": false
+              },
+              {
+                "id": "l11",
+                "n": 11,
+                "text": "    return round(total, 2)",
+                "bbox": {
+                  "x0": 93,
+                  "y0": 371,
+                  "x1": 513,
+                  "y1": 387
+                },
+                "confidence": 0.95,
+                "unreadable": false,
+                "uncertain": false
+              },
+              {
+                "id": "l12",
+                "n": 12,
+                "text": "",
+                "bbox": {
+                  "x0": 93,
+                  "y0": 400,
+                  "x1": 513,
+                  "y1": 416
+                },
+                "confidence": 0.95,
+                "unreadable": false,
+                "uncertain": false
+              },
+              {
+                "id": "l13",
+                "n": 13,
+                "text": "",
+                "bbox": {
+                  "x0": 93,
+                  "y0": 429,
+                  "x1": 513,
+                  "y1": 445
+                },
+                "confidence": 0.95,
+                "unreadable": false,
+                "uncertain": false
+              },
+              {
+                "id": "l14",
+                "n": 14,
+                "text": "def client_id(roster: list[dict[str, float]]) -> dict[str, int]:",
+                "bbox": {
+                  "x0": 93,
+                  "y0": 458,
+                  "x1": 513,
+                  "y1": 474
+                },
+                "confidence": 0.95,
+                "unreadable": false,
+                "uncertain": false
+              },
+              {
+                "id": "l15",
+                "n": 15,
+                "text": "    scores = [weighted_score(s) for s in roster]",
+                "bbox": {
+                  "x0": 93,
+                  "y0": 488,
+                  "x1": 513,
+                  "y1": 503
+                },
+                "confidence": 0.95,
+                "unreadable": false,
+                "uncertain": false
+              },
+              {
+                "id": "l16",
+                "n": 16,
+                "text": "    passed = sum(1 for s in scores if s >= PASS_MARK)",
+                "bbox": {
+                  "x0": 93,
+                  "y0": 517,
+                  "x1": 513,
+                  "y1": 532
+                },
+                "confidence": 0.95,
+                "unreadable": false,
+                "uncertain": false
+              },
+              {
+                "id": "l17",
+                "n": 17,
+                "text": "    return {",
+                "bbox": {
+                  "x0": 93,
+                  "y0": 546,
+                  "x1": 513,
+                  "y1": 561
+                },
+                "confidence": 0.95,
+                "unreadable": false,
+                "uncertain": false
+              },
+              {
+                "id": "l18",
+                "n": 18,
+                "text": "        \"count\": len(scores),",
+                "bbox": {
+                  "x0": 93,
+                  "y0": 575,
+                  "x1": 513,
+                  "y1": 590
+                },
+                "confidence": 0.95,
+                "unreadable": false,
+                "uncertain": false
+              },
+              {
+                "id": "l19",
+                "n": 19,
+                "text": "        \"passed\": passed,",
+                "bbox": {
+                  "x0": 93,
+                  "y0": 604,
+                  "x1": 513,
+                  "y1": 619
+                },
+                "confidence": 0.95,
+                "unreadable": false,
+                "uncertain": false
+              },
+              {
+                "id": "l20",
+                "n": 20,
+                "text": "        \"failed\": len(scores) - passed,",
+                "bbox": {
+                  "x0": 93,
+                  "y0": 633,
+                  "x1": 513,
+                  "y1": 648
+                },
+                "confidence": 0.95,
+                "unreadable": false,
+                "uncertain": false
+              },
+              {
+                "id": "l21",
+                "n": 21,
+                "text": "        \"average\": int(mean(scores)) if scores else 0,",
+                "bbox": {
+                  "x0": 93,
+                  "y0": 662,
+                  "x1": 513,
+                  "y1": 677
+                },
+                "confidence": 0.95,
+                "unreadable": false,
+                "uncertain": false
+              },
+              {
+                "id": "l22",
+                "n": 22,
+                "text": "    }",
+                "bbox": {
+                  "x0": 93,
+                  "y0": 691,
+                  "x1": 513,
+                  "y1": 706
+                },
+                "confidence": 0.95,
+                "unreadable": false,
+                "uncertain": false
+              },
+              {
+                "id": "l23",
+                "n": 23,
+                "text": "",
+                "bbox": {
+                  "x0": 93,
+                  "y0": 720,
+                  "x1": 513,
+                  "y1": 735
+                },
+                "confidence": 0.95,
+                "unreadable": false,
+                "uncertain": false
+              },
+              {
+                "id": "l24",
+                "n": 24,
+                "text": "",
+                "bbox": {
+                  "x0": 93,
+                  "y0": 749,
+                  "x1": 513,
+                  "y1": 764
+                },
+                "confidence": 0.95,
+                "unreadable": false,
+                "uncertain": false
+              },
+              {
+                "id": "l25",
+                "n": 25,
+                "text": "if __name__ == \"__main__\":",
+                "bbox": {
+                  "x0": 93,
+                  "y0": 778,
+                  "x1": 513,
+                  "y1": 793
+                },
+                "confidence": 0.95,
+                "unreadable": false,
+                "uncertain": false
+              },
+              {
+                "id": "l26",
+                "n": 26,
+                "text": "    print(client_id([{\"quiz\": 80, \"midterm\": 72, \"final\": 65}]))",
+                "bbox": {
+                  "x0": 93,
+                  "y0": 807,
+                  "x1": 513,
+                  "y1": 822
+                },
+                "confidence": 0.95,
+                "unreadable": false,
+                "uncertain": false
+              }
+            ]
+          },
+          "blocks": null
+        }
+      }
+    },
+    {
+      "at": 12688,
+      "message": {
+        "type": "announce",
+        "version": 1,
+        "priority": "content_type",
+        "kind": "content_type",
+        "text": "Now showing: Code python, 'grades.py', 26 lines.",
+        "refs": []
+      }
+    },
+    {
+      "at": 12690,
+      "message": {
+        "type": "status",
+        "stage": "idle",
+        "latency_ms": 8682,
+        "detail": "full",
+        "content_bbox": {
+          "x0": 0,
+          "y0": 0,
+          "x1": 1000,
+          "y1": 1000
+        }
+      }
+    },
+    {
+      "at": 33950,
+      "message": {
+        "type": "status",
+        "stage": "reconstruct",
+        "latency_ms": null,
+        "detail": null,
+        "content_bbox": null
+      }
+    },
+    {
+      "at": 42513,
+      "message": {
+        "type": "patch",
+        "version": 2,
+        "base": 1,
+        "ops": [
+          {
+            "op": "replace",
+            "path": "/version",
+            "value": 2
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/0/bbox/x0",
+            "value": 89
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/0/bbox/y0",
+            "value": 78
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/0/bbox/x1",
+            "value": 521
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/0/bbox/y1",
+            "value": 102
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/1/bbox/x0",
+            "value": 89
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/1/bbox/y0",
+            "value": 107
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/1/bbox/x1",
+            "value": 521
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/2/bbox/x0",
+            "value": 89
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/2/bbox/y0",
+            "value": 136
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/2/bbox/x1",
+            "value": 521
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/3/bbox/x0",
+            "value": 89
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/3/bbox/y0",
+            "value": 165
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/3/bbox/x1",
+            "value": 521
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/3/bbox/y1",
+            "value": 185
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/4/bbox/x0",
+            "value": 89
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/4/bbox/y0",
+            "value": 194
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/4/bbox/x1",
+            "value": 521
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/4/bbox/y1",
+            "value": 214
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/5/bbox/x0",
+            "value": 89
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/5/bbox/y0",
+            "value": 223
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/5/bbox/x1",
+            "value": 521
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/5/bbox/y1",
+            "value": 243
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/6/bbox/x0",
+            "value": 89
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/6/bbox/y0",
+            "value": 252
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/6/bbox/x1",
+            "value": 521
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/6/bbox/y1",
+            "value": 273
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/7/bbox/x0",
+            "value": 89
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/7/bbox/y0",
+            "value": 282
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/7/bbox/x1",
+            "value": 521
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/7/bbox/y1",
+            "value": 301
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/8/bbox/x0",
+            "value": 89
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/8/bbox/y0",
+            "value": 311
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/8/bbox/x1",
+            "value": 521
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/8/bbox/y1",
+            "value": 331
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/9/bbox/x0",
+            "value": 89
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/9/bbox/y0",
+            "value": 340
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/9/bbox/x1",
+            "value": 521
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/9/bbox/y1",
+            "value": 360
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/10/bbox/x0",
+            "value": 89
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/10/bbox/y0",
+            "value": 369
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/10/bbox/x1",
+            "value": 521
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/10/bbox/y1",
+            "value": 389
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/11/bbox/x0",
+            "value": 89
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/11/bbox/y0",
+            "value": 398
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/11/bbox/x1",
+            "value": 521
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/11/bbox/y1",
+            "value": 418
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/12/bbox/x0",
+            "value": 89
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/12/bbox/y0",
+            "value": 427
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/12/bbox/x1",
+            "value": 521
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/12/bbox/y1",
+            "value": 447
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/13/bbox/x0",
+            "value": 89
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/13/bbox/y0",
+            "value": 456
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/13/bbox/x1",
+            "value": 521
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/13/bbox/y1",
+            "value": 477
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/14/bbox/x0",
+            "value": 89
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/14/bbox/y0",
+            "value": 486
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/14/bbox/x1",
+            "value": 521
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/14/bbox/y1",
+            "value": 506
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/15/bbox/x0",
+            "value": 89
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/15/bbox/y0",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/15/bbox/x1",
+            "value": 521
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/15/bbox/y1",
+            "value": 535
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/16/bbox/x0",
+            "value": 89
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/16/bbox/y0",
+            "value": 544
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/16/bbox/x1",
+            "value": 521
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/16/bbox/y1",
+            "value": 564
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/17/bbox/x0",
+            "value": 89
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/17/bbox/y0",
+            "value": 573
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/17/bbox/x1",
+            "value": 521
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/17/bbox/y1",
+            "value": 593
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/18/bbox/x0",
+            "value": 89
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/18/bbox/y0",
+            "value": 602
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/18/bbox/x1",
+            "value": 521
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/18/bbox/y1",
+            "value": 622
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/19/bbox/x0",
+            "value": 89
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/19/bbox/y0",
+            "value": 631
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/19/bbox/x1",
+            "value": 521
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/19/bbox/y1",
+            "value": 651
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/20/bbox/x0",
+            "value": 89
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/20/bbox/y0",
+            "value": 660
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/20/bbox/x1",
+            "value": 521
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/20/bbox/y1",
+            "value": 680
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/21/bbox/x0",
+            "value": 89
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/21/bbox/y0",
+            "value": 689
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/21/bbox/x1",
+            "value": 521
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/21/bbox/y1",
+            "value": 709
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/22/bbox/x0",
+            "value": 89
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/22/bbox/y0",
+            "value": 719
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/22/bbox/x1",
+            "value": 521
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/22/bbox/y1",
+            "value": 738
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/23/bbox/x0",
+            "value": 89
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/23/bbox/y0",
+            "value": 748
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/23/bbox/x1",
+            "value": 521
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/23/bbox/y1",
+            "value": 767
+          },
+          {
+            "op": "add",
+            "path": "/code/lines/24",
+            "value": {
+              "id": "l27",
+              "n": 25,
+              "text": "return nil",
+              "bbox": {
+                "x0": 89,
+                "y0": 777,
+                "x1": 521,
+                "y1": 797
+              },
+              "confidence": 0.95,
+              "unreadable": false,
+              "uncertain": false
+            }
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/25/n",
+            "value": 26
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/25/bbox/x0",
+            "value": 89
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/25/bbox/y0",
+            "value": 806
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/25/bbox/x1",
+            "value": 521
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/25/bbox/y1",
+            "value": 826
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/26/n",
+            "value": 27
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/26/bbox/x0",
+            "value": 89
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/26/bbox/y0",
+            "value": 835
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/26/bbox/x1",
+            "value": 521
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/26/bbox/y1",
+            "value": 855
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/26/confidence",
+            "value": 0.5
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/26/uncertain",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "at": 42527,
+      "message": {
+        "type": "announce",
+        "version": 2,
+        "priority": "other",
+        "kind": "uncertain",
+        "text": "Line 27: possibly changed, unclear.",
+        "refs": [
+          "l26"
+        ]
+      }
+    },
+    {
+      "at": 42528,
+      "message": {
+        "type": "announce",
+        "version": 2,
+        "priority": "other",
+        "kind": "lines_added",
+        "text": "Line 25 added: return nil",
+        "refs": [
+          "l27"
+        ]
+      }
+    },
+    {
+      "at": 42528,
+      "message": {
+        "type": "status",
+        "stage": "idle",
+        "latency_ms": 8557,
+        "detail": "full",
+        "content_bbox": {
+          "x0": 0,
+          "y0": 0,
+          "x1": 1000,
+          "y1": 1000
+        }
+      }
+    },
+    {
+      "at": 53935,
+      "message": {
+        "type": "status",
+        "stage": "reconstruct",
+        "latency_ms": null,
+        "detail": null,
+        "content_bbox": null
+      }
+    },
+    {
+      "at": 62379,
+      "message": {
+        "type": "patch",
+        "version": 3,
+        "base": 2,
+        "ops": [
+          {
+            "op": "replace",
+            "path": "/version",
+            "value": 3
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/0/bbox/x0",
+            "value": 72
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/0/bbox/x1",
+            "value": 513
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/0/bbox/y1",
+            "value": 103
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/1/bbox/x0",
+            "value": 72
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/1/bbox/y0",
+            "value": 108
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/1/bbox/x1",
+            "value": 513
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/1/bbox/y1",
+            "value": 131
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/2/text",
+            "value": "PASS_MARK = 685"
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/2/bbox/x0",
+            "value": 72
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/2/bbox/y0",
+            "value": 138
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/2/bbox/x1",
+            "value": 513
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/2/bbox/y1",
+            "value": 161
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/3/bbox/x0",
+            "value": 72
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/3/bbox/y0",
+            "value": 168
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/3/bbox/x1",
+            "value": 513
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/3/bbox/y1",
+            "value": 190
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/4/bbox/x0",
+            "value": 72
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/4/bbox/y0",
+            "value": 197
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/4/bbox/x1",
+            "value": 513
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/4/bbox/y1",
+            "value": 219
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/5/bbox/x0",
+            "value": 72
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/5/bbox/y0",
+            "value": 226
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/5/bbox/x1",
+            "value": 513
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/5/bbox/y1",
+            "value": 248
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/6/bbox/x0",
+            "value": 72
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/6/bbox/y0",
+            "value": 255
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/6/bbox/x1",
+            "value": 513
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/6/bbox/y1",
+            "value": 278
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/7/bbox/x0",
+            "value": 72
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/7/bbox/y0",
+            "value": 285
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/7/bbox/x1",
+            "value": 513
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/7/bbox/y1",
+            "value": 307
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/8/bbox/x0",
+            "value": 72
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/8/bbox/y0",
+            "value": 314
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/8/bbox/x1",
+            "value": 513
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/8/bbox/y1",
+            "value": 337
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/9/bbox/x0",
+            "value": 72
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/9/bbox/y0",
+            "value": 343
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/9/bbox/x1",
+            "value": 513
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/9/bbox/y1",
+            "value": 366
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/10/bbox/x0",
+            "value": 72
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/10/bbox/y0",
+            "value": 373
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/10/bbox/x1",
+            "value": 513
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/10/bbox/y1",
+            "value": 395
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/11/bbox/x0",
+            "value": 72
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/11/bbox/y0",
+            "value": 402
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/11/bbox/x1",
+            "value": 513
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/11/bbox/y1",
+            "value": 424
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/12/bbox/x0",
+            "value": 72
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/12/bbox/y0",
+            "value": 431
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/12/bbox/x1",
+            "value": 513
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/12/bbox/y1",
+            "value": 454
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/13/bbox/x0",
+            "value": 72
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/13/bbox/y0",
+            "value": 461
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/13/bbox/x1",
+            "value": 513
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/13/bbox/y1",
+            "value": 483
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/14/bbox/x0",
+            "value": 72
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/14/bbox/y0",
+            "value": 490
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/14/bbox/x1",
+            "value": 513
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/14/bbox/y1",
+            "value": 513
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/15/bbox/x0",
+            "value": 72
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/15/bbox/y0",
+            "value": 519
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/15/bbox/x1",
+            "value": 513
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/15/bbox/y1",
+            "value": 542
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/16/bbox/x0",
+            "value": 72
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/16/bbox/y0",
+            "value": 549
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/16/bbox/x1",
+            "value": 513
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/16/bbox/y1",
+            "value": 571
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/17/bbox/x0",
+            "value": 72
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/17/bbox/y0",
+            "value": 578
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/17/bbox/x1",
+            "value": 513
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/17/bbox/y1",
+            "value": 601
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/18/bbox/x0",
+            "value": 72
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/18/bbox/y0",
+            "value": 608
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/18/bbox/x1",
+            "value": 513
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/18/bbox/y1",
+            "value": 630
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/19/bbox/x0",
+            "value": 72
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/19/bbox/y0",
+            "value": 637
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/19/bbox/x1",
+            "value": 513
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/19/bbox/y1",
+            "value": 659
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/20/bbox/x0",
+            "value": 72
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/20/bbox/y0",
+            "value": 666
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/20/bbox/x1",
+            "value": 513
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/20/bbox/y1",
+            "value": 689
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/21/bbox/x0",
+            "value": 72
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/21/bbox/y0",
+            "value": 696
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/21/bbox/x1",
+            "value": 513
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/21/bbox/y1",
+            "value": 718
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/22/bbox/x0",
+            "value": 72
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/22/bbox/y0",
+            "value": 725
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/22/bbox/x1",
+            "value": 513
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/22/bbox/y1",
+            "value": 747
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/23/bbox/x0",
+            "value": 72
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/23/bbox/y0",
+            "value": 754
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/23/bbox/x1",
+            "value": 513
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/23/bbox/y1",
+            "value": 777
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/24/bbox/x0",
+            "value": 72
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/24/bbox/y0",
+            "value": 784
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/24/bbox/x1",
+            "value": 513
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/24/bbox/y1",
+            "value": 806
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/25/bbox/x0",
+            "value": 72
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/25/bbox/y0",
+            "value": 813
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/25/bbox/x1",
+            "value": 513
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/25/bbox/y1",
+            "value": 836
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/26/bbox/x0",
+            "value": 72
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/26/bbox/y0",
+            "value": 842
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/26/bbox/x1",
+            "value": 513
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/26/bbox/y1",
+            "value": 865
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/26/confidence",
+            "value": 0.95
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/26/uncertain",
+            "value": false
+          }
+        ]
+      }
+    },
+    {
+      "at": 62381,
+      "message": {
+        "type": "announce",
+        "version": 3,
+        "priority": "other",
+        "kind": "line",
+        "text": "Line 3 changed. Was: PASS_MARK = 6. Now: PASS_MARK = 685",
+        "refs": [
+          "l3"
+        ]
+      }
+    },
+    {
+      "at": 62383,
+      "message": {
+        "type": "announce",
+        "version": 3,
+        "priority": "other",
+        "kind": "line",
+        "text": "Line 27 changed. Was: unclear. Now: print(client_id([{\"quiz\": 80, \"midterm\": 72, \"final\": 65}]))",
+        "refs": [
+          "l26"
+        ]
+      }
+    },
+    {
+      "at": 62383,
+      "message": {
+        "type": "status",
+        "stage": "idle",
+        "latency_ms": 8440,
+        "detail": "full",
+        "content_bbox": {
+          "x0": 0,
+          "y0": 0,
+          "x1": 1000,
+          "y1": 1000
+        }
+      }
+    },
+    {
+      "at": 74453,
+      "message": {
+        "type": "status",
+        "stage": "reconstruct",
+        "latency_ms": null,
+        "detail": null,
+        "content_bbox": null
+      }
+    },
+    {
+      "at": 77871,
+      "message": {
+        "type": "patch",
+        "version": 4,
+        "base": 3,
+        "ops": [
+          {
+            "op": "replace",
+            "path": "/version",
+            "value": 4
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/2/text",
+            "value": "PASS_MARK = 206"
+          }
+        ]
+      }
+    },
+    {
+      "at": 77874,
+      "message": {
+        "type": "announce",
+        "version": 4,
+        "priority": "other",
+        "kind": "line",
+        "text": "Line 3 changed. Was: PASS_MARK = 685. Now: PASS_MARK = 206",
+        "refs": [
+          "l3"
+        ]
+      }
+    },
+    {
+      "at": 77874,
+      "message": {
+        "type": "status",
+        "stage": "idle",
+        "latency_ms": 3417,
+        "detail": "region",
+        "content_bbox": {
+          "x0": 0,
+          "y0": 0,
+          "x1": 1000,
+          "y1": 1000
+        }
+      }
+    },
+    {
+      "at": 93953,
+      "message": {
+        "type": "status",
+        "stage": "reconstruct",
+        "latency_ms": null,
+        "detail": null,
+        "content_bbox": null
+      }
+    },
+    {
+      "at": 103039,
+      "message": {
+        "type": "patch",
+        "version": 5,
+        "base": 4,
+        "ops": [
+          {
+            "op": "replace",
+            "path": "/version",
+            "value": 5
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/0/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/0/bbox/y0",
+            "value": 77
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/0/bbox/x1",
+            "value": 514
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/0/bbox/y1",
+            "value": 98
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/1/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/1/bbox/x1",
+            "value": 514
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/1/bbox/y1",
+            "value": 126
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/2/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/2/bbox/y0",
+            "value": 136
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/2/bbox/x1",
+            "value": 514
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/2/bbox/y1",
+            "value": 155
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/3/text",
+            "value": "WEIGHTS = {\"quiz\": 0.2, \"midterm\": 0.3, \"final\": 0.5}"
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/3/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/3/bbox/y0",
+            "value": 165
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/3/bbox/x1",
+            "value": 514
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/3/bbox/y1",
+            "value": 186
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/3/confidence",
+            "value": 0.5
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/3/uncertain",
+            "value": true
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/4/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/4/bbox/y0",
+            "value": 194
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/4/bbox/x1",
+            "value": 514
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/4/bbox/y1",
+            "value": 212
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/5/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/5/bbox/y0",
+            "value": 223
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/5/bbox/x1",
+            "value": 514
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/5/bbox/y1",
+            "value": 241
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/6/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/6/bbox/y0",
+            "value": 252
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/6/bbox/x1",
+            "value": 514
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/6/bbox/y1",
+            "value": 273
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/7/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/7/bbox/y0",
+            "value": 281
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/7/bbox/x1",
+            "value": 514
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/7/bbox/y1",
+            "value": 299
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/8/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/8/bbox/y0",
+            "value": 309
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/8/bbox/x1",
+            "value": 514
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/8/bbox/y1",
+            "value": 329
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/9/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/9/bbox/y0",
+            "value": 338
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/9/bbox/x1",
+            "value": 514
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/9/bbox/y1",
+            "value": 358
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/10/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/10/bbox/y0",
+            "value": 367
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/10/bbox/x1",
+            "value": 514
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/10/bbox/y1",
+            "value": 386
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/11/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/11/bbox/y0",
+            "value": 396
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/11/bbox/x1",
+            "value": 514
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/11/bbox/y1",
+            "value": 414
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/12/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/12/bbox/y0",
+            "value": 424
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/12/bbox/x1",
+            "value": 514
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/12/bbox/y1",
+            "value": 442
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/13/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/13/bbox/y0",
+            "value": 453
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/13/bbox/x1",
+            "value": 514
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/13/bbox/y1",
+            "value": 474
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/14/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/14/bbox/y0",
+            "value": 482
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/14/bbox/x1",
+            "value": 514
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/14/bbox/y1",
+            "value": 501
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/15/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/15/bbox/y0",
+            "value": 510
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/15/bbox/x1",
+            "value": 514
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/15/bbox/y1",
+            "value": 530
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/16/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/16/bbox/y0",
+            "value": 539
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/16/bbox/x1",
+            "value": 514
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/16/bbox/y1",
+            "value": 558
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/17/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/17/bbox/y0",
+            "value": 568
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/17/bbox/x1",
+            "value": 514
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/17/bbox/y1",
+            "value": 588
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/18/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/18/bbox/y0",
+            "value": 596
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/18/bbox/x1",
+            "value": 514
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/18/bbox/y1",
+            "value": 616
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/19/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/19/bbox/y0",
+            "value": 625
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/19/bbox/x1",
+            "value": 514
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/19/bbox/y1",
+            "value": 645
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/20/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/20/bbox/y0",
+            "value": 654
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/20/bbox/x1",
+            "value": 514
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/20/bbox/y1",
+            "value": 674
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/21/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/21/bbox/y0",
+            "value": 683
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/21/bbox/x1",
+            "value": 514
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/21/bbox/y1",
+            "value": 701
+          },
+          {
+            "op": "add",
+            "path": "/code/lines/22",
+            "value": {
+              "id": "l28",
+              "n": 23,
+              "text": "return nil",
+              "bbox": {
+                "x0": 82,
+                "y0": 711,
+                "x1": 514,
+                "y1": 731
+              },
+              "confidence": 0.95,
+              "unreadable": false,
+              "uncertain": false
+            }
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/23/n",
+            "value": 24
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/23/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/23/bbox/y0",
+            "value": 740
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/23/bbox/x1",
+            "value": 514
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/23/bbox/y1",
+            "value": 758
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/24/n",
+            "value": 25
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/24/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/24/bbox/y0",
+            "value": 768
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/24/bbox/x1",
+            "value": 514
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/24/bbox/y1",
+            "value": 786
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/25/n",
+            "value": 26
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/25/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/25/bbox/y0",
+            "value": 797
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/25/bbox/x1",
+            "value": 514
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/25/bbox/y1",
+            "value": 816
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/26/n",
+            "value": 27
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/26/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/26/bbox/y0",
+            "value": 825
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/26/bbox/x1",
+            "value": 514
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/26/bbox/y1",
+            "value": 846
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/27/n",
+            "value": 28
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/27/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/27/bbox/y0",
+            "value": 854
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/27/bbox/x1",
+            "value": 514
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/27/bbox/y1",
+            "value": 874
+          }
+        ]
+      }
+    },
+    {
+      "at": 103042,
+      "message": {
+        "type": "announce",
+        "version": 5,
+        "priority": "other",
+        "kind": "uncertain",
+        "text": "Line 4: possibly changed, unclear.",
+        "refs": [
+          "l4"
+        ]
+      }
+    },
+    {
+      "at": 103044,
+      "message": {
+        "type": "announce",
+        "version": 5,
+        "priority": "other",
+        "kind": "lines_added",
+        "text": "Line 23 added: return nil",
+        "refs": [
+          "l28"
+        ]
+      }
+    },
+    {
+      "at": 103044,
+      "message": {
+        "type": "status",
+        "stage": "idle",
+        "latency_ms": 9082,
+        "detail": "full",
+        "content_bbox": {
+          "x0": 0,
+          "y0": 0,
+          "x1": 1000,
+          "y1": 1000
+        }
+      }
+    },
+    {
+      "at": 113948,
+      "message": {
+        "type": "status",
+        "stage": "reconstruct",
+        "latency_ms": null,
+        "detail": null,
+        "content_bbox": null
+      }
+    },
+    {
+      "at": 122900,
+      "message": {
+        "type": "patch",
+        "version": 6,
+        "base": 5,
+        "ops": [
+          {
+            "op": "replace",
+            "path": "/version",
+            "value": 6
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/0/bbox/x0",
+            "value": 68
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/0/bbox/y0",
+            "value": 78
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/0/bbox/x1",
+            "value": 511
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/0/bbox/y1",
+            "value": 101
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/1/bbox/x0",
+            "value": 68
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/1/bbox/y0",
+            "value": 107
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/1/bbox/x1",
+            "value": 511
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/2/bbox/x0",
+            "value": 68
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/2/bbox/y0",
+            "value": 138
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/2/bbox/x1",
+            "value": 511
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/2/bbox/y1",
+            "value": 158
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/3/text",
+            "value": "WEIGHTS = {\"quiz\": 508.8, \"midterm\": 0.3, \"final\": 0.5}"
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/3/bbox/x0",
+            "value": 68
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/3/bbox/y0",
+            "value": 168
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/3/bbox/x1",
+            "value": 511
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/3/bbox/y1",
+            "value": 187
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/3/confidence",
+            "value": 0.95
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/3/uncertain",
+            "value": false
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/4/bbox/x0",
+            "value": 68
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/4/bbox/y0",
+            "value": 198
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/4/bbox/x1",
+            "value": 511
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/4/bbox/y1",
+            "value": 217
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/5/bbox/x0",
+            "value": 68
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/5/bbox/y0",
+            "value": 227
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/5/bbox/x1",
+            "value": 511
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/5/bbox/y1",
+            "value": 245
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/6/bbox/x0",
+            "value": 68
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/6/bbox/y0",
+            "value": 257
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/6/bbox/x1",
+            "value": 511
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/6/bbox/y1",
+            "value": 276
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/7/bbox/x0",
+            "value": 68
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/7/bbox/y0",
+            "value": 286
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/7/bbox/x1",
+            "value": 511
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/7/bbox/y1",
+            "value": 305
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/8/bbox/x0",
+            "value": 68
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/8/bbox/y0",
+            "value": 316
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/8/bbox/x1",
+            "value": 511
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/8/bbox/y1",
+            "value": 335
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/9/bbox/x0",
+            "value": 68
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/9/bbox/y0",
+            "value": 345
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/9/bbox/x1",
+            "value": 511
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/9/bbox/y1",
+            "value": 364
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/10/bbox/x0",
+            "value": 68
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/10/bbox/y0",
+            "value": 375
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/10/bbox/x1",
+            "value": 511
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/10/bbox/y1",
+            "value": 394
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/11/bbox/x0",
+            "value": 68
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/11/bbox/y0",
+            "value": 404
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/11/bbox/x1",
+            "value": 511
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/11/bbox/y1",
+            "value": 423
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/12/bbox/x0",
+            "value": 68
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/12/bbox/y0",
+            "value": 433
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/12/bbox/x1",
+            "value": 511
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/12/bbox/y1",
+            "value": 452
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/13/bbox/x0",
+            "value": 68
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/13/bbox/y0",
+            "value": 463
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/13/bbox/x1",
+            "value": 511
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/13/bbox/y1",
+            "value": 482
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/14/bbox/x0",
+            "value": 68
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/14/bbox/y0",
+            "value": 492
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/14/bbox/x1",
+            "value": 511
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/14/bbox/y1",
+            "value": 511
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/15/bbox/x0",
+            "value": 68
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/15/bbox/y0",
+            "value": 522
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/15/bbox/x1",
+            "value": 511
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/15/bbox/y1",
+            "value": 541
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/16/bbox/x0",
+            "value": 68
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/16/bbox/y0",
+            "value": 552
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/16/bbox/x1",
+            "value": 511
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/16/bbox/y1",
+            "value": 570
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/17/bbox/x0",
+            "value": 68
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/17/bbox/y0",
+            "value": 581
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/17/bbox/x1",
+            "value": 511
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/17/bbox/y1",
+            "value": 600
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/18/bbox/x0",
+            "value": 68
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/18/bbox/y0",
+            "value": 611
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/18/bbox/x1",
+            "value": 511
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/18/bbox/y1",
+            "value": 629
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/19/bbox/x0",
+            "value": 68
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/19/bbox/y0",
+            "value": 640
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/19/bbox/x1",
+            "value": 511
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/19/bbox/y1",
+            "value": 659
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/20/bbox/x0",
+            "value": 68
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/20/bbox/y0",
+            "value": 670
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/20/bbox/x1",
+            "value": 511
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/20/bbox/y1",
+            "value": 688
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/21/bbox/x0",
+            "value": 68
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/21/bbox/y0",
+            "value": 699
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/21/bbox/x1",
+            "value": 511
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/21/bbox/y1",
+            "value": 718
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/22/bbox/x0",
+            "value": 68
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/22/bbox/y0",
+            "value": 729
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/22/bbox/x1",
+            "value": 511
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/22/bbox/y1",
+            "value": 747
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/22/confidence",
+            "value": 0.5
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/22/uncertain",
+            "value": true
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/23/bbox/x0",
+            "value": 68
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/23/bbox/y0",
+            "value": 758
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/23/bbox/x1",
+            "value": 511
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/23/bbox/y1",
+            "value": 777
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/24/bbox/x0",
+            "value": 68
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/24/bbox/y0",
+            "value": 788
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/24/bbox/x1",
+            "value": 511
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/24/bbox/y1",
+            "value": 807
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/25/bbox/x0",
+            "value": 68
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/25/bbox/y0",
+            "value": 817
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/25/bbox/x1",
+            "value": 511
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/25/bbox/y1",
+            "value": 836
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/25/confidence",
+            "value": 0.5
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/25/uncertain",
+            "value": true
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/26/bbox/x0",
+            "value": 68
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/26/bbox/y0",
+            "value": 847
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/26/bbox/x1",
+            "value": 511
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/26/bbox/y1",
+            "value": 866
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/27/bbox/x0",
+            "value": 68
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/27/bbox/y0",
+            "value": 876
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/27/bbox/x1",
+            "value": 511
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/27/bbox/y1",
+            "value": 895
+          }
+        ]
+      }
+    },
+    {
+      "at": 122903,
+      "message": {
+        "type": "announce",
+        "version": 6,
+        "priority": "other",
+        "kind": "line",
+        "text": "Line 4 changed. Was: unclear. Now: WEIGHTS = {\"quiz\": 508.8, \"midterm\": 0.3, \"final\": 0.5}",
+        "refs": [
+          "l4"
+        ]
+      }
+    },
+    {
+      "at": 122905,
+      "message": {
+        "type": "announce",
+        "version": 6,
+        "priority": "other",
+        "kind": "uncertain",
+        "text": "Line 23: possibly changed, unclear.",
+        "refs": [
+          "l28"
+        ]
+      }
+    },
+    {
+      "at": 122906,
+      "message": {
+        "type": "announce",
+        "version": 6,
+        "priority": "other",
+        "kind": "uncertain",
+        "text": "Line 26: possibly changed, unclear.",
+        "refs": [
+          "l27"
+        ]
+      }
+    },
+    {
+      "at": 122906,
+      "message": {
+        "type": "status",
+        "stage": "idle",
+        "latency_ms": 8949,
+        "detail": "full",
+        "content_bbox": {
+          "x0": 0,
+          "y0": 0,
+          "x1": 1000,
+          "y1": 1000
+        }
+      }
+    },
+    {
+      "at": 134435,
+      "message": {
+        "type": "status",
+        "stage": "reconstruct",
+        "latency_ms": null,
+        "detail": null,
+        "content_bbox": null
+      }
+    },
+    {
+      "at": 142418,
+      "message": {
+        "type": "patch",
+        "version": 7,
+        "base": 6,
+        "ops": [
+          {
+            "op": "replace",
+            "path": "/version",
+            "value": 7
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/0/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/0/bbox/x1",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/0/bbox/y1",
+            "value": 100
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/1/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/1/bbox/y0",
+            "value": 108
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/1/bbox/x1",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/2/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/2/bbox/y0",
+            "value": 136
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/2/bbox/x1",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/2/bbox/y1",
+            "value": 157
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/3/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/3/bbox/y0",
+            "value": 166
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/3/bbox/x1",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/3/bbox/y1",
+            "value": 188
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/4/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/4/bbox/y0",
+            "value": 196
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/4/bbox/x1",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/4/bbox/y1",
+            "value": 215
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/5/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/5/bbox/y0",
+            "value": 224
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/5/bbox/x1",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/6/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/6/bbox/y0",
+            "value": 254
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/6/bbox/x1",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/6/bbox/y1",
+            "value": 275
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/7/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/7/bbox/y0",
+            "value": 283
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/7/bbox/x1",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/7/bbox/y1",
+            "value": 303
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/8/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/8/bbox/y0",
+            "value": 312
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/8/bbox/x1",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/8/bbox/y1",
+            "value": 332
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/9/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/9/bbox/y0",
+            "value": 341
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/9/bbox/x1",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/9/bbox/y1",
+            "value": 362
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/10/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/10/bbox/y0",
+            "value": 370
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/10/bbox/x1",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/10/bbox/y1",
+            "value": 391
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/11/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/11/bbox/y0",
+            "value": 400
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/11/bbox/x1",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/11/bbox/y1",
+            "value": 419
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/12/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/12/bbox/y0",
+            "value": 428
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/12/bbox/x1",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/12/bbox/y1",
+            "value": 448
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/13/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/13/bbox/y0",
+            "value": 457
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/13/bbox/x1",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/13/bbox/y1",
+            "value": 477
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/14/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/14/bbox/y0",
+            "value": 486
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/14/bbox/x1",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/14/bbox/y1",
+            "value": 506
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/15/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/15/bbox/y0",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/15/bbox/x1",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/15/bbox/y1",
+            "value": 535
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/16/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/16/bbox/y0",
+            "value": 544
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/16/bbox/x1",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/16/bbox/y1",
+            "value": 564
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/17/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/17/bbox/y0",
+            "value": 573
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/17/bbox/x1",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/17/bbox/y1",
+            "value": 593
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/18/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/18/bbox/y0",
+            "value": 602
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/18/bbox/x1",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/18/bbox/y1",
+            "value": 622
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/19/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/19/bbox/y0",
+            "value": 631
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/19/bbox/x1",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/19/bbox/y1",
+            "value": 651
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/20/text",
+            "value": "        \"average\": int(mean(scores)) if scores else 105,"
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/20/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/20/bbox/y0",
+            "value": 660
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/20/bbox/x1",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/20/bbox/y1",
+            "value": 680
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/21/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/21/bbox/y0",
+            "value": 689
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/21/bbox/x1",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/21/bbox/y1",
+            "value": 709
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/22/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/22/bbox/y0",
+            "value": 718
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/22/bbox/x1",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/22/bbox/y1",
+            "value": 739
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/23/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/23/bbox/y0",
+            "value": 747
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/23/bbox/x1",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/23/bbox/y1",
+            "value": 767
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/24/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/24/bbox/y0",
+            "value": 776
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/24/bbox/x1",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/24/bbox/y1",
+            "value": 796
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/25/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/25/bbox/y0",
+            "value": 805
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/25/bbox/x1",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/25/bbox/y1",
+            "value": 825
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/26/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/26/bbox/y0",
+            "value": 834
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/26/bbox/x1",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/26/bbox/y1",
+            "value": 854
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/27/bbox/x0",
+            "value": 82
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/27/bbox/y0",
+            "value": 863
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/27/bbox/x1",
+            "value": 515
+          },
+          {
+            "op": "replace",
+            "path": "/code/lines/27/bbox/y1",
+            "value": 883
+          }
+        ]
+      }
+    },
+    {
+      "at": 142422,
+      "message": {
+        "type": "announce",
+        "version": 7,
+        "priority": "other",
+        "kind": "line",
+        "text": "Line 21 changed. Was: \"average\": int(mean(scores)) if scores else 0,. Now: \"average\": int(mean(scores)) if scores else 105,",
+        "refs": [
+          "l21"
+        ]
+      }
+    },
+    {
+      "at": 142422,
+      "message": {
+        "type": "status",
+        "stage": "idle",
+        "latency_ms": 7980,
+        "detail": "full",
+        "content_bbox": {
+          "x0": 0,
+          "y0": 0,
+          "x1": 1000,
+          "y1": 1000
+        }
+      }
+    },
+    {
+      "at": 163368,
+      "message": {
+        "type": "pointer_target",
+        "ref": "l2",
+        "text": "Pointer is on Line 2: blank"
+      }
+    },
+    {
+      "at": 165205,
+      "message": {
+        "type": "pointer_target",
+        "ref": "l2",
+        "text": "Pointer is on Line 2: blank"
+      }
+    },
+    {
+      "at": 168977,
+      "message": {
+        "type": "answer",
+        "q": "What does line 2 say? Cite the line.",
+        "text": "Line 2 is empty.",
+        "refs": [
+          "l2"
+        ],
+        "version": 7
+      }
+    }
+  ],
+  "console": [],
+  "scoring_note": "Rescored from unchanged captured events: line additions/removals match reference counts rather than digits in their labels.",
+  "validation_note": "Focus was preserved. The pointer and Ask correctly identified the blank second line. A region reread with verification was observed. Extra confidence-change announcements reduce precision."
+}

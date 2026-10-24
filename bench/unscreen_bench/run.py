@@ -17,7 +17,7 @@ from pathlib import Path
 from typing import Any
 
 from engine.config import get_settings
-from engine.llm.client import ModelError, build_model
+from engine.llm.client import ModelError, VisionModel, build_model
 from engine.pipeline.session import SessionPipeline
 from unscreen_bench.ocr import OCR_CONFIGS, grid, lines, run_tesseract
 from unscreen_bench.score import PredCell, Score, score_document, score_grid, score_lines
@@ -37,13 +37,19 @@ class FrameResult:
     ocr_by_config: dict[str, Score]
     latency_ms: int | None
     calls: int
-    cost_usd: float
+    replayed_calls: int
+    cost_usd: float | None
     input_tokens: int
     output_tokens: int
     error: str | None
 
 
 def frame_path(item: dict[str, Any]) -> Path:
+    if "file" in item:
+        path = (FRAMES / item["file"]).resolve()
+        if not path.is_relative_to(FRAMES.resolve()):
+            raise ValueError("frame file must stay inside the frames directory")
+        return path
     ext = ".jpg" if item["variant"] == "1080p-degraded" else ".png"
     return FRAMES / f"{item['id']}{ext}"
 
@@ -69,7 +75,7 @@ def ocr_score(path: Path, truth: dict[str, Any], psm: int, upscale: int) -> Scor
     return score_lines([b["text"] for b in truth["blocks"]], flat, kind="blocks", exact_whitespace=False)
 
 
-async def run_one(item: dict[str, Any], sem: asyncio.Semaphore) -> FrameResult:
+async def run_one(item: dict[str, Any], sem: asyncio.Semaphore, model: VisionModel) -> FrameResult:
     path = frame_path(item)
     truth = json.loads((FRAMES / f"{item['id']}.truth.json").read_text())
     ocr_by_config = {
@@ -77,7 +83,7 @@ async def run_one(item: dict[str, Any], sem: asyncio.Semaphore) -> FrameResult:
     }
     ocr = ocr_by_config["psm3x1"]
     settings = get_settings()
-    pipe = SessionPipeline(build_model(settings), settings)
+    pipe = SessionPipeline(model, settings)
     async with sem:
         started = time.perf_counter()
         try:
@@ -97,7 +103,8 @@ async def run_one(item: dict[str, Any], sem: asyncio.Semaphore) -> FrameResult:
         ocr_by_config=ocr_by_config,
         latency_ms=latency,
         calls=m.calls,
-        cost_usd=m.usd,
+        replayed_calls=m.replayed_calls,
+        cost_usd=m.usd if not m.unpriced_calls else None,
         input_tokens=m.input_tokens,
         output_tokens=m.output_tokens + m.thought_tokens,
         error=error,
@@ -113,7 +120,7 @@ def pct(xs: list[float], q: float) -> float | None:
 
 
 def aggregate(results: list[FrameResult]) -> dict[str, Any]:
-    def pool(scores: list[Score]) -> dict[str, float | int]:
+    def pool(scores: list[Score]) -> dict[str, float | int | None]:
         total = Score(kind="pool")
         for s in scores:
             for f in ("truth_items", "exact", "char_errors", "truth_chars", "predicted_confident", "hallucinated",
@@ -122,11 +129,11 @@ def aggregate(results: list[FrameResult]) -> dict[str, Any]:
         return {
             "frames": len(scores),
             "items": total.truth_items,
-            "exact_match": round(total.exact_rate, 4),
-            "cer": round(total.cer, 4),
-            "hallucination_rate": round(total.hallucination_rate, 4),
-            "structure_accuracy": round(total.structure_rate, 4),
-            "text_recall": round(total.found_anywhere / total.truth_items, 4) if total.truth_items else 0.0,
+            "exact_match": round(total.exact_rate, 4) if total.truth_items else None,
+            "cer": round(total.cer, 4) if total.truth_chars else None,
+            "hallucination_rate": round(total.hallucination_rate, 4) if total.predicted_confident else None,
+            "structure_accuracy": round(total.structure_rate, 4) if total.found_anywhere else None,
+            "text_recall": round(total.found_anywhere / total.truth_items, 4) if total.truth_items else None,
             "flagged": total.flagged,
             "flagged_wrong": total.flagged_wrong,
         }
@@ -143,19 +150,25 @@ def aggregate(results: list[FrameResult]) -> dict[str, Any]:
         "content_type_accuracy": round(sum(1 for r in ok if r.unscreen and r.unscreen.content_type_ok) / len(ok), 4) if ok else 0.0,
         "errors": len(results) - len(ok),
         "latency_ms": {"p50": statistics.median(lat) if lat else None, "p95": pct(lat, 0.95), "max": max(lat) if lat else None},
-        "cost_usd_per_frame": round(sum(r.cost_usd for r in ok) / len(ok), 6) if ok else None,
+        "cost_usd_per_frame": (
+            round(sum(r.cost_usd for r in ok if r.cost_usd is not None) / len(ok), 6)
+            if ok and all(r.cost_usd is not None for r in ok) else None
+        ),
         "calls_per_frame": round(sum(r.calls for r in ok) / len(ok), 2) if ok else None,
     }
 
 
 async def main() -> None:
+    global FRAMES
     ap = argparse.ArgumentParser()
     ap.add_argument("--kinds", default="sheet,code,slide")
     ap.add_argument("--variants", default="720p,1080p,1080p-degraded")
     ap.add_argument("--limit", type=int, default=0, help="max frames per kind and variant")
-    ap.add_argument("--concurrency", type=int, default=4)
+    ap.add_argument("--concurrency", type=int, choices=(1, 2), default=2)
     ap.add_argument("--name", default="full")
+    ap.add_argument("--frames-dir", type=Path, default=FRAMES, help="directory with manifest, screenshots and truth")
     args = ap.parse_args()
+    FRAMES = args.frames_dir
     kinds, variants = args.kinds.split(","), args.variants.split(",")
     manifest = json.loads((FRAMES / "manifest.json").read_text())
     chosen: list[dict[str, Any]] = []
@@ -163,9 +176,12 @@ async def main() -> None:
         for variant in variants:
             items = [m for m in manifest if m["kind"] == kind and m["variant"] == variant]
             chosen += items[: args.limit] if args.limit else items
+    if not chosen:
+        ap.error("no frames match the requested kinds and variants; no model calls made")
     sem = asyncio.Semaphore(args.concurrency)
-    results = await asyncio.gather(*(run_one(i, sem) for i in chosen))
     settings = get_settings()
+    model = build_model(settings)
+    results = await asyncio.gather(*(run_one(i, sem, model) for i in chosen))
     report: dict[str, Any] = {
         "name": args.name,
         "run_at": datetime.now(UTC).isoformat(timespec="seconds"),
@@ -177,6 +193,8 @@ async def main() -> None:
             "cross_check": settings.cross_check_full_reads,
         },
         "llm_mode": settings.llm_mode,
+        "replayed_calls": sum(r.replayed_calls for r in results),
+        "cost_note": "Successful responses with provider token usage only; failed-attempt billing is unknown. The spending ledger retains estimates separately.",
         "groups": {},
         "frames": [],
     }
@@ -192,7 +210,8 @@ async def main() -> None:
                 "id": r.id,
                 "latency_ms": r.latency_ms,
                 "calls": r.calls,
-                "cost_usd": round(r.cost_usd, 6),
+                "replayed_calls": r.replayed_calls,
+                "cost_usd": round(r.cost_usd, 6) if r.cost_usd is not None else None,
                 "input_tokens": r.input_tokens,
                 "output_tokens": r.output_tokens,
                 "error": r.error,

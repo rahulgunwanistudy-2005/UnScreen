@@ -1,0 +1,224 @@
+{
+  "name": "config-mistral-small-screen",
+  "run_at": "2026-10-24T07:30:33+00:00",
+  "models": {
+    "reconstruct": "mistral:mistral-small-2603",
+    "verify": "gemini-3.5-flash-lite",
+    "thinking_level": "minimal",
+    "image_resolution": "high",
+    "cross_check": true
+  },
+  "llm_mode": "live",
+  "cost_note": "Successful responses with provider token usage only; failed-attempt billing is unknown. The spending ledger retains estimates separately.",
+  "groups": {
+    "sheet/1080p-degraded": {
+      "unscreen": {
+        "frames": 0,
+        "items": 0,
+        "exact_match": null,
+        "cer": null,
+        "hallucination_rate": null,
+        "structure_accuracy": null,
+        "text_recall": null,
+        "flagged": 0,
+        "flagged_wrong": 0
+      },
+      "ocr": {
+        "frames": 1,
+        "items": 75,
+        "exact_match": 0.0533,
+        "cer": 0.9541,
+        "hallucination_rate": 0.7778,
+        "structure_accuracy": 0.8,
+        "text_recall": 0.0667,
+        "flagged": 0,
+        "flagged_wrong": 0
+      },
+      "ocr_config": "psm6x2",
+      "ocr_by_config": {
+        "psm3x1": {
+          "frames": 1,
+          "items": 75,
+          "exact_match": 0.0,
+          "cer": 1.0652,
+          "hallucination_rate": 1.0,
+          "structure_accuracy": 0.0,
+          "text_recall": 0.0,
+          "flagged": 0,
+          "flagged_wrong": 0
+        },
+        "psm6x2": {
+          "frames": 1,
+          "items": 75,
+          "exact_match": 0.0533,
+          "cer": 0.9541,
+          "hallucination_rate": 0.7778,
+          "structure_accuracy": 0.8,
+          "text_recall": 0.0667,
+          "flagged": 0,
+          "flagged_wrong": 0
+        },
+        "psm11x2": {
+          "frames": 1,
+          "items": 75,
+          "exact_match": 0.0133,
+          "cer": 0.9662,
+          "hallucination_rate": 0.9688,
+          "structure_accuracy": 0.1111,
+          "text_recall": 0.12,
+          "flagged": 0,
+          "flagged_wrong": 0
+        }
+      },
+      "content_type_accuracy": 0.0,
+      "errors": 1,
+      "latency_ms": {
+        "p50": null,
+        "p95": null,
+        "max": null
+      },
+      "cost_usd_per_frame": null,
+      "calls_per_frame": null
+    }
+  },
+  "frames": [
+    {
+      "id": "sheet-101-1080p-degraded",
+      "latency_ms": null,
+      "calls": 1,
+      "cost_usd": 0.004033,
+      "input_tokens": 1801,
+      "output_tokens": 1397,
+      "error": "reconstruct: mistral 429 {\"object\":\"error\",\"message\":\"Rate limit exceeded\",\"type\":\"rate_limited\",\"param\":null,\"code\":\"1300\",\"raw_status_code\":429}",
+      "unscreen": null,
+      "ocr": {
+        "psm3x1": {
+          "kind": "sheet",
+          "truth_items": 75,
+          "exact": 0,
+          "char_errors": 441,
+          "truth_chars": 414,
+          "predicted_confident": 2,
+          "hallucinated": 2,
+          "found_anywhere": 0,
+          "placed_correctly": 0,
+          "flagged": 0,
+          "flagged_wrong": 0,
+          "content_type_ok": false,
+          "notes": [],
+          "exact_rate": 0.0,
+          "cer": 1.065217391304348,
+          "hallucination_rate": 1.0,
+          "structure_rate": 0.0
+        },
+        "psm6x2": {
+          "kind": "sheet",
+          "truth_items": 75,
+          "exact": 4,
+          "char_errors": 395,
+          "truth_chars": 414,
+          "predicted_confident": 18,
+          "hallucinated": 14,
+          "found_anywhere": 5,
+          "placed_correctly": 4,
+          "flagged": 0,
+          "flagged_wrong": 0,
+          "content_type_ok": false,
+          "notes": [],
+          "exact_rate": 0.05333333333333334,
+          "cer": 0.9541062801932367,
+          "hallucination_rate": 0.7777777777777778,
+          "structure_rate": 0.8
+        },
+        "psm11x2": {
+          "kind": "sheet",
+          "truth_items": 75,
+          "exact": 1,
+          "char_errors": 400,
+          "truth_chars": 414,
+          "predicted_confident": 32,
+          "hallucinated": 31,
+          "found_anywhere": 9,
+          "placed_correctly": 1,
+          "flagged": 0,
+          "flagged_wrong": 0,
+          "content_type_ok": false,
+          "notes": [],
+          "exact_rate": 0.013333333333333334,
+          "cer": 0.966183574879227,
+          "hallucination_rate": 0.96875,
+          "structure_rate": 0.1111111111111111
+        }
+      }
+    }
+  ],
+  "overall": {
+    "unscreen": {
+      "frames": 0,
+      "items": 0,
+      "exact_match": null,
+      "cer": null,
+      "hallucination_rate": null,
+      "structure_accuracy": null,
+      "text_recall": null,
+      "flagged": 0,
+      "flagged_wrong": 0
+    },
+    "ocr": {
+      "frames": 1,
+      "items": 75,
+      "exact_match": 0.0533,
+      "cer": 0.9541,
+      "hallucination_rate": 0.7778,
+      "structure_accuracy": 0.8,
+      "text_recall": 0.0667,
+      "flagged": 0,
+      "flagged_wrong": 0
+    },
+    "ocr_config": "psm6x2",
+    "ocr_by_config": {
+      "psm3x1": {
+        "frames": 1,
+        "items": 75,
+        "exact_match": 0.0,
+        "cer": 1.0652,
+        "hallucination_rate": 1.0,
+        "structure_accuracy": 0.0,
+        "text_recall": 0.0,
+        "flagged": 0,
+        "flagged_wrong": 0
+      },
+      "psm6x2": {
+        "frames": 1,
+        "items": 75,
+        "exact_match": 0.0533,
+        "cer": 0.9541,
+        "hallucination_rate": 0.7778,
+        "structure_accuracy": 0.8,
+        "text_recall": 0.0667,
+        "flagged": 0,
+        "flagged_wrong": 0
+      },
+      "psm11x2": {
+        "frames": 1,
+        "items": 75,
+        "exact_match": 0.0133,
+        "cer": 0.9662,
+        "hallucination_rate": 0.9688,
+        "structure_accuracy": 0.1111,
+        "text_recall": 0.12,
+        "flagged": 0,
+        "flagged_wrong": 0
+      }
+    },
+    "content_type_accuracy": 0.0,
+    "errors": 1,
+    "latency_ms": {
+      "p50": null,
+      "p95": null,
+      "max": null
+    },
+    "cost_usd_per_frame": null,
+    "calls_per_frame": null
+  }
+}
