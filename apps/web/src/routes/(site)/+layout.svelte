@@ -109,6 +109,11 @@
 		background: var(--paper);
 		color: var(--ink);
 	}
+	/* The landing globe rises behind the header, so the header sits above it. */
+	.landing-shell .site {
+		position: relative;
+		z-index: 2;
+	}
 	.footer-brand {
 		display: flex;
 		justify-content: space-between;

@@ -2,6 +2,7 @@
 	import { resolve } from '$app/paths';
 	import { withQuery } from '#lib/site/href.ts';
 	import { date, headline, pct } from '#lib/bench/format.ts';
+	import Globe from '#lib/hero/Globe.svelte';
 	import Hero from '#lib/hero/Hero.svelte';
 	import Icon from '#lib/site/Icon.svelte';
 
@@ -27,7 +28,7 @@
 <main id="main" class="landing">
  <section class="intro" aria-labelledby="title">
   <div class="horizon" aria-hidden="true"></div>
-  <img class="globe" src="/hero/content-globe.svg" alt="" aria-hidden="true" width="1000" height="900" fetchpriority="high" />
+  <div class="globe"><Globe /></div>
   <div class="intro-inner wrap">
    <div class="intro-copy">
     <p class="intro-note"><span></span> A clearer way to follow along</p>
@@ -148,11 +149,13 @@
 
 <style>
 	.landing {
-		overflow: clip;
+		overflow-x: clip;
 	}
 	.intro {
 		position: relative;
 		isolation: isolate;
+		/* The globe rises behind the site header but stops at the bottom of the scene. */
+		clip-path: inset(-14rem 0 0 0);
 		min-height: 42rem;
 		color: #f2f7ff;
 		background: #030713;
@@ -235,20 +238,20 @@
 		gap: .4rem;
 	}
 	.globe {
+		--g: min(92vw, 80rem);
 		position: absolute;
 		z-index: -2;
-		width: min(76vw, 70rem);
-		height: auto;
-		right: -10%;
-		top: -15%;
-		opacity: .92;
+		width: var(--g);
+		/* Anchor to the content column, which stops growing at 88rem. */
+		right: calc(max(0px, (100vw - 88rem) / 2) - var(--g) * 0.2);
+		top: calc(var(--g) * -0.43);
 		pointer-events: none;
 	}
 	.horizon {
 		position: absolute;
 		z-index: -1;
-		inset: 0;
-		background: linear-gradient(90deg, #030713 2%, rgb(3 7 19 / .75) 32%, transparent 68%), linear-gradient(0deg, #050a16, transparent 15%), radial-gradient(ellipse 80% 30% at 75% 87%, #bbddf5 0%, #6eade2 24%, #245589 52%, transparent 100%);
+		inset: -14rem 0 0;
+		background: linear-gradient(90deg, #030713 0%, rgb(3 7 19 / .62) 30%, transparent 52%), linear-gradient(0deg, #050a16, transparent 15%), radial-gradient(ellipse 80% 30% at 75% 87%, #d4ecff 0%, #7dbcf0 22%, #2a63a3 50%, transparent 100%);
 	}
 	.orbit-note {
 		position: absolute;
@@ -509,25 +512,24 @@
 	.closing .button {
 		margin-top: .75rem;
 	}
-	@media (min-width: 1600px) {
-		.globe {
-			right: max(-3%, calc((100vw - 100rem) / 2));
-		}
-	}
 	@media (max-width: 1100px) {
 		.compat-note {
 			display: none;
 		}
 		.globe {
-			right: -25%;
-			width: 90vw;
-			top: 0;
+			--g: 110vw;
+			right: calc(var(--g) * -0.36);
+			top: calc(var(--g) * -0.36);
 		}
 		.orbit-note {
 			bottom: 3rem;
 		}
 		.intro-inner {
-			padding-top: 4rem;
+			padding-block: 4rem 10rem;
+		}
+		/* Keep the stage light below the benefit list so its text stays legible. */
+		.horizon {
+			background: linear-gradient(90deg, #030713 0%, rgb(3 7 19 / .62) 30%, transparent 52%), linear-gradient(0deg, #050a16, transparent 15%), radial-gradient(ellipse 80% 24% at 78% 96%, #d4ecff 0%, #7dbcf0 22%, #2a63a3 50%, transparent 100%);
 		}
 		.intro-copy {
 			max-width: 32rem;
@@ -550,11 +552,10 @@
 			font-size: clamp(3rem, 9vw, 4.5rem);
 		}
 		.globe {
-			width: 48rem;
-			max-width: none;
-			right: -26rem;
-			top: 0;
-			opacity: .6;
+			--g: 46rem;
+			right: calc(var(--g) * -0.5);
+			top: calc(var(--g) * -0.3);
+			opacity: .9;
 		}
 		.horizon {
 			background: linear-gradient(90deg, #030713 0%, rgb(3 7 19 / .7) 55%, transparent), linear-gradient(0deg, #050a16, transparent 18%), radial-gradient(ellipse 100% 25% at 85% 88%, #a4d5fa, #23598d 60%, transparent);
